@@ -5,6 +5,8 @@ class DirectedGraphNode:
         self.label = x
         self.neighbors = []
 """
+
+
 class Solution:
     """
     @param: graph: A list of Directed graph node
@@ -12,27 +14,25 @@ class Solution:
     """
     def topSort(self, graph):
         # write your code here
-        node_in_degree = self.get_in_degress(graph)
+        node_indegree_dic = self.get_node_indegree(graph)
+        
+        start = [n for n in node_indegree_dic if node_indegree_dic[n] == 0]
         order = []
-        start_nodes = [n for n in graph if node_in_degree[n]==0 ]
-        queue = collections.deque(start_nodes)
+        queue = collections.deque(start)
         while queue:
-            node = queue.popleft()
-            order.append(node)
-            for neighbor in node.neighbors:
-                node_in_degree[neighbor] -= 1
-                if node_in_degree[neighbor]==0:
+            curr_node = queue.popleft()
+            order.append(curr_node)
+            for neighbor in curr_node.neighbors:
+                node_indegree_dic[neighbor] -=1
+                if node_indegree_dic[neighbor] == 0:
                     queue.append(neighbor)
         return order
-        
-    def get_in_degress(self,graph):
-        node_indegree = {x: 0 for x in graph}
+                
+    def get_node_indegree(self,graph):
+        indegree_dic ={x:0 for x in graph}
         
         for node in graph:
             for neighbor in node.neighbors:
-                node_indegree[neighbor]+=1
+                indegree_dic[neighbor]+=1
                 
-        return node_indegree
-        
-        
-    
+        return indegree_dic
