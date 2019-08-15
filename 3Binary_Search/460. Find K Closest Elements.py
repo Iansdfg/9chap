@@ -35,10 +35,8 @@ class Solution:
             else:
                 return m
         
-        if abs(A[start]-target) < abs(A[end]-target):
-            return start 
-        else:
-            return end
+        return start if abs(A[start]-target) < abs(A[end]-target) else end
+        
         
     def is_left_clother(self, A, target, left, right):
         if left < 0:
