@@ -46,9 +46,6 @@ class Solution:
     """
     def deserialize(self, data):
         # write your code here
-        # for datum in data:
-        #     print(datum.val if datum else None)
-        # print('*******here*******')
         data_que = collections.deque(data)
         queue = collections.deque()
         root = data_que.popleft()
@@ -56,17 +53,12 @@ class Solution:
         while queue:
             curr_node = queue.popleft()
             if curr_node:
-                # print('curr_node',curr_node.val)
-            
+               
                 nextt = data_que.popleft()
-                # if nextt:
-                    # print('nextt1',nextt.val)
                 curr_node.left = nextt 
                 queue.append(nextt)
                 
                 nextt = data_que.popleft()
-                # if nextt:
-                    # print('nextt2',nextt.val)
                 curr_node.right = nextt 
                 queue.append(nextt)
             
