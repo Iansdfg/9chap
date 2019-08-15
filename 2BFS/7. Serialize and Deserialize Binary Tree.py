@@ -1,68 +1,40 @@
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
-
 class Solution:
     """
-    @param root: An object of TreeNode, denote the root of the binary tree.
-    This method will be invoked first, you should design your own algorithm 
-    to serialize a binary tree which denote by a root node to a string which
-    can be easily deserialized by your own "deserialize" method later.
+    @param org: a permutation of the integers from 1 to n
+    @param seqs: a list of sequences
+    @return: true if it can be reconstructed only one or false
     """
-    def serialize(self, root):
+    def sequenceReconstruction(self, org, seqs):
         # write your code here
-        data = []
-        queue = collections.deque([root])
-        while queue:
-            curr_node = queue.popleft()
-            if not curr_node:
-                data.append(None)
-                continue
-            data.append(curr_node)
-            if curr_node.left:
-                queue.append(curr_node.left)
-            else:
-                queue.append(None)
-            if curr_node.right:
-                queue.append(curr_node.right)
-            else:
-                queue.append(None)
-        return data
-                
+        if org == []: return True 
+        if seqs == [] or seqs[0]==[]: return False
+        graph = {n:[] for n in org}
+        indegree = [0 for n in range(len(org)+1)]
         
-
-    """
-    @param data: A string serialized by your serialize method.
-    This method will be invoked second, the argument data is what exactly
-    you serialized at method "serialize", that means the data is not given by
-    system, it's given by your own serialize method. So the format of data is
-    designed by yourself, and deserialize it here as you serialize it in 
-    "serialize" method.
-    """
-    def deserialize(self, data):
-        # write your code here
-        data_que = collections.deque(data)
+        for seq in seqs:
+            if seq[0]>len(org): return False 
+            for pos in range(len(seq)-1, 0, -1):
+                if seq[pos]>len(org): return False 
+                if seq[pos-1] in graph[seq[pos]]:
+                    continue
+                graph[seq[pos-1]].append(seq[pos])
+                indegree[seq[pos]]+=1
+        
         queue = collections.deque()
-        root = data_que.popleft()
-        queue.append(root)
+        
+        for i in range(1,len(indegree)):
+            if indegree[i] == 0:
+                queue.append(i)
+        order = []
         while queue:
+            if len(queue)>1:
+                return False
             curr_node = queue.popleft()
-            if curr_node:
-               
-                nextt = data_que.popleft()
-                curr_node.left = nextt 
-                queue.append(nextt)
-                
-                nextt = data_que.popleft()
-                curr_node.right = nextt 
-                queue.append(nextt)
-            
-        return root
-            
-            
+            order.append(curr_node)
+            for next_node in graph[curr_node]:
+                indegree[next_node]-=1
+                if indegree[next_node] == 0:
+                    queue.append(next_node)
+        return len(order) == len(org) and order == org
+  
         
