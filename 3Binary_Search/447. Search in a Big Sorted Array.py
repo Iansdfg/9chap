@@ -13,26 +13,31 @@ class Solution:
     """
     def searchBigSortedArray(self, reader, target):
         # write your code here
+        right_bound = self.find_right_bound(reader, target)
+        res_pos = self.binary_search(reader,  0, right_bound, target)
+        return res_pos
+        
+    def find_right_bound(self, reader, target):
         index = 0
         while reader.get(index) <= target:
             index = index * 2 + 1
-            
-        start, end = 0, index
-        while start + 1 < end:
-            mid = start + (end - start) // 2
-            if reader.get(mid) < target:
-                start = mid
-            elif reader.get(mid) >= target:
-                end = mid
+        return index
                 
+    def binary_search(self, reader, start, end, target):
+        
+        while start+1<end:
+            m = (start + end)//2
+            if reader.get(m)>target:
+                end = m
+            elif reader.get(m)<target:
+                start = m 
+            else:
+                end = m
+        
         if reader.get(start) == target:
             return start
         elif reader.get(end) == target:
             return end
         else:
             return -1
-            
-            
-        
-        
-          
+               
