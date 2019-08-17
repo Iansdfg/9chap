@@ -10,12 +10,11 @@ class Solution:
             x = 1/x
         n = abs(n)
         ans = 1
-        base = x
         while n:
             if n%2:
-                ans*=base
-            n//=2 
-            base*=base
-            
-        return ans 
+                ans*=x
+            n//=2
+            x *= x
+        return ans
+        
         
