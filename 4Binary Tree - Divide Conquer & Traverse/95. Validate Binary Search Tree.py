@@ -13,17 +13,24 @@ class Solution:
     """
     def isValidBST(self, root):
         # write your code here
-        self.is_valid = True
-        self.lastVal = None
-        self.pre_order(root)
-        return self.is_valid
+        isBST, minNode, maxNode = self.divideConquer(root)
+        return isBST
         
-    def pre_order(self, root):
+    def divideConquer(self, root):
         if not root:
-            return
-        self.pre_order(root.left)
-        if self.lastVal and root.val and root.val<=self.lastVal:
-            self.is_valid = False
-            return
-        self.lastVal = root.val
-        self.pre_order(root.right)
+            return True, None, None
+            
+        left_isBST, left_minNode, left_maxNode = self.divideConquer(root.left)
+        right_isBST, right_minNode, right_maxNode = self.divideConquer(root.right)
+        
+        if not left_isBST or not right_isBST: 
+            return False, None, None
+        if left_maxNode and left_maxNode>= root.val:
+            return False, None, None
+        if right_minNode and right_minNode<= root.val:
+            return False, None, None
+        
+        minNode = left_minNode if left_minNode else root.val
+        maxNode = right_maxNode if right_maxNode else root.val
+        
+        return True, minNode, maxNode
