@@ -5,11 +5,10 @@ class Solution:
     """
     def findMin(self, nums):
         # write your code here
-        start, end = 0, len(nums)-1
-        pivit = nums[0]
+        if not nums:return -1
         
-        if pivit<nums[-1]:
-            return pivit
+        start, end = 0, len(nums)-1
+        pivit = nums[-1]
         
         while start+1<end:
             mid = (start+end)//2
@@ -19,8 +18,6 @@ class Solution:
             elif nums[mid]>pivit:
                 start = mid
             else:
-                start = mid
-                
-        print(nums[start],nums[end])
-        
-        return nums[start] if nums[start]<nums[end] else nums[end]
+                end = mid
+
+        return min(nums[start],nums[end])
