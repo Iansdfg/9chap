@@ -31,4 +31,3 @@ class Solution:
             if path != []:
                 res.append(path)
         return res
-                    
