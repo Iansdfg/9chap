@@ -17,4 +17,3 @@ class Solution:
             sums[i] = sums[i - 1] - nums[i - 1] + nums[i + k - 1]
 
         return sums
-            
