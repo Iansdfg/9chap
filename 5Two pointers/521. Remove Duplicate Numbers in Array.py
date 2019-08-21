@@ -15,4 +15,3 @@ class Solution:
                 nums[res]=nums[pos]
                 res+=1
         return res
-            
