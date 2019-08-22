@@ -15,8 +15,7 @@ class Solution:
         # write your code here
         self.connect(root)
         return root
-        
-        
+       
     def connect(self, root):
         if not root:
             return None
@@ -36,10 +35,3 @@ class Solution:
             return left_last
             
         return root
-            
-        
-        
-            
-            
-        
-        
