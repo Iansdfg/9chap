@@ -16,7 +16,6 @@ class Solution:
         balaced, _ = self.valid(root)
         return balaced
         
-        
     def valid(self, root):
         if not root:
             return True, 0
