@@ -30,7 +30,3 @@ class Solution:
             return False, 0
         
         return abs(left_hight-right_hight)<=1, max(left_hight, right_hight)+1
-        
-            
-        
-        
