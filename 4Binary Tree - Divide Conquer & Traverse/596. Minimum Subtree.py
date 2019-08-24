@@ -31,5 +31,3 @@ class Solution:
             return right_mini_val, right_mini_root, curr_sum
             
         return curr_sum, root, curr_sum
-            
-            
