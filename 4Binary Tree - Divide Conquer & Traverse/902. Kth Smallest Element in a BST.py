@@ -26,6 +26,3 @@ class Solution:
         self.save(root.left,res)
         res.append(root.val)
         self.save(root.right,res)
-        
-        
-        
