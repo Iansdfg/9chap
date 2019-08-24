@@ -12,4 +12,5 @@ class Solution:
         for i in range(target_source-target_lenth+1):
             if source[i:i+target_lenth] == target:
                 return i
+            
         return -1
