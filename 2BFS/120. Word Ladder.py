@@ -26,5 +26,3 @@ class Solution:
                             queue.append(new_word)
                             visited.add(new_word)
         return 0
-                        
-            
