@@ -12,4 +12,5 @@ class Solution:
                     string += char
                 else:
                     string += char.lower()
+                    
         return string[:] == string[::-1]
