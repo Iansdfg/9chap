@@ -16,7 +16,6 @@ class Solution:
                 maxx = sub
         return maxx
 
-    
     def findPal(self, l,r,s):
         while l>=0 and r<= len(s)-1 and s[l] == s[r]:
             l-=1
