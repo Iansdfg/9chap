@@ -33,5 +33,4 @@ class Solution:
         
         if left_last:
             return left_last
-            
         return root
