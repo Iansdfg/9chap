@@ -34,5 +34,3 @@ class Solution:
             path.append(str(root.right.val))
             self.find_path(root.right, res,path )
             path.pop()
-
-        
