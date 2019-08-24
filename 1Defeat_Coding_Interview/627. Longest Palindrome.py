@@ -11,8 +11,9 @@ class Solution:
             if char in chars:
                 chars.remove(char)
                 res+=1
-                
+     
             else:
                 chars.append(char)
+                
         return min(res*2+1, len(s))
             
