@@ -6,8 +6,10 @@ class Solution:
     def isPalindrome(self, s):
         # write your code here
         string  = ''
+        
         for char in s:
             if char.isalnum():
+                
                 if char.isdigit():
                     string += char
                 else:
