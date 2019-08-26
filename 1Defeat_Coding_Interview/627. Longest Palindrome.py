@@ -16,4 +16,4 @@ class Solution:
                 chars.append(char)
                 
         return min(res*2+1, len(s))
-            
+          
