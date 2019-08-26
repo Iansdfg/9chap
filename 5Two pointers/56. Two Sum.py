@@ -7,9 +7,11 @@ class Solution:
     def twoSum(self, numbers, target):
         # write your code here
         dic = {}
+        
         for pos, number in enumerate(numbers):
             if number not in dic:
                 dic[target - number]= pos
             else:
                 return [dic[number], pos]
+            
         return [-1, -1]
