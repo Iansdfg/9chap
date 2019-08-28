@@ -22,9 +22,12 @@ class Solution:
                     end = mid
                 else:
                     start = mid
+                    
         if A[start] == target:
             return start
+        
         elif A[end] == target:
             return end
+        
         else:
             return -1
