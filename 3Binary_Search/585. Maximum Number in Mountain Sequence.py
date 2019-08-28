@@ -5,6 +5,7 @@ class Solution:
     """
     def mountainSequence(self, nums):
         # write your code here
+        
         if nums == []: return -1
         
         start, end = 0, len(nums)-1
