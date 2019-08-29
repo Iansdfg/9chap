@@ -7,9 +7,7 @@ class Solution:
         # write your code here
         
         if nums == []: return -1
-        
-        start, end = 0, len(nums)-1
-        
+        start, end = 0, len(nums)-1    
         while start+1<end:
             m = (start+end)//2
             
