@@ -23,4 +23,3 @@ class Solution:
                 start = mid
                 
         return start if SVNRepo.isBadVersion(start) else end
-                
