@@ -1,12 +1,17 @@
 class TwoSum:
-    numbers = []
+    def __init__(self):
+        self.count = dict()
     """
     @param number: An integer
     @return: nothing
     """
     def add(self, number):
         # write your code here
-        self.numbers.append(number)
+        if number not in self.count:
+            self.count[number] = 1
+        else: 
+            self.count[number] += 1
+            
 
     """
     @param value: An integer
@@ -14,20 +19,14 @@ class TwoSum:
     """
     def find(self, value):
         # write your code here
-        num_list = sorted(self.numbers)
-        # print(num_list)
-        if self.TwoSum_func(value, num_list):
-            return True
-        return False
-        
-    def TwoSum_func(self, target, arrary):
-        dic = {}
-        for pos, number in enumerate(arrary):
-            if number not in dic:
-                dic[target - number]= pos
-            else:
+        for num in self.count:
+            if value-num != num and value-num in self.count:
+                return True
+            if value-num == num and self.count[num]>1:
                 return True
         return False
+                
+
         
         
         
