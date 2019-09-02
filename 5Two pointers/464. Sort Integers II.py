@@ -15,7 +15,7 @@ class Solution:
         
         left, right = start, end
         
-        pivot = A[left]
+        pivot = A[(start+end)//2]
         
         while left<=right:
             while left<=right and pivot>A[left]:
