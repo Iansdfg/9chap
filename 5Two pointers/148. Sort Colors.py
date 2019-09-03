@@ -22,7 +22,6 @@ class Solution:
                 nums[right], nums[i] = nums[i], nums[right]
                 right-=1
             
-
 ###two-pointer
 class Solution:
     """
