@@ -13,10 +13,8 @@ class Solution:
     def quick_select(self, n, nums, start, end):
         if start == end:
             return nums[n]
-            
         left, right = start, end
         pivot = nums[(start + end) // 2]
-        
         while left<=right:
             while left <= right and nums[left]>pivot:
                 left+=1
@@ -26,11 +24,10 @@ class Solution:
                 nums[left], nums[right] = nums[right], nums[left]
                 left+=1
                 right-=1
-        
-                
+            
         if n<=right:
             return self.quick_select(n, nums, start, right)
         elif n>=left:
             return self.quick_select(n, nums, left, end)
-        
+       
         return nums[n]
