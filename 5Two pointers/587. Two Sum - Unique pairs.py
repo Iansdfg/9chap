@@ -13,11 +13,14 @@ class Solution:
             two_sum = nums[left]+nums[right]
             if two_sum == target:
                 res += 1
-                left,right = left+1,right-1
-                while left<right and nums[left] == nums[left-1]:
+                
+                while left<right and nums[left] == nums[left+1]:
                     left+=1
-                while left<right and nums[right] == nums[right+1]:
+                while left<right and nums[right] == nums[right-1]:
                     right-=1
+                    
+                left,right = left+1,right-1
+                
             elif two_sum<target:
                 left+=1
             elif two_sum>target:
