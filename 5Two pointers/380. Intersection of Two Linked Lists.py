@@ -14,7 +14,7 @@ class Solution:
     """
     def getIntersectionNode(self, headA, headB):
         # write your code here
-        if not headA or not headB:
+        if not self.have_intersection(headA, headB):
             return None
         if headA == headB:
             return headA
@@ -33,5 +33,15 @@ class Solution:
                 
             if currA is currB:
                 return currA
+                
+    def have_intersection(self, headA, headB):
+        if not headA or not headB:
+            return False
+        while headA.next:
+            headA = headA.next
+        while headB.next:
+            headB = headB.next
+        return headA is headB
+        
                 
             
