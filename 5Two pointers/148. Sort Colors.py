@@ -28,6 +28,7 @@ class Solution:
                 right-=1
                 
         return left
+       
         
 ###three-pointer
 class Solution:
@@ -52,4 +53,4 @@ class Solution:
             elif nums[i] == 2:
                 nums[right], nums[i] = nums[i], nums[right]
                 right-=1
-            
+           
