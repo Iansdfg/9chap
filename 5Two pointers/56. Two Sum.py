@@ -17,7 +17,8 @@ class Solution:
         return [-1, -1]
 
     
-    class Solution:
+    
+class Solution:
     """
     @param numbers: An array of Integer
     @param target: target = numbers[index1] + numbers[index2]
