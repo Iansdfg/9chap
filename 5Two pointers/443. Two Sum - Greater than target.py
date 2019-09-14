@@ -4,6 +4,7 @@ class Solution:
     @param target: An integer
     @return: an integer
     """
+
     def twoSum2(self, nums, target):
         # write your code here
         nums.sort()
@@ -16,5 +17,7 @@ class Solution:
                 right-=1
             else:
                 left+=1
+
         return ans
             
+
