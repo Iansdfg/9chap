@@ -16,6 +16,7 @@ class Solution:
         isBST, minNode, maxNode = self.divideConquer(root)
         return isBST
         
+        
     def divideConquer(self, root):
         if not root:
             return True, None, None
@@ -33,4 +34,4 @@ class Solution:
         minNode = left_minNode if left_minNode else root.val
         maxNode = right_maxNode if right_maxNode else root.val
         
-        return True, minNode, maxNode
+        return True, minNode, maxNod
