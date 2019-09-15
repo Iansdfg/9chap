@@ -15,14 +15,18 @@ class Solution:
                 three_sum = number+ numbers[left] + numbers[right]
                 if three_sum == 0:
                     res.append([number, numbers[left], numbers[right]]) 
+                    
                     while left < right and numbers[left] == numbers[left+1]:
                         left+=1
                     while left < right and numbers[right] == numbers[right-1]:
                         right-=1
+                        
                     left+=1
                     right-=1
+                    
                 elif three_sum < 0:
                     left += 1
+                    
                 elif three_sum  > 0:
                     right -= 1
         return res
