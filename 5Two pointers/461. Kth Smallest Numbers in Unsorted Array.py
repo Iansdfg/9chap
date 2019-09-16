@@ -9,9 +9,7 @@ vclass Solution:
         if not nums or k<1 or k>len(nums):
             return None
         return self.quick_select(k-1, nums, 0, len(nums)-1)
-        
-        
-        
+
     def quick_select(self, k, nums, start, end):
         if start>=end:
             return nums[k]
@@ -32,8 +30,6 @@ vclass Solution:
             return self.quick_select(k, nums, start, right)
         elif k >= left:
             return self.quick_select(k, nums, left, end)
-        
         return nums[k]
                 
-                
-        
+  
