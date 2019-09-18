@@ -12,6 +12,7 @@ class Solution:
         minn = float('inf')
         for i in range(length):
             left, right =i+1, length-1
+            
             while left<right:
                 three_sum = numbers[i]+numbers[left]+numbers[right]
                 if three_sum == target:
