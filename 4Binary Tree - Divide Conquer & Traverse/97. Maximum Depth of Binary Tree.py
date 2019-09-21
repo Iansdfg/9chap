@@ -5,7 +5,6 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
-
 class Solution:
     """
     @param root: The root of binary tree.
