@@ -10,10 +10,8 @@ class Solution:
         start, end = 0, len(nums)-1    
         while start+1<end:
             m = (start+end)//2
-            
             if nums[m]<nums[m+1]:
                 start = m 
             elif nums[m]>nums[m+1]:
-                end = m
-                
+                end = m        
         return max(nums[start],nums[end])
