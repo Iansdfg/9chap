@@ -13,13 +13,10 @@ class Solution:
     def findFirstBadVersion(self, n):
         # write your code here
         start, end = 1, n
-        
         while start + 1 < end:
             mid = (start + end)//2
-            
             if SVNRepo.isBadVersion(mid):
                 end = mid
             else:
-                start = mid
-                
+                start = mid     
         return start if SVNRepo.isBadVersion(start) else end
