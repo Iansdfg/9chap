@@ -19,3 +19,22 @@ class Solution:
         path.pop()
         self.findsub(nums,level+1, path, ans)
     
+class Solution:
+    """
+    @param nums: A set of numbers
+    @return: A list of lists
+    """
+    def subsets(self, nums):
+        # write your code here
+        nums.sort()
+        ans = []
+        self.findsub(nums,0, [], ans)
+        return ans
+        
+    def findsub(self, nums,level, path, ans):
+        ans.append(list(path[:]))
+        for i in range(level, len(nums)):
+            path.append(nums[i])
+            self.findsub(nums,i+1, path, ans)
+            path.pop()
+            
