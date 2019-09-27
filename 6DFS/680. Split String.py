@@ -17,13 +17,11 @@ class Solution:
         if s=='':
             ans.append(path[:])
             return ans
+            
+        for i in (1,2):
+            if len(s)>=i:
+                path.append(s[:i])
+                self.dfs(s[i:], path, ans)
+                path.pop()
         
-        path.append(s[:1])
-        self.dfs(s[1:], path, ans)
-        path.pop()
-        
-        if len(s)>=2:
-            path.append(s[:2])
-            self.dfs(s[2:], path, ans)
-            path.pop()
         
