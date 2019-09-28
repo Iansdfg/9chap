@@ -37,4 +37,3 @@ class Solution:
             path.append(nums[i])
             self.findsub(nums,i+1, path, ans)
             path.pop()
-            
