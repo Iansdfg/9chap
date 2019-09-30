@@ -7,7 +7,7 @@ class Solution:
     def combine(self, n, k):
         # write your code here
         results = []
-        self.dfs(n, k, 1, [], results)
+        self.dfs(n, k, 0, [], results)
         return results
         
     def dfs(self, n, k, index, path, results):
@@ -15,9 +15,7 @@ class Solution:
             results.append(path[:])
             return
         
-        for i in range(index, n+1):
-            if len(path)>0 and i <= path[-1]:
-                continue
+        for i in range(index+1, n+1):
             path.append(i)
-            self.dfs(n, k, index+1, path, results)
+            self.dfs(n, k, i, path, results)
             path.pop()
