@@ -12,7 +12,6 @@ class Solution:
         self.dfs(nums, 0, [], ans)
         return ans
         
-        
     def dfs(self, nums, index, path, ans):
         ans.append(path[:])
         for i in range(index, len(nums)):
