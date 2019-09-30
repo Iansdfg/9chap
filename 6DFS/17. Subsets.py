@@ -27,13 +27,15 @@ class Solution:
     def subsets(self, nums):
         # write your code here
         nums.sort()
-        ans = []
-        self.findsub(nums,0, [], ans)
-        return ans
+        results = []
+        self.dfs(nums, 0, [], results)
+        return results
         
-    def findsub(self, nums,level, path, ans):
-        ans.append(list(path[:]))
-        for i in range(level, len(nums)):
+    def dfs(self, nums, index, path, results):
+        results.append(path[:])
+        for i in range(index, len(nums)):
             path.append(nums[i])
-            self.findsub(nums,i+1, path, ans)
+            self.dfs(nums, i+1, path, results)
             path.pop()
+        
+
