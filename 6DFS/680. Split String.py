@@ -3,12 +3,10 @@ class Solution:
     @param: : a string to be split
     @return: all possible split string array
     """
-
     def splitString(self, s):
         # write your code here
         if not s:
             return[[]]
-            
         ans = []
         self.dfs(s, [], ans)
         return ans
