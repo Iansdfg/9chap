@@ -3,7 +3,6 @@ class Solution:
     @param: :  A list of integers
     @return: A list of unique permutations
     """
-
     def permuteUnique(self, nums):
         # write your code here
         if not nums:
@@ -28,4 +27,4 @@ class Solution:
             self.dfs(nums, visited, path, ans)
             visited[i]=0
             path.pop()
-        
+       
