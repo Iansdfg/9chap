@@ -15,7 +15,6 @@ class Solution:
         if s=='':
             ans.append(path[:])
             return ans
-            
         for i in (1,2):
             if len(s)>=i:
                 path.append(s[:i])
