@@ -22,11 +22,9 @@ class Solution:
             
             if i>0 and s[i]==s[i-1] and not visited[i-1]:
                 continue
-            
-            
+           
             path.append(s[i])
-            visited[i] = 1
-            
+            visited[i] = 1       
             self.dfs(s, visited, path, results)
             visited[i] = 0
             path.pop()
