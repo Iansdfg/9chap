@@ -10,7 +10,6 @@ class Solution:
             return 0
         fist_pos = self.findFirst(A, target)
         Last_pos = self.findLast(A, target)
-        print(fist_pos, Last_pos)
         if fist_pos is None or Last_pos is None:
             return 0
         else:
