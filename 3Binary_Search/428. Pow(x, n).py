@@ -6,15 +6,14 @@ class Solution:
     """
     def myPow(self, x, n):
         # write your code here
-        if n<0:
-            x = 1/x
-        n = abs(n)
+        if n < 0 :
+            x = 1 / x  
+            n = -n
         ans = 1
-        while n:
+        base = x
+        while n>0:
             if n%2:
-                ans*=x
+                ans *= base
+            base *= base
             n//=2
-            x *= x
         return ans
-        
-        
