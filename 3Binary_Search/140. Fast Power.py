@@ -7,15 +7,13 @@ class Solution:
     """
     def fastPower(self, a, b, n):
         # write your code here
+            
         if n == 0:
             return 1%b
-        if n == 1:
-            return a%b
-            
-        log = self.fastPower(a, b, n//2)
-        res = (log*log)%b 
         
-        if n%2 == 1:
-            res = (res*a)%b
-        
-        return res
+        if n%2:
+            ans = self.fastPower(a, b, n//2)
+            return (a*(ans*ans))%b
+        else:
+            ans = self.fastPower(a, b, n//2)
+            return (ans*ans)%b
