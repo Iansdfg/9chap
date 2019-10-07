@@ -27,12 +27,12 @@ class Solution:
             path.pop()
             visited[i] = 0
             
-    def is_valid(self, cols, col):
-        row = len(cols)
-        for r, c in enumerate(cols):
-            if c == col:
+    def is_valid(self, cols, target_col):
+        target_row = len(cols)
+        for curr_r, curr_c in enumerate(cols):
+            if curr_c == target_col:
                 return False
-            if r - c == row - col or r + c == row + col:
+            if curr_r - curr_c == target_row - target_col or curr_r + curr_c == target_row + target_col:
                 return False
         return True
         
@@ -48,5 +48,3 @@ class Solution:
                     row.append('.')
             board.append(''.join(row))
         return board
-            
-           
