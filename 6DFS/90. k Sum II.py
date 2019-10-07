@@ -27,8 +27,6 @@ class Solution:
             self.dfs(A, k, target-A[i], i+1, path, results)
             path.pop()
         
-
-        
 class Solution:
     """
     @param: A: an integer array
