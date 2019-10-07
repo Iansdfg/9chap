@@ -12,14 +12,14 @@ class Solution:
         
     def dfs(self, n, visited, path, results):
         if len(path) == n:
-            board = self.draw_chessboard(path[:])
+            board = self.makeboard(path[:])
             results.append(board)
             return
         
         for i in range(n):
             if visited[i]:
                 continue
-            if not self.is_valid(path,len(path),i):
+            if not self.is_valid(path, i):
                 continue
             visited[i] = 1
             path.append(i)
@@ -27,7 +27,8 @@ class Solution:
             path.pop()
             visited[i] = 0
             
-    def is_valid(self, cols, row, col):
+    def is_valid(self, cols, col):
+        row = len(cols)
         for r, c in enumerate(cols):
             if c == col:
                 return False
@@ -35,10 +36,17 @@ class Solution:
                 return False
         return True
         
-    def draw_chessboard(self, cols):
-        n = len(cols)
+    def makeboard(self, path):
+        n = len(path)
         board = []
-        for i in range(n):
-            row = ['Q' if j == cols[i] else '.' for j in range(n)]
+        for num in path:
+            row = []
+            for i in range(n):
+                if i == num:
+                    row.append('Q')
+                else:
+                    row.append('.')
             board.append(''.join(row))
         return board
+            
+           
