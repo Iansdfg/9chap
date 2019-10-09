@@ -1,5 +1,4 @@
-
-DIRECTIONS =[(0, 1), (0, -1), (1, 0), (-1, 0)]
+DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
 class Solution:
     """
@@ -9,68 +8,60 @@ class Solution:
     """
     def wordSearchII(self, board, words):
         # write your code here
-        if board is None or len(board) == 0:
+        if board == [] or words == []:
             return []
-            
-        word_set = set(words)
+        words_set = set(words)
         prefix_set = set()
         for word in words:
             for i in range(len(word)):
-               prefix_set.add(word[:i+1])
-               
-        resultes = set()
-        
+                prefix_set.add(word[:i+1])
+                
+        results = set()
         for row in range(len(board)):
             for col in range(len(board[0])):
                 char = board[row][col]
                 self.dfs(
                     board, 
+                    char,
                     row,
                     col,
-                    char,
-                    word_set,
+                    set([(row,col)]),
+                    words_set,
                     prefix_set,
-                    set([(row, col)]),
-                    resultes,
-                )
-                    
-        return list(resultes)
-                
-                
-    def dfs(self, board, row, col, word, word_set, prefix_set, visited, resultes):
+                    results,
+                    )
+        return list(results)
+        
+    def dfs(self, board, word, row, col, visited, words_set, prefix_set, results):
         if word not in prefix_set:
             return
-        if word in word_set:
-            resultes.add(word)
+        
+        if word in words_set:
+            results.add(word)
+        
+        for x,y in DIRECTIONS:
+            new_row = row + x
+            new_col = col + y
             
-        for delta_row, delta_col in DIRECTIONS:
-            row_ = row + delta_row
-            col_ = col + delta_col
-            
-            if not self.inside(board, row_, col_):
+            if not self.inside(board,new_row,new_col):
                 continue
-            if (row_, col_) in visited:
+            if (new_row,new_col) in visited:
                 continue
             
-            visited.add((row_, col_))
+            visited.add((new_row,new_col))
             self.dfs(
-                    board, 
-                    row_,
-                    col_,
-                    word + board[row_][col_],
-                    word_set,
-                    prefix_set,
-                    visited,
-                    resultes,
+                board, 
+                word+board[new_row][new_col],
+                new_row,
+                new_col,
+                visited,
+                words_set,
+                prefix_set,
+                results,
                 )
-            visited.remove((row_, col_))
-             
+            visited.remove((new_row,new_col))
+            
     def inside(self, board, row, col):
-        return 0<=row<len(board) and 0<=col<len(board[0])
-            
-            
-        
-        
-        
-            
+        return 0<= row < len(board) and 0<= col < len(board[0])
+ 
         
