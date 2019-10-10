@@ -3,7 +3,10 @@ class Stack:
     @param: x: An integer
     @return: nothing
     """
-    stack = []
+    def __init__(self):
+        self.stack = []
+        
+        
     def push(self, x):
         # write your code here
         self.stack.append(x)
