@@ -24,17 +24,16 @@ class MyQueue:
     """
     def pop(self):
         # write your code here
-        self.dump_from_to(self.stack2, self.stack1)
-        pop = self.stack1.pop()
-        self.dump_from_to(self.stack1, self.stack2)
-        return pop
+        if not self.stack1:
+            self.dump_from_to(self.stack2, self.stack1)
+        return self.stack1.pop()
 
     """
     @return: An integer
     """
     def top(self):
         # write your code here
-        self.dump_from_to(self.stack2, self.stack1)
-        top = self.stack1[-1]
-        self.dump_from_to(self.stack1, self.stack2)
-        return top
+        if not self.stack1:
+            self.dump_from_to(self.stack2, self.stack1)
+        return self.stack1[-1]
+
