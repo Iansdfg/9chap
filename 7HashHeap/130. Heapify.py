@@ -4,27 +4,24 @@ class Solution:
     @return: nothing
     """
     def heapify(self, A):
+        # write your code here
         for i in range(len(A)//2, -1, -1):
             self.siftdown(A, i)
-            
-    def siftdown(self, A, index):
-        n = len(A)
-        while index<n:
-            left = index*2+1
-            right = index*2+2
-            mini_index = index
-            if left<n and A[mini_index]>A[left]:
+    
+    
+    def siftdown(self, Array, index):
+        lenth = len(Array)
+        mini_index = index 
+        while index<lenth:
+            left, right = index*2+1, index*2+2
+            if left<lenth and Array[mini_index]>Array[left]:
                 mini_index = left
-                
-            if right<n and A[mini_index]>A[right]:
+            if right<lenth and Array[mini_index]>Array[right]:
                 mini_index = right
-                
+
             if mini_index == index:
                 break
             
-            A[mini_index], A[index] = A[index], A[mini_index]
+            Array[mini_index], Array[index] = Array[index], Array[mini_index]
             
             index = mini_index
-                
-                
-                
