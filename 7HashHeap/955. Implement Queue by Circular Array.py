@@ -29,7 +29,6 @@ class CircularQueue:
         self.array[self.rear] = element
         self.size+=1
         
-
     """
     @return: pop an element from the queue
     """
