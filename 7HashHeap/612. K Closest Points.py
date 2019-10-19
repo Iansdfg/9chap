@@ -27,8 +27,7 @@ class Solution:
         result = []
         while len(heap)>0:
             dis, x, y = heapq.heappop(heap)
-            result.append((-x,-y))
-            
+            result.append(Point(-x,-y))
             
         result.reverse()
         return result
