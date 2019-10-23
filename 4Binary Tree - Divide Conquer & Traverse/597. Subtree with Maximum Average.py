@@ -32,7 +32,7 @@ class Solution:
         
         if not self.node or summ / size > self.average:
             self.node = root
-            self.average = summ * 1.0 / size
+            self.average = summ / size
     
   
         return summ, size
