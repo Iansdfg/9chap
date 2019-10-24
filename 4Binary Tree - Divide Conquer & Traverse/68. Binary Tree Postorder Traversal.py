@@ -43,25 +43,46 @@ class Solution:
     """
     def postorderTraversal(self, root):
         # write your code here
-        stack, res, curr = [], [], root
-        
+        if not root:
+            return []
+        res, stack = [], []
+        curr = root
         while curr:
             stack.append(curr)
             if curr.left:
-                curr = curr.left
+                curr =  curr.left
             else:
                 curr = curr.right
                 
         while stack:
+            
             curr = stack.pop()
             res.append(curr.val)
+
             if stack and stack[-1].left == curr:
-                curr = stack[-1].right
+                curr =  stack[-1].right
                 while curr:
                     stack.append(curr)
                     if curr.left:
-                        curr = curr.left
+                        curr =  curr.left
                     else:
-                        curr = curr.right
-                        
+                        curr = curr.right     
+        return res
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+        
+        
         return res
