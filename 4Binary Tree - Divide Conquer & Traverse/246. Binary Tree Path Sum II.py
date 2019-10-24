@@ -26,26 +26,19 @@ class Solution:
         
         path.append(root.val)
         
-        temp = target
-        for i in range(level, -1, -1):
-            temp -= path[i]
-            
-            if temp == 0:
+        print(path)
+        
+        cur_sum = 0
+        for i in range(level,-1, -1):
+            cur_sum += path[i]
+            # print(path, cur_sum)
+            if cur_sum == target:
                 results.append(path[i:])
                 
-        self.dfs(root.left, target, level+1, path, results)
-        self.dfs(root.right, target, level+1, path, results)
+        self.dfs(root.left, target, level + 1, path, results)
+        self.dfs(root.right, target, level + 1, path, results)
         
         path.pop()
         
  
             
-            
-            
-            
-            
-            
-            
-            
-
-        
