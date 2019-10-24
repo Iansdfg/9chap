@@ -43,19 +43,21 @@ class Solution:
     """
     def inorderTraversal(self, root):
         # write your code here
-        stack, res = [], []
+        if not root: return []
+        result, stack = [], []
+        curr = root
         
-        while root:
-            stack.append(root)
-            root = root.left
+        while curr:
+            stack.append(curr)
+            curr = curr.left
             
         while stack:
             curr = stack.pop()
-            res.append(curr.val)
-            
+            result.append(curr.val)
             if curr.right:
                 curr = curr.right
                 while curr:
                     stack.append(curr)
-                    curr = curr.left
-        return res
+                    curr = curr.left 
+         
+        return result
