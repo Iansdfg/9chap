@@ -5,6 +5,7 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
+
 class Solution:
     """
     @param root: The root of binary tree.
@@ -14,6 +15,8 @@ class Solution:
         # write your code 
         if not root:
             return 0
+            
         left = self.maxDepth(root.left)
         right = self.maxDepth(root.right)
-        return max(left, right)+1
+        
+        return max(left,right)+1
