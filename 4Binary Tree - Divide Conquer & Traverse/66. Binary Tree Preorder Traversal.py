@@ -33,6 +33,13 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
 
 class Solution:
     """
@@ -40,12 +47,11 @@ class Solution:
     @return: Preorder in ArrayList which contains node values.
     """
     def preorderTraversal(self, root):
+        if not root:
+            return []
         # write your code here
-        if not root: return []
-        stack = []
-        stack.append(root)
         result = []
-        
+        stack = [root]
         while stack:
             curr = stack.pop()
             result.append(curr.val)
@@ -53,6 +59,8 @@ class Solution:
                 stack.append(curr.right)
             if curr.left:
                 stack.append(curr.left)
-            
         return result
+        
+        
+
         
