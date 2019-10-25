@@ -17,14 +17,15 @@ class Solution:
         ans = None 
         
         while root:
-            if root.val < p.val:
-                if ans == None or ans.val < root.val:
+            if root.val > p.val:
+                root = root.left
+            
+            elif root.val == p.val:
+                root = root.left
+            
+            elif root.val < p.val:
+                if not ans or ans.val < root.val:
                     ans = root
                 root = root.right
                 
-            elif root.val >= p.val:
-                root = root.left
-
-                
         return ans
-                
