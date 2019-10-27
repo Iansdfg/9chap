@@ -14,15 +14,19 @@ class Solution:
     """
     def kthSmallest(self, root, k):
         # write your code here
-
-        res  = []
-        self.save(root,res)
-        return res[k-1]
+        dummy = TreeNode(0)
+        dummy.right = root
+        stack = [dummy]
         
-        
-    def save(self,root,res):
-        if not root:
-            return
-        self.save(root.left,res)
-        res.append(root.val)
-        self.save(root.right,res)
+        for _ in range(k):
+            curr = stack.pop()
+            if curr.right:
+                curr = curr.right
+                while curr:
+                    stack.append(curr)
+                    curr = curr.left
+                    
+            if not stack:
+                return None
+                
+        return stack[-1].val
