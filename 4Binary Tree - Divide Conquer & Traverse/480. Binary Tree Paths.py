@@ -19,18 +19,17 @@ class Solution:
         self.dfs(root, [], result)
         return result
         
-        
     def dfs(self, root, path, result):
         if not root:
-            return
+            return 
         
         path.append(str(root.val))
         if not root.left and not root.right:
-            ans = "->".join(path)
+            ans = '->'.join(path)
             result.append(ans)
+
         self.dfs(root.left, path, result)
         self.dfs(root.right, path, result)
-        
         path.pop()
         
-        
+      
