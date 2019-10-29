@@ -13,24 +13,35 @@ class Solution:
     """
     def flatten(self, root):
         # write your code here
-        self.connect(root)
+        root = self.helper(root)
         return root
-       
-    def connect(self, root):
+
+        
+    def helper(self, root):
+        # return node 
         if not root:
             return None
         
-        left_last = self.connect(root.left)
-        right_last = self.connect(root.right)
+        left_last = self.helper(root.left)
+        right_last = self.helper(root.right)
         
         if left_last:
             left_last.right = root.right
             root.right = root.left
-            root.left = None 
+            root.left = None
             
         if right_last:
             return right_last
-        
+            
         if left_last:
             return left_last
+        
         return root
+            
+        
+        
+            
+            
+  
+    
+        
