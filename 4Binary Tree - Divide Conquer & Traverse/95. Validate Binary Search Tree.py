@@ -13,25 +13,26 @@ class Solution:
     """
     def isValidBST(self, root):
         # write your code here
-        isBST, minNode, maxNode = self.divideConquer(root)
-        return isBST
+        max_val, mini_val, valid = self.helper(root)
+        return valid
         
-        
-    def divideConquer(self, root):
+    def helper(self, root):
+        # return max_val, mini_val, valid
         if not root:
-            return True, None, None
+            return None, None, True 
             
-        left_isBST, left_minNode, left_maxNode = self.divideConquer(root.left)
-        right_isBST, right_minNode, right_maxNode = self.divideConquer(root.right)
+        left_max_val, left_mini_val, left_valid = self.helper(root.left)
+        right_max_val, right_mini_val, right_valid = self.helper(root.right)
         
-        if not left_isBST or not right_isBST: 
-            return False, None, None
-        if left_maxNode and left_maxNode>= root.val:
-            return False, None, None
-        if right_minNode and right_minNode<= root.val:
-            return False, None, None
+        if not left_valid or not right_valid:
+            return None, None, False 
+        if left_max_val and left_max_val >= root.val:
+            return None, None, False 
+        if right_mini_val and right_mini_val <= root.val:
+            return None, None, False 
         
-        minNode = left_minNode if left_minNode else root.val
-        maxNode = right_maxNode if right_maxNode else root.val
+        max_val = right_max_val if right_max_val else root.val
+        mini_val = left_mini_val if left_mini_val else root.val
         
-        return True, minNode, maxNod
+        return max_val, mini_val, True 
+        
