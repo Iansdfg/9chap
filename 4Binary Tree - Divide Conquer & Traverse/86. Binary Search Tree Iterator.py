@@ -19,7 +19,7 @@ class BSTIterator:
     """
     def __init__(self, root):
         # do intialization if necessary
-        dummy = TreeNode(0)
+        dummy = TreeNode(-1)
         dummy.right = root
         self.stack = [dummy]
         self.next()
@@ -36,11 +36,15 @@ class BSTIterator:
     """
     def next(self, ):
         # write your code here
-        curr_node = self.stack.pop()
-        ans = curr_node
-        if curr_node.right:
-            curr_node = curr_node.right
-            while curr_node:
-                self.stack.append(curr_node)
-                curr_node = curr_node.left
-        return ans
+        curr = self.stack.pop()
+        ans = curr
+        if curr.right:
+            curr = curr.right
+            while curr:
+                self.stack.append(curr)
+                curr = curr.left
+        return ans 
+        
+        
+        
+        
