@@ -13,11 +13,9 @@ class Solution:
     """
     def inorderTraversal(self, root):
         # write your code here
-        if not root: return []
         dummy = TreeNode(0)
         dummy.right = root
-        result, stack = [], [dummy]
-        
+        stack, results = [dummy], []
         while stack:
             curr = stack.pop()
             if curr.right:
@@ -26,7 +24,5 @@ class Solution:
                     stack.append(curr)
                     curr = curr.left
             if stack:
-                result.append(stack[-1].val)
-        return result 
-                    
-            
+                results.append(stack[-1].val)
+        return results
