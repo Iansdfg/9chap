@@ -15,33 +15,27 @@ class Solution:
         # write your code here
         root = self.helper(root)
         return root
-
         
     def helper(self, root):
-        # return node 
+        # return last node 
         if not root:
-            return None
-        
+            return None 
+            
         left_last = self.helper(root.left)
         right_last = self.helper(root.right)
         
-        if left_last:
-            left_last.right = root.right
+        if root.left:
+            left_last.right = root.right  
             root.right = root.left
+            
             root.left = None
             
+        
         if right_last:
             return right_last
             
         if left_last:
             return left_last
-        
+            
         return root
-            
-        
-        
-            
-            
-  
-    
         
