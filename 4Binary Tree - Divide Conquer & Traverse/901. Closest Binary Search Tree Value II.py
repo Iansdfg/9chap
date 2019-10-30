@@ -49,8 +49,6 @@ class Solution:
         
     def find_k_close(self, arrary, target, target_pos, k):
         left, right = target_pos-1, target_pos+1
-        
-        
         result = [arrary[target_pos]]
         while len(result) < k:
             if self.left_closer(arrary, left, right, target):
@@ -67,3 +65,9 @@ class Solution:
         if right >= len(arrary):
             return True
         return abs(arrary[left] - target) < abs(arrary[right] - target)
+        
+        
+                
+            
+        
+    
