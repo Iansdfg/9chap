@@ -17,13 +17,15 @@ class Solution:
     def lowestCommonAncestorII(self, root, A, B):
         # write your code here
         visited = []
-        while A != root:
-            if A is B:
-                return A
-            visited.append(A)
+        while A:
+            if A == B:
+                return B
+            visited.append(A) 
             A = A.parent
             
-        while B != root and B not in visited:
+        while B:
+            if B in visited:
+                return B
             B = B.parent
             
-        return B
+        
