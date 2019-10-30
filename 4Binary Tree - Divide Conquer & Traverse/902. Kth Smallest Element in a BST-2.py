@@ -17,15 +17,19 @@ class Solution:
         dummy = TreeNode(0)
         dummy.right = root
         stack = [dummy]
+        res = []
         
         for _ in range(k):
-            curr_node = stack.pop()
-            if curr_node.right:
-                curr_node = curr_node.right
-                while curr_node:
-                    stack.append(curr_node)
-                    curr_node = curr_node.left
-                    
-        return stack[-1].val
+            curr = stack.pop()
+            if curr.right:
+                curr = curr.right
+                while curr:
+                    stack.append(curr)
+                    curr = curr.left
+            if stack:
+                res.append(stack[-1].val)
+                
+        return res[-1]
         
-        
+      
+            
