@@ -27,5 +27,3 @@ class Solution:
             if B in visited:
                 return B
             B = B.parent
-            
-        
