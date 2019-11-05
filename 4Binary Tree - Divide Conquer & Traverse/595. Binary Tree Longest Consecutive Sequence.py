@@ -13,17 +13,20 @@ class Solution:
     """
     def longestConsecutive(self, root):
         # write your code here
-        return self.helper(root, 0, None)
+        return self.helper(root, None, 0)
         
-    def helper(self, root, lens, parent):
+        
+    def helper(self, root, parent, length):
         if not root:
-            return lens
-            
+            return 0
+
         if parent and root.val == parent.val + 1:
-            lens += 1
+            length += 1
         else:
-            lens = 1
+            length = 1
             
-        max_left_right = max(self.helper(root.left, lens, root), self.helper(root.right, lens, root))
-        return max(lens, max_left_right)
+        left = self.helper(root.left, root, length)
+        right = self.helper(root.right, root, length)
+        
+        return max(left, right, length)
         
