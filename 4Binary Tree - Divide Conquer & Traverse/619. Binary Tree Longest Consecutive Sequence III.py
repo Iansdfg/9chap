@@ -12,27 +12,27 @@ class Solution:
     # @return {int} the length of the longest consecutive sequence path
     def longestConsecutive3(self, root):
         # Write your code here
-        max_len, _, _, = self.helper(root)
+        max_len, _, _ = self.helper(root)
         return max_len
-    
+        
     def helper(self, root):
-        if root is None:
+        # max_len, up, down
+        if not root:
             return 0, 0, 0
-
-        max_len, up, down = 0, 0, 0
+        
+        length, up, down = 0, 0, 0
         for child in root.children:
-            result = self.helper(child)
-            max_len = max(max_len, result[0])
-            if child.val + 1 == root.val:
-                down = max(down, result[1] + 1)
-            if child.val - 1 == root.val:
-                up = max(up, result[2] + 1)
+            child_len, child_up, child_down = self.helper(child)
+            length = max(length, child_len)
+            if child.val == root.val - 1:
+                down = max(down, child_down + 1)
+            if child.val == root.val + 1:
+                up = max(up, child_up + 1)
+        
+        length = max(length, down + up + 1)
 
-        max_len = max(down + 1 + up, max_len)
-
-        return max_len, down, up
+        
+        return length, up, down
             
-            
-            
-            
+        
         
