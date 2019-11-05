@@ -15,18 +15,17 @@ class Solution:
         # write your code here
         return self.helper(root, None, 0)
         
-        
-    def helper(self, root, parent, length):
+    def helper(self, root, father, length):
+        # return length
         if not root:
             return 0
-
-        if parent and root.val == parent.val + 1:
+            
+        if father and father.val + 1 == root.val:
             length += 1
         else:
             length = 1
             
         left = self.helper(root.left, root, length)
         right = self.helper(root.right, root, length)
-        
+            
         return max(left, right, length)
-        
