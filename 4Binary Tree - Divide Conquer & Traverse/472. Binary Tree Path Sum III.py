@@ -23,28 +23,30 @@ class Solution:
         if not root:
             return 
         path = []
-        self.find_sum(root, target, None, path, result)
+        
+        self.path_sum(root, target, path, result, None)
         
         self.dfs(root.left, target, result)
         self.dfs(root.right, target, result)
         
-    def find_sum(self, root, target, father, path, result):
         
+    def path_sum(self, root, target, path, result, father):
+        if not root:
+            return
         path.append(root.val)
         target -= root.val
         
-        if target == 0: 
+        if target == 0:
             result.append(path[:])
             
-        if root.parent not in [None, father]:
-            self.find_sum(root.parent, target, root, path, result)
+        if root.parent and root.parent != father:
+            self.path_sum(root.parent, target, path, result, root)
             
-        if root.left not in [None, father]:
-            self.find_sum(root.left, target, root, path, result)
+        if root.left and root.left != father:
+            self.path_sum(root.left, target, path, result, root)
             
-        if root.right not in [None, father]:
-            self.find_sum(root.right, target, root, path, result)
-    
-        
+        if root.right and root.right != father:
+            self.path_sum(root.right, target, path, result, root)
+            
         path.pop()
-        
+            
