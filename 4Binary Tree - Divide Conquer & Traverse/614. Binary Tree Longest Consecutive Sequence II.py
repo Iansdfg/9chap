@@ -17,30 +17,29 @@ class Solution:
         return max_len
         
     def helper(self, root):
-        # return len, upper_len, lower_len
+        # return length, up, down
         if not root:
             return 0, 0, 0
-            
-        left_len, left_up, left_down = self.helper(root.left)
-        right_len, right_up, right_down = self.helper(root.right)
+        
+        left_length, left_up, left_down = self.helper(root.left)
+        right_length, right_up, right_down = self.helper(root.right)
         
         up, down = 0, 0
-        if root.left and root.left.val == root.val + 1:
-            up = max(left_up + 1, up)
+        if root.left and root.left.val + 1 == root.val:
+            down = max(down, left_down+1)
+        if root.left and root.left.val - 1 == root.val:
+            up = max(up, left_up+1)
             
-        if root.left and root.left.val == root.val - 1:
-            down = max(left_down + 1, down)
+        if root.right and root.right.val + 1 == root.val:
+            down = max(down, right_down+1)
+        if root.right and root.right.val - 1 == root.val:
+            up = max(up, right_up+1)
+            
+        length = max(left_length, right_length, up+down+1)
         
-        if root.right and root.right.val == root.val + 1:
-            up = max(right_up + 1, up)
-            
-        if root.right and root.right.val == root.val - 1:
-            down = max(right_down + 1, down)
-            
-            
-        length = up + down + 1
-        length = max(length, left_len, right_len)
         return length, up, down
+            
+        
         
         
         
