@@ -26,10 +26,8 @@ class Solution:
         left_max_path_sum, left_single_path_sum =  self.helper(root.left)
         right_max_path_sum, right_single_path_sum =  self.helper(root.right)
         
-        
-        
         max_path_sum = max(left_max_path_sum, right_max_path_sum, root.val + left_single_path_sum + right_single_path_sum)
         
-        single_path_sum = max(right_single_path_sum + root.val, left_single_path_sum + root.val, 0)
+        single_path_sum = max(right_single_path_sum + root.val, left_single_path_sum + root.val, 0, root.val)
         
         return max_path_sum, single_path_sum
