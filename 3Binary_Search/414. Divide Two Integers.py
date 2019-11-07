@@ -6,34 +6,34 @@ class Solution:
     """
     def divide(self, dividend, divisor):
         # write your code here
-        max_val = 2147483647
         if dividend == 0:
             return 0
+        
+        if divisor == 0:
+            return 0
+            
         if divisor == 1:
             return dividend
-        
-        is_neg = False 
-        if (dividend < 0 and divisor > 0) or  (dividend > 0 and divisor < 0):
-            is_neg = True
             
-        dividend, divisor = abs(dividend), abs(divisor) 
+        is_neg = False
+        if (dividend > 0 and divisor < 0) or (dividend < 0 and divisor > 0):
+            is_neg = True
+        
+        dividend, divisor = abs(dividend), abs(divisor)
         
         res = 0
         while divisor <= dividend:
-            summ, cnt = divisor, 1
+            cnt, summ = 1, divisor
             while summ + summ < dividend:
-                cnt += cnt
                 summ += summ
+                cnt += cnt
             res += cnt
             dividend -= summ
             
-            
-        res = min(max_val, res)
+        res = min(2147483647, res)
         
         if is_neg:
-            res = -res
-        
+            return -res
         return res
+                
             
-        
-        
