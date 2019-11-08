@@ -5,19 +5,15 @@ class Solution:
     """
     def sqrt(self, x):
         # write your code here
-        left, right = 1, x
-        while left+1<right:
-            mid = (left+right)//2
-            if mid**2 > x:
-                right = mid
-            elif mid**2 < x:
-                left = mid
+        start, end = 0, x 
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if mid * mid > x:
+                end = mid 
+            elif mid * mid < x:
+                start = mid 
             else:
-                return mid
-                
-        if left**2<x:
-            return left 
-        else:
-            return right
-        
-            
+                return mid 
+        if end * end <= x:
+            return end 
+        return start
