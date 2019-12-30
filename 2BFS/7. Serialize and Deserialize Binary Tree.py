@@ -6,6 +6,7 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
+from collections import deque
 
 class Solution:
     """
@@ -17,24 +18,20 @@ class Solution:
     def serialize(self, root):
         # write your code here
         data = []
-        queue = collections.deque([root])
+        queue = deque([root])
         while queue:
-            curr_node = queue.popleft()
-            if not curr_node:
+            node = queue.popleft()
+            
+            if not node:
                 data.append(None)
                 continue
-            data.append(curr_node)
-            if curr_node.left:
-                queue.append(curr_node.left)
-            else:
-                queue.append(None)
-            if curr_node.right:
-                queue.append(curr_node.right)
-            else:
-                queue.append(None)
+            data.append(node)
+            
+            queue.append(node.left if node.left else None)
+            queue.append(node.right if node.right else None)
+
         return data
-                
-        
+            
 
     """
     @param data: A string serialized by your serialize method.
@@ -46,20 +43,20 @@ class Solution:
     """
     def deserialize(self, data):
         # write your code here
-        data_que = collections.deque(data)
-        queue = collections.deque()
-        root = data_que.popleft()
-        queue.append(root)
+        data_queue = deque(data)
+        root = data_queue.popleft()
+        queue = deque([root])
         while queue:
-            curr_node = queue.popleft()
-            if curr_node:
-               
-                nextt = data_que.popleft()
-                curr_node.left = nextt 
+            node = queue.popleft()
+            if node:
+                
+                nextt = data_queue.popleft()
+                node.left = nextt
                 queue.append(nextt)
                 
-                nextt = data_que.popleft()
-                curr_node.right = nextt 
+                nextt = data_queue.popleft()
+                node.right = nextt
                 queue.append(nextt)
-            
-        return root
+                
+        return root 
+                
