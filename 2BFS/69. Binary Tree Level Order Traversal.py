@@ -5,28 +5,33 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
+
+from collections import deque
+
 class Solution:
     """
     @param root: A Tree
     @return: Level order a list of lists of integer
     """
     def levelOrder(self, root):
-        # write your code here 
+        # write your code here
         if not root:return []
-        res = [[root.val]]
-        queue = collections.deque()
-        queue.append(root)
+        
+        queue = deque([root])
+        result = [[root.val]]
         while queue:
-            queue_len = len(queue)
             path = []
-            for i in range(queue_len):
-                curr_node = queue.popleft()
-                if curr_node.left:
-                    queue.append(curr_node.left)
-                    path.append(curr_node.left.val)
-                if curr_node.right:
-                    queue.append(curr_node.right)
-                    path.append(curr_node.right.val)
-            if path != []:
-                res.append(path)
-        return res
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                
+                if node.left:
+                    path.append(node.left.val)
+                    queue.append(node.left)
+                    
+                if node.right:
+                    path.append(node.right.val)
+                    queue.append(node.right)
+                    
+            if path:
+                result.append(path)
+        return result
