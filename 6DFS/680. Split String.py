@@ -10,9 +10,7 @@ class Solution:
         ans = []
         self.dfs(s, [], ans)
         return ans
-        
-        
-        
+
     def dfs(self, s, path, ans):
         if s=='':
             ans.append(path[:])
@@ -22,5 +20,4 @@ class Solution:
                 path.append(s[:i])
                 self.dfs(s[i:], path, ans)
                 path.pop()
-        
-        
+       
