@@ -11,6 +11,8 @@ class Solution:
         self.dfs(s, [], ans)
         return ans
         
+        
+        
     def dfs(self, s, path, ans):
         if s=='':
             ans.append(path[:])
