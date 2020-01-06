@@ -53,7 +53,6 @@ class LRUCache:
         self.kick(self.key_to_prev[key])
         return self.key_to_prev[key].next.val
         
-
     """
     @param: key: An integer
     @param: value: An integer
@@ -68,4 +67,4 @@ class LRUCache:
             self.append(LinkedNode(value, key))
             if self.capacity < len(self.key_to_prev):
                 self.pop_front()
-            
+           
