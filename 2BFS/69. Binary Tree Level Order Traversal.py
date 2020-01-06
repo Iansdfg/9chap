@@ -18,18 +18,16 @@ class Solution:
         if not root:
             return []
         queue = deque([root])
-        result = [[root.val]]
+        result = []
         while queue:
             path = []
             for _ in range(len(queue)):
                 curr = queue.popleft()
+                path.append(curr.val)
                 if curr.left:
                     queue.append(curr.left)
-                    path.append(curr.left.val)
                 if curr.right:
                     queue.append(curr.right)
-                    path.append(curr.right.val)
-            if path:
-                result.append(path)
+            result.append(path)
         return result
                     
