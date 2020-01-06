@@ -9,7 +9,6 @@ class Solution:
         # write your code here
         heap = [1]
         visited = set()
-        
         val = None
         for i in range(n):
             val = heapq.heappop(heap)
@@ -18,4 +17,4 @@ class Solution:
                     visited.add(factor * val)
                     heapq.heappush(heap, factor * val)
         return val
-                
+               
