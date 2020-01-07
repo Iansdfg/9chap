@@ -16,6 +16,8 @@ class Solution:
         
         while queue:
             count += 1
+            # think word ladder as a trie, distance is height from root to 
+            # the leaf. So layering to check height.
             for i in range(len(queue)):
                 word = queue.popleft()
                 if word == end:
@@ -38,16 +40,4 @@ class Solution:
                 words.append(new_word)
         return words
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-                
-                
-                        
+    
