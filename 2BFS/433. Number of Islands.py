@@ -1,3 +1,5 @@
+from collections import deque
+
 class Solution:
     """
     @param grid: a boolean 2D matrix
@@ -5,34 +7,40 @@ class Solution:
     """
     def numIslands(self, grid):
         # write your code here
-        if not grid or not grid[0]: return 0
-        num_island = 0
+        if grid == [] or grid[0] == []:
+            return 0
+            
+        cols = len(grid[0])
+        rows = len(grid)
+        count = 0
         visited = set()
-        for row in range(len(grid)):
-            for col in range(len(grid[0])):
+        for row in range(rows):
+            for col in range(cols):
                 if grid[row][col] and (row, col) not in visited:
-                    self.bfs(row, col, grid, visited)
-                    num_island+=1
-        return num_island
+                    count += 1 
+                    self.zeroify(grid, row, col, visited)
+        return count
         
-    def bfs(self, x, y, grid, visited):
-        queue = collections.deque()
-        queue.append((x,y))
-        visited.add((x, y))
+    def zeroify(self,grid, row, col, visited):
+        queue = deque([(row, col)])
+        visited.add((row, col))
         while queue:
-            curr_x, curr_y = queue.popleft()
-            # visited.add((curr_x, curr_y))
-            for delta_x, delta_y in [(1,0),(-1,0),(0,1),(0,-1)]:
-                alter_x = curr_x + delta_x
-                alter_y = curr_y + delta_y
-                if not self.is_valid(alter_x, alter_y, grid, visited):
+            x, y = queue.popleft()
+            for delta_x, delta_y in [(1, 0), (-1, 0), (0, -1), (0, 1)]:
+                new_x, new_y = x + delta_x, y + delta_y
+                if not self.is_valid(grid, new_x, new_y, visited):
                     continue
-                queue.append((alter_x, alter_y))
-                visited.add((alter_x, alter_y))
-                    
-                
-    def is_valid(self, x, y, grid,visited):
-        m,n = len(grid), len(grid[0])
-        return  0<=x<m and 0<=y<n and grid[x][y] and (x,y) not in visited
-                
-     
+                queue.append((new_x, new_y))
+                visited.add((new_x, new_y))
+        
+    def is_valid(self, grid, x, y, visited):
+        if (x, y) in visited:
+            return False
+        if x < 0 or x >= len(grid):
+            return False
+        if y < 0 or y >= len(grid[0]):
+            return False
+        if grid[x][y] == 0:
+            return False
+        return True
+            
