@@ -26,6 +26,7 @@ class Solution:
         visited.add((row, col))
         while queue:
             x, y = queue.popleft()
+            grid[x][y] = 0
             for delta_x, delta_y in [(1, 0), (-1, 0), (0, -1), (0, 1)]:
                 new_x, new_y = x + delta_x, y + delta_y
                 if not self.is_valid(grid, new_x, new_y, visited):
