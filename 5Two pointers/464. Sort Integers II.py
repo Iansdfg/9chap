@@ -6,8 +6,7 @@ class Solution:
     def sortIntegers2(self, A):
         # write your code here
         return self.quick_sort(A, 0, len(A)-1)
-        
-        
+            
     def quick_sort(self, A, start, end):
         
         if start >= end:
@@ -32,5 +31,4 @@ class Solution:
         
         self.quick_sort(A, start, right)
         self.quick_sort(A, left, end)
-        
-        
+       
