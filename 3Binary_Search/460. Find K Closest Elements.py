@@ -21,8 +21,7 @@ class Solution:
                 right+=1
             
         return nearKth
-            
-            
+ 
     def find_first_k(self, A, target):
         start, end  = 0, len(A)-1
         while start+1<end:
@@ -36,7 +35,6 @@ class Solution:
                 return m
         
         return start if abs(A[start]-target) < abs(A[end]-target) else end
-        
         
     def is_left_clother(self, A, target, left, right):
         if left < 0:
