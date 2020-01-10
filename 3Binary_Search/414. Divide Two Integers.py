@@ -25,7 +25,7 @@ class Solution:
                 cnt += cnt 
             dividend -= summ
             res += cnt
-            
+
         res = min(2147483647, res)
         
         if is_neg:
