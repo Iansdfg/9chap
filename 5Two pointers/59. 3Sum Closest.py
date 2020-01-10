@@ -28,3 +28,6 @@ class Solution:
                         minn = abs(three_sum-target)
                     left+=1
         return res
+
+    
+    
