@@ -33,9 +33,7 @@
 #                     continue
 #                 distance[(next_x, next_y)] = distance[(curr_x, curr_y)]+1
 #                 queue.append((next_x, next_y))
-#         return -1
-        
-        
+#         return -1  
     
 #     def is_valid(self, x, y, grid):
 #         m, n = len(grid), len(grid[0])
