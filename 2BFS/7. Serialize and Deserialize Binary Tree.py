@@ -7,7 +7,6 @@ class TreeNode:
 """
 
 from collections import deque
-
 class Solution:
     """
     @param root: An object of TreeNode, denote the root of the binary tree.
@@ -17,22 +16,20 @@ class Solution:
     """
     def serialize(self, root):
         # write your code here
-        data = []
         queue = deque([root])
+        result = []
         while queue:
             node = queue.popleft()
-            
             if not node:
-                data.append(None)
+                result.append(None)
                 continue
-            data.append(node)
             
+            result.append(node)
             queue.append(node.left if node.left else None)
             queue.append(node.right if node.right else None)
-
-        return data
             
-
+        return result
+            
     """
     @param data: A string serialized by your serialize method.
     This method will be invoked second, the argument data is what exactly
@@ -48,15 +45,15 @@ class Solution:
         queue = deque([root])
         while queue:
             node = queue.popleft()
-            if node:
-                
-                nextt = data_queue.popleft()
-                node.left = nextt
-                queue.append(nextt)
-                
-                nextt = data_queue.popleft()
-                node.right = nextt
-                queue.append(nextt)
-                
-        return root 
-                
+            if not node:
+                continue
+            
+            nextt = data_queue.popleft()
+            node.left = nextt
+            queue.append(nextt)
+            
+            nextt = data_queue.popleft()
+            node.right = nextt
+            queue.append(nextt)
+        
+        return root
