@@ -1,4 +1,5 @@
-from collections import defaultdict, deque
+from collections import deque
+
 class Solution:
     """
     @param: numCourses: a total of n courses
@@ -7,27 +8,28 @@ class Solution:
     """
     def canFinish(self, numCourses, prerequisites):
         # write your code here
+        pre_to_cour = {course: [] for course in range(numCourses)}
+        in_degrees = [0 for _ in range(numCourses)]
         
-        pre_to_cour = {course:[] for course in range(numCourses)}
-        degree = [0 for i in range(numCourses)]
-        
-        for course, prerequisite in prerequisites:
-            pre_to_cour[prerequisite].append(course)
-            degree[course]+=1
+        for course, prere in prerequisites:
+            pre_to_cour[prere].append(course)
+            in_degrees[course] += 1
             
         queue, count = deque([]), 0
         
         for course in range(numCourses):
-            if degree[course] == 0:
+            if in_degrees[course] == 0:
                 queue.append(course)
-                
-        while queue:
-            node = queue.popleft()
-            count += 1
             
-            for x in pre_to_cour[node]:
-                degree[x] -= 1
-                if degree[x] == 0:
-                    queue.append(x)
+        while queue:
+            curr = queue.popleft()
+            count += 1
+            for course in pre_to_cour[curr]:
+                in_degrees[course] -= 1 
+                if in_degrees[course] == 0:
+                    queue.append(course)
                     
-        return count == numCourses
+        return numCourses == count
+                
+            
+                
