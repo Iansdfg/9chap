@@ -1,3 +1,5 @@
+from collections import deque
+
 class Solution:
     """
     @param: numCourses: a total of n courses
@@ -6,36 +8,27 @@ class Solution:
     """
     def findOrder(self, numCourses, prerequisites):
         # write your code here
-        if prerequisites == []: return [i for i in range(numCourses)]
-        course = {x : [] for x in range(numCourses)}
-        indegree = [0 for _ in range(numCourses)]
+        pre_to_course = {course:[] for course in range(numCourses)}
+        in_degree = [0 for _ in range(numCourses)]
         
-        for i,j in prerequisites:
-            indegree[i] += 1
-            course[j].append(i)
+        for pre, course in prerequisites:
+            pre_to_course[pre].append(course)
+            in_degree[course] += 1 
             
-        print(course, indegree)
             
-        order = []
-        queue = collections.deque()
-        
-        for pos in range(len(indegree)):
-            if indegree[pos] == 0:
-                queue.append(pos)
-                
-        print(queue)
-        
+        queue, order = deque([]), []
+    
+        for course in range(numCourses):
+            if in_degree[course] == 0:
+                queue.append(course)
+
         while queue:
-            curr_course_id = queue.popleft()
-            order.append(curr_course_id)
-            for pres in course[curr_course_id]:
-                indegree[pres]-=1
-                if indegree[pres] == 0:
-                    queue.append(pres)
+            curr = queue.popleft()
+            order.append(curr)      
+            
+            for next_course in pre_to_course[curr]:
+                in_degree[next_course] -= 1 
+                if in_degree[next_course] == 0:
+                    queue.append(next_course)
                     
-                    
-        return order if len(order) == numCourses else []
-                    
-                    
-                
-        
+        return order[::-1] if len(order) == numCourses else []
