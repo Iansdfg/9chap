@@ -7,11 +7,12 @@ class Solution:
     """
     def canFinish(self, numCourses, prerequisites):
         # write your code here
-        edges = {course:[] for course in range(numCourses)}
+        
+        pre_to_cour = {course:[] for course in range(numCourses)}
         degree = [0 for i in range(numCourses)]
         
         for course, prerequisite in prerequisites:
-            edges[prerequisite].append(course)
+            pre_to_cour[prerequisite].append(course)
             degree[course]+=1
             
         queue, count = deque([]), 0
@@ -24,10 +25,9 @@ class Solution:
             node = queue.popleft()
             count += 1
             
-            for x in edges[node]:
+            for x in pre_to_cour[node]:
                 degree[x] -= 1
                 if degree[x] == 0:
                     queue.append(x)
                     
         return count == numCourses
-            
