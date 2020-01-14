@@ -9,39 +9,41 @@ class Solution:
         # write your code here
         if grid == [] or grid[0] == []:
             return 0
-            
-        cols = len(grid[0])
         rows = len(grid)
-        count = 0
+        cols = len(grid[0])
+        island = 0
         visited = set()
+        
         for row in range(rows):
             for col in range(cols):
-                if grid[row][col] and (row, col) not in visited:
-                    count += 1 
-                    self.zeroify(grid, row, col, visited)
-        return count
+                if grid[row][col] == 1:
+                    island += 1
+                    visited.add((row, col))
+                    self.bfs(grid, row, col, visited)
+        return island
         
-    def zeroify(self,grid, row, col, visited):
+    
+    def bfs(self, grid, row, col, visited):
         queue = deque([(row, col)])
-        visited.add((row, col))
         while queue:
-            x, y = queue.popleft()
+            x,y = queue.popleft()
             grid[x][y] = 0
-            for delta_x, delta_y in [(1, 0), (-1, 0), (0, -1), (0, 1)]:
+            for delta_x, delta_y in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
                 new_x, new_y = x + delta_x, y + delta_y
-                if not self.is_valid(grid, new_x, new_y, visited):
-                    continue
-                queue.append((new_x, new_y))
-                visited.add((new_x, new_y))
-        
+                if self.is_valid(grid,new_x, new_y,visited):
+                    queue.append((new_x, new_y))
+                    visited.add((new_x, new_y))
+    
+                    
     def is_valid(self, grid, x, y, visited):
+        rows = len(grid)
+        cols = len(grid[0])
         if (x, y) in visited:
             return False
-        if x < 0 or x >= len(grid):
+        if x < 0 or x >= rows:
             return False
-        if y < 0 or y >= len(grid[0]):
+        if y < 0 or y >= cols:
             return False
-        if grid[x][y] == 0:
-            return False
-        return True
-            
+        return grid[x][y] == 1 
+        
+     
