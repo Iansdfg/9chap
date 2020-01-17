@@ -1,3 +1,5 @@
+from heapq import heappush, heappop, heapify
+
 class Solution:
     """
     @param words: a list of words
@@ -6,9 +8,8 @@ class Solution:
     def alienOrder(self, words):
         # Write your code here
         graph = self.built_graph(words)
-        print(graph)
-        # order = self.topological_sort()
-        return '' 
+        order = self.topological_sort(graph)
+        return order
         
     def built_graph(self, words):
         char_to_next = {}
@@ -28,5 +29,28 @@ class Solution:
                     break
                 
         return char_to_next
-            
+        
+    def topological_sort(self, graph):
+        indegree = {node:0 for node in graph}
+        
+        for node in graph:
+            for neighber in graph[node]:
+                indegree[neighber] += 1
+                
+        queue = [node for node in graph if indegree[node] == 0 ]
+        heapify(queue)
+        
+        order = ''
+        while queue:
+            node = heappop(queue)
+            order += node
+            for neighber in graph[node]:
+                indegree[neighber] -= 1 
+                if indegree[neighber] == 0:
+                    heappush(queue, neighber)
                     
+        return order if len(order) == len(graph) else ''
+            
+        
+        
+              
