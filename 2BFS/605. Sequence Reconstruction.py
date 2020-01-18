@@ -1,3 +1,5 @@
+from collections import deque
+
 class Solution:
     """
     @param org: a permutation of the integers from 1 to n
@@ -6,39 +8,48 @@ class Solution:
     """
     def sequenceReconstruction(self, org, seqs):
         # write your code here
-        if org == []: return True 
-        if seqs == [] or seqs[0]==[]: return False
-        graph = {n:[] for n in org}
-        indegree = [0 for n in range(len(org)+1)]
+            
+        graph = self.build_graph(seqs)
+        order = self.check_unique(graph)
+        return order == org
+        
+        
+    def build_graph(self, seqs):
+        node_to_next = {}
         
         for seq in seqs:
-            if seq[0]>len(org): return False 
-            for pos in range(len(seq)-1, 0, -1):
-                if seq[pos]>len(org): return False 
-                if seq[pos-1] in graph[seq[pos]]:
-                    continue
-                graph[seq[pos-1]].append(seq[pos])
-                indegree[seq[pos]]+=1
+            for node in seq:
+                if node not in node_to_next:
+                    node_to_next[node] = set()
+                    
+        for seq in seqs:
+            for node_pos in range(len(seq)-1):
+                node_to_next[seq[node_pos]].add(seq[node_pos+1])
+                
+        return node_to_next
         
-        print(graph, indegree)
         
-        queue = collections.deque()
+    def check_unique(self, graph):
+        indegree = {node:0 for node in graph}
         
-        for i in range(1,len(indegree)):
-            if indegree[i] == 0:
-                queue.append(i)
-        # print(queue)
+        for node in graph:
+            for neighber in graph[node]:
+                indegree[neighber] += 1 
+                
+        queue = deque([])
+        for node in indegree:
+            if indegree[node] == 0:
+                queue.append(node)
+                
         order = []
         while queue:
-            if len(queue)>1:
-                return False
-            curr_node = queue.popleft()
-            order.append(curr_node)
-            # print(order)
-            for next_node in graph[curr_node]:
-                indegree[next_node]-=1
-                if indegree[next_node] == 0:
-                    queue.append(next_node)
-        return len(order) == len(org) and order == org
-  
-        
+            if len(queue) > 1:
+                return None
+            curr = queue.popleft()
+            order.append(curr)
+            for neighber in graph[curr]:
+                indegree[neighber] -= 1 
+                if indegree[neighber] == 0:
+                    queue.append(neighber)
+            
+        return order if len(order) == len(graph) else None 
