@@ -34,7 +34,7 @@ class Solution:
                         visited.add((new_x, new_y))
                         queue.append((new_x, new_y))
             day += 1 
-        return day-1 if count == human_num else -1
+        return day - 1 if count == human_num else -1
         
     def is_valid(self, grid, x, y, visited):
         if (x, y) in visited:
