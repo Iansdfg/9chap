@@ -5,17 +5,15 @@ class Solution:
     """
     def permute(self, nums):
         # write your code here
-        if not nums:
-            return [[]]
-        visited = [0]*len(nums)
-        ans = []
-        self.dfs(nums, visited, [], ans)
-        return ans
+        results = []
+        visited = [0] * len(nums)
+        self.dfs(nums, [], results, visited)
+        return results
         
-    def dfs(self, nums, visited, path, ans):
         
+    def dfs(self, nums, path, results, visited):
         if len(path) == len(nums):
-            ans.append(path[:])
+            results.append(path[:])
             return
         
         for i in range(len(nums)):
@@ -23,9 +21,7 @@ class Solution:
                 continue
             
             path.append(nums[i])
-            visited[i] = 1
-            self.dfs(nums, visited, path, ans)
+            visited[i] = 1 
+            self.dfs(nums, path, results, visited)
             visited[i] = 0
             path.pop()
-            
-        
