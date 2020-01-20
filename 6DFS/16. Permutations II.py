@@ -3,28 +3,30 @@ class Solution:
     @param: :  A list of integers
     @return: A list of unique permutations
     """
+
     def permuteUnique(self, nums):
         # write your code here
-        if not nums:
-            return [[]]
         nums.sort()
+        results = []
         visited = [0]*len(nums)
-        ans = []
-        self.dfs( nums, visited, [], ans)
-        return ans
+        self.dfs(nums, [], results, visited)
+        return results
         
-    def dfs(self, nums, visited, path, ans):
-        if len(path) == len(nums):
-            ans.append(path[:])
-            return 
+    def dfs(self, nums, path, results, visited):
+        if len(nums) == len(path):
+            results.append(path[:])
+            return
+        
         for i in range(len(nums)):
             if visited[i]:
                 continue
-            if i>0 and nums[i] == nums[i-1] and not visited[i-1]:
+            
+            if i>0 and nums[i] == nums[i-1] and visited[i-1]:
                 continue
+            
             path.append(nums[i])
-            visited[i]=1
-            self.dfs(nums, visited, path, ans)
-            visited[i]=0
+            visited[i] = 1
+            self.dfs(nums, path, results, visited)
+            visited[i] = 0
             path.pop()
-       
+            
