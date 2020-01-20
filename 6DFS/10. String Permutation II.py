@@ -5,29 +5,30 @@ class Solution:
     """
     def stringPermutation2(self, str):
         # write your code here
-        s = sorted(list(str))
+        str = sorted(str)
+        visited = [0] * len(str)
         results = []
-        visited = [0]*len(s)
-        self.dfs(s, visited, [], results)
+        self.dfs(str, [], results, visited)
         return results
         
-    def dfs(self, s, visited, path, results):
-        if len(s) == len(path):
-            results.append(''.join(path))
-            return
         
-        for i in range(len(s)):
+    def dfs(self, str, path, results, visited):
+        
+        if len(path) == len(str):
+            results.append(''.join(path[:]))
+            
+        for i in range(len(str)):
+            
             if visited[i]:
                 continue
             
-            if i>0 and s[i]==s[i-1] and not visited[i-1]:
+            if i > 0 and str[i] == str[i-1] and not visited[i-1]:
                 continue
-           
-            path.append(s[i])
-            visited[i] = 1       
-            self.dfs(s, visited, path, results)
+            
+            path.append(str[i])
+            visited[i] = 1
+            self.dfs(str, path, results, visited)
             visited[i] = 0
             path.pop()
             
-        
         
