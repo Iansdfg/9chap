@@ -22,8 +22,7 @@ class Solution:
                 continue
             
             if i>0 and nums[i] == nums[i-1] and not visited[i-1]:
-                continue
-            
+                continue        
             path.append(nums[i])
             visited[i] = 1
             self.dfs(nums, path, results, visited)
