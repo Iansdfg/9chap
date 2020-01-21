@@ -6,17 +6,15 @@ class Solution:
     def subsets(self, nums):
         # write your code here
         nums.sort()
-        result = []
-        self.dfs(nums, 0, [], result)
-        return result
+        results = []
+        self.dfs(nums, 0, [], results)
+        return results
         
+    def dfs(self, nums, index, path, results):
+        results.append(path[:])
         
-        
-    def dfs(self, nums, level, path, result):
-        result.append(path[:])
-        
-        for i in range(level, len(nums)):
+        for i in range(index, len(nums)):
             path.append(nums[i])
-            self.dfs(nums, i + 1, path, result)
+            self.dfs(nums, i + 1, path, results)
             path.pop()
             
