@@ -6,18 +6,18 @@ class Solution:
     def subsetsWithDup(self, nums):
         # write your code here
         nums.sort()
-        combinations = []
-        self.dfs(nums, 0, [], combinations)
-        return combinations
+        results = []
+        self.dfs(nums, 0, [], results)
+        return results
         
-        
-    def dfs(self, nums, index, combination, combinations):
-        combinations.append(combination[:])
+    def dfs(self, nums, index, path, results):
+        results.append(path[:])
         
         for i in range(index, len(nums)):
-            if i > index and nums[i] == nums[i-1]:
+            if i>index and nums[i] == nums[i-1]:
                 continue
-            combination.append(nums[i])
-            self.dfs(nums, i + 1, combination, combinations)
-            combination.pop()
-        
+            
+            path.append(nums[i])
+            self.dfs(nums, i+1, path, results)
+            path.pop()
+            
