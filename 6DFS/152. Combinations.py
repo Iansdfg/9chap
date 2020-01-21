@@ -1,21 +1,30 @@
 class Solution:
     """
-    @param n: Given the range of numbers
-    @param k: Given the numbers of combinations
-    @return: All the combinations of k numbers out of 1..n
+    @param candidates: A list of integers
+    @param target: An integer
+    @return: A list of lists of integers
     """
-    def combine(self, n, k):
+    def combinationSum(self, candidates, target):
         # write your code here
-        results = []
-        self.dfs(n, k, 0, [], results)
-        return results
+        candidates.sort()
+        combinations = []
+        self.dfs(candidates, target, 0, [], combinations)
+        return combinations
         
-    def dfs(self, n, k, index, path, results):
-        if len(path) == k:
-            results.append(path[:])
+    def dfs(self, candidates, target, index, combination, combinations):
+        if sum(combination) > target:
             return
         
-        for i in range(index+1, n+1):
-            path.append(i)
-            self.dfs(n, k, i, path, results)
-            path.pop()
+        if sum(combination) == target:
+            combinations.append(combination[:])
+            return
+        
+        for i in range(index, len(candidates)):
+            if i > index and candidates[i] == candidates[i-1]:
+                continue
+            combination.append(candidates[i])
+            self.dfs(candidates, target, i , combination, combinations)
+            combination.pop()
+        
+        
+        
