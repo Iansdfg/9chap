@@ -5,23 +5,23 @@ class Solution:
     """
     def permute(self, nums):
         # write your code here
+        nums.sort()
         results = []
         visited = [0] * len(nums)
-        self.dfs(nums, [], results, visited)
+        self.dfs(nums, visited, [], results)
         return results
         
-        
-    def dfs(self, nums, path, results, visited):
+    def dfs(self, nums, visited, path, results):
         if len(path) == len(nums):
             results.append(path[:])
-            return
-        
+            
         for i in range(len(nums)):
             if visited[i]:
                 continue
             
-            path.append(nums[i])
             visited[i] = 1 
-            self.dfs(nums, path, results, visited)
-            visited[i] = 0
+            path.append(nums[i])
+            self.dfs(nums, visited, path, results)
             path.pop()
+            visited[i] = 0
+            
