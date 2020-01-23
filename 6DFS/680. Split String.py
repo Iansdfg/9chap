@@ -17,8 +17,7 @@ class Solution:
         
         for i in range(2):
             if i >= len(s):
-                continue
-            
+                return
             path.append(s[:i+1])
             self.dfs(s[i+1:], path, results)
             path.pop()
