@@ -13,15 +13,13 @@ class Solution:
         return results
         
     def dfs(self, A, k, target, index, path, results):
-        if sum(path) > target or len(path) > k:
-            return
-        
+        if sum(path)>target or len(path) > k:
+            return 
         if sum(path) == target and len(path) == k:
             results.append(path[:])
-            return
-        
+            
         for i in range(index, len(A)):
             path.append(A[i])
-            self.dfs(A, k, target, i+1, path, results)
+            self.dfs(A, k, target, i + 1, path, results)
             path.pop()
-        
+           
