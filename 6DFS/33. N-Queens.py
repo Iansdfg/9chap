@@ -20,7 +20,6 @@ class Solution:
         for i in range(n):
             if visited[i]:
                 continue
-            
             if not self.is_valid(path, i):
                 continue
             
@@ -32,11 +31,14 @@ class Solution:
             
     def is_valid(self, path, i):
         len_path = len(path)
-        for pos, val in enumerate(path):
+        # len_path is x, i is y 
+        # pos of path is row, val of path is col
+        # determian if abs(x - row) == abs(y - col)
+        for row, col in enumerate(path):
             # 两个点在斜线上的判断方式用一个等式
-            # Math.abs(x1 - x2) == Math.abs(y1 - y2) 即可。
-            # 根据x1 + y1 == x2 + y2 和 x1 - y1 == x2 - y2
-            if pos - val == len_path - i or pos + val == len_path + i:
+            # Math.abs(x - row) == Math.abs(y - col) 即可。
+            # 根据x + row == y + col 和 x - row == y - col
+            if row - col == len_path - i or row + col == len_path + i:
                 return False
         return True
         
@@ -48,4 +50,3 @@ class Solution:
             board.append(''.join(row))
         return board
             
-    
