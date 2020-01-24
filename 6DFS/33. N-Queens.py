@@ -12,39 +12,38 @@ class Solution:
         
     def dfs(self, n, visited, path, results):
         if len(path) == n:
-            board = self.makeboard(path[:])
-            results.append(board)
+            chessboard = self.draw_chessboard(path)
+            results.append(chessboard)
+            
             return
         
         for i in range(n):
             if visited[i]:
                 continue
-            if not self.is_valid(path, i):
+            
+            if not self.is_valid(path, len(path), i):
                 continue
+            
             visited[i] = 1
             path.append(i)
-            self. dfs(n, visited, path, results)
+            self.dfs(n, visited, path, results)
             path.pop()
             visited[i] = 0
             
-    def is_valid(self, cols, target_col):
-        target_row = len(cols)
-        for curr_r, curr_c in enumerate(cols):
-            if curr_c == target_col:
+    def is_valid(self, cols, row, col):
+        for r, c in enumerate(cols):
+            if c == col:
                 return False
-            if curr_r - curr_c == target_row - target_col or curr_r + curr_c == target_row + target_col:
+            if r - c == row - col or r + c == row + col:
                 return False
         return True
         
-    def makeboard(self, path):
-        n = len(path)
+    def draw_chessboard(self, cols):
+        n = len(cols)
         board = []
-        for num in path:
-            row = []
-            for i in range(n):
-                if i == num:
-                    row.append('Q')
-                else:
-                    row.append('.')
+        for i in range(n):
+            row = ['Q' if j == cols[i] else '.' for j in range(n)]
             board.append(''.join(row))
         return board
+            
+    
