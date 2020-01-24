@@ -43,10 +43,15 @@ class Solution:
         return True
         
     def draw_chessboard(self, path):
-        n = len(path)
         board = []
-        for i in range(n):
-            row = ['Q' if j == path[i] else '.' for j in range(n)]
+        for ele in path:
+            row = ['Q' if i == ele else '.' for i in range(len(path))]
+            # row = []
+            # for i in range(len(path)):
+            #     if i == ele:
+            #         row.append('Q') 
+            #     else: 
+            #         row.append('.') 
             board.append(''.join(row))
         return board
             
