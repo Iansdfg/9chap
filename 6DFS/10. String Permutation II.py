@@ -10,8 +10,7 @@ class Solution:
         results = []
         self.dfs(str, [], results, visited)
         return results
-        
-        
+           
     def dfs(self, str, path, results, visited):
         
         if len(path) == len(str):
@@ -31,4 +30,4 @@ class Solution:
             visited[i] = 0
             path.pop()
             
-        
+     
