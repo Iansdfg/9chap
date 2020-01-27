@@ -33,5 +33,3 @@ class Solution:
             if pos - val == path_len - i or pos + val == path_len + i :
                 return False 
         return True 
-        
-        
