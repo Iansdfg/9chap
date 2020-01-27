@@ -13,23 +13,20 @@ class Solution:
     """
     def binaryTreePaths(self, root):
         # write your code here
-        if not root:
-            return []
-        result = []
-        self.dfs(root, [], result)
-        return result
+        results = []
+        self.dfs(root, [], results)
+        return results
         
-    def dfs(self, root, path, result):
+    def dfs(self, root, path, results):
         if not root:
-            return 
-        
+            return
+          
         path.append(str(root.val))
+        
         if not root.left and not root.right:
-            ans = '->'.join(path)
-            result.append(ans)
-
-        self.dfs(root.left, path, result)
-        self.dfs(root.right, path, result)
+            results.append('->'.join(path[:]))
+            
+        self.dfs(root.left, path, results)
+        self.dfs(root.right, path, results)
         path.pop()
         
-      
