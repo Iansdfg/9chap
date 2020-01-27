@@ -11,13 +11,15 @@ class Solution:
         return results
         
     def dfs(self, s, path, results):
+        # print(path)
         if s == '':
             results.append(path[:])
             return
         
-        for i in range(2):
-            if i >= len(s):
-                return
-            path.append(s[:i+1])
-            self.dfs(s[i+1:], path, results)
+        for i in range(1,3):
+            if i>len(s):
+                continue
+            path.append(s[:i])
+            self.dfs(s[i:], path, results)
             path.pop()
+        
