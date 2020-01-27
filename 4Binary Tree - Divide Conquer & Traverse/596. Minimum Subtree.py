@@ -11,28 +11,24 @@ class Solution:
     @param root: the root of binary tree
     @return: the root of the minimum subtree
     """
-    
-    mini_node = None 
-    mini = float('inf')
-    
     def findSubtree(self, root):
         # write your code here
-        self.helper(root)
-        return self.mini_node 
+        min_sum, mini_node, summ = self.helper(root)
+        return mini_node
         
     def helper(self, root):
-        # return summ
-        if not root: 
-            return 0
-            
-        left_sum = self.helper(root.left)
-        right_sum = self.helper(root.right)
+        # return min_sum, mini_node, summ
+        if not root:
+            return float('inf'), None, 0
         
-        summ = left_sum + right_sum + root.val
+        left_min_sum, left_mini_node, left_summ = self.helper(root.left)
+        right_min_sum, right_mini_node, right_summ = self.helper(root.right)
         
-        if summ < self.mini:
-            self.mini = summ
-            self.mini_node = root
-            
-        return summ
+        summ = left_summ + right_summ + root.val
+        min_sum = min(summ, left_min_sum, right_min_sum)
         
+        if left_min_sum == min_sum:
+            return min_sum, left_mini_node, summ
+        if right_min_sum == min_sum:
+            return min_sum, right_mini_node, summ
+        return min_sum, root, summ
