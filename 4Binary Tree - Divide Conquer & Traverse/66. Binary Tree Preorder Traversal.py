@@ -17,8 +17,8 @@ class Solution:
         stack = [root]
         
         if not root:
-            return []
-            
+            return pre_order
+        
         while stack:
             curr = stack.pop()
             pre_order.append(curr.val)
