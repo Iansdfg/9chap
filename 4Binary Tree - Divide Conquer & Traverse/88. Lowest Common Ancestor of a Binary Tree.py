@@ -20,7 +20,7 @@ class Solution:
         return lca 
         
     def helper(self, root, A, B):
-        
+        # return lca
         if not root:
             return None 
         
@@ -38,4 +38,5 @@ class Solution:
             
         if right:
             return right
+            
         return None 
