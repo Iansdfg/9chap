@@ -17,6 +17,7 @@ class Solution:
         dummy = TreeNode(0)
         dummy.right = root
         stack = [dummy]
+        res = None 
         
         for _ in range(k):
             curr = stack.pop()
@@ -26,9 +27,7 @@ class Solution:
                     stack.append(curr)
                     curr = curr.left
             if stack:
-                res = stack[-1].val
-                
-        return res
-        
-      
-            
+                res = stack[-1].val 
+        return res 
+                    
+                    
