@@ -15,29 +15,41 @@ class Solution:
     @return: Return the LCA of the two nodes.
     """
     def lowestCommonAncestor3(self, root, A, B):
-        # write your code here
-        has_A, has_B, lca  = self.helper(root, A, B)
-        
-        return lca 
+        # write your code here 
+        has_A, has_B, node_has_A_or_B = self.helper(root, A, B)
+        return node_has_A_or_B if has_A and has_B else None 
         
         
     def helper(self, root, A, B):
-        # return has_A, has_B, lca 
+        # return has_A, has_B, node_has_A_or_B
         if not root:
-            return False, False, None 
+            return False, False, None
             
-        left_has_A, left_has_B, left_lca = self.helper(root.left, A, B)
-        right_has_A, right_has_B, right_lca = self.helper(root.right, A, B)
+        left_has_A, left_has_B, left_has_A_or_B = self.helper(root.left, A, B)
+        right_has_A, right_has_B, right_has_A_or_B = self.helper(root.right, A, B)
         
-        has_A = left_has_A or right_has_A or A == root 
-        has_B = left_has_B or right_has_B or B == root
+        has_A = left_has_A or right_has_A or root == A 
+        has_B = left_has_B or right_has_B or root == B  
         
-        if has_A and has_B:
-            if left_lca and not right_lca:
-                return has_A, has_B, left_lca
-            elif right_lca and not left_lca:
-                return has_A, has_B, right_lca
-            else:
-                return has_A, has_B, root
-        else:
-            return has_A, has_B, None 
+        if root == A or root == B: 
+            return has_A, has_B, root 
+        
+        if left_has_A_or_B and right_has_A_or_B:
+            return has_A, has_B, root 
+            
+        if left_has_A_or_B:
+            return has_A, has_B, left_has_A_or_B 
+            
+        if right_has_A_or_B:
+            return has_A, has_B, right_has_A_or_B 
+            
+        return has_A, has_B, None  
+            
+            
+            
+            
+            
+            
+            
+        
+        
