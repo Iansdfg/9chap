@@ -15,7 +15,10 @@ class Solution:
         # write your code here
         dummy = TreeNode(0)
         dummy.right = root
-        stack, results = [dummy], []
+        stack = [dummy]
+        
+        in_order = []
+        
         while stack:
             curr = stack.pop()
             if curr.right:
@@ -24,5 +27,7 @@ class Solution:
                     stack.append(curr)
                     curr = curr.left
             if stack:
-                results.append(stack[-1].val)
-        return results
+                in_order.append(stack[-1].val)
+        
+        return in_order
+            
