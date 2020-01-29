@@ -13,21 +13,22 @@ class Solution:
     """
     def postorderTraversal(self, root):
         # write your code here
+        post_order = []
+        stack = [root]
         if not root:
-            return []
-        result = []
-        self.post(root, result)
-        return result
+            return post_order
+        while stack:
+            curr = stack.pop()
+            post_order.append(curr.val)
+            
+            if curr.left:
+                stack.append(curr.left)
+                
+            if curr.right:
+                stack.append(curr.right)
+        return post_order[::-1]
         
-    def post(self, root, result):
-        if not root:
-            return
-        
-        self.post(root.left, result)
-        self.post(root.right, result)
-        result.append(root.val)
-        
-        
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -71,18 +72,4 @@ class Solution:
             
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        
-        
-        
-        return res
+
