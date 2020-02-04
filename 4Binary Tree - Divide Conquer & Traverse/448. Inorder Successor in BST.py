@@ -16,20 +16,20 @@ class Solution:
     """
     def inorderSuccessor(self, root, p):
         # write your code here
-        ans = None
+        ans = None 
         
         while root:
             if root.val > p.val:
+                
                 if not ans or ans.val > root.val:
                     ans = root
+                    
                 root = root.left
-            
-            elif root.val == p.val:
-                root = root.right
                 
             elif root.val < p.val:
                 root = root.right
                 
-        return ans
+            else:
+                root = root.right
                 
-        
+        return ans 
