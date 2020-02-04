@@ -21,16 +21,16 @@ class BSTIterator:
         # do intialization if necessary
         dummy = TreeNode(0)
         dummy.right = root
-        self.stack = [dummy]
+        self.stack =[dummy]
         self.next()
-        
+
     """
     @return: True if there has next node, or false
     """
     def hasNext(self, ):
         # write your code here
         return bool(self.stack)
-        
+
     """
     @return: return next node
     """
@@ -42,6 +42,8 @@ class BSTIterator:
             curr = curr.right
             while curr:
                 self.stack.append(curr)
-                curr = curr.left
-        return res    
+                curr = curr.left 
+        return res
+                    
                 
+   
