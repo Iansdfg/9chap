@@ -14,20 +14,28 @@ class Solution:
     """
     def kthSmallest(self, root, k):
         # write your code here
+        
         dummy = TreeNode(0)
         dummy.right = root
         stack = [dummy]
-        res = None 
         
-        for _ in range(k):
+        while k:
             curr = stack.pop()
             if curr.right:
                 curr = curr.right
                 while curr:
                     stack.append(curr)
                     curr = curr.left
+                    
             if stack:
                 res = stack[-1].val 
+            k-=1
+        
         return res 
+                
+        
+        
                     
-                    
+        
+        
+    
