@@ -16,27 +16,28 @@ class Solution:
     """
     def lowestCommonAncestor(self, root, A, B):
         # write your code here
-        lca = self.helper(root, A, B)
-        return lca 
+        return  self.helper(root, A, B)
+        
         
     def helper(self, root, A, B):
-        # return lca
-        if not root:
-            return None 
+        # return node has A or B  
         
-        if root == A or root == B :
-            return root
-            
+        if not root:
+            return None
+        
         left = self.helper(root.left, A, B)
         right = self.helper(root.right, A, B)
         
-        if left and right:
+        
+        if root == A or root == B:
+            return root 
+            
+        elif left and right:
             return root
-            
-        if left:
+        
+        elif left:
             return left
-            
-        if right:
+        elif right:
             return right
             
-        return None 
+            
