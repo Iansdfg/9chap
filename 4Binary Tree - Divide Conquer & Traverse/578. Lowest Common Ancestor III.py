@@ -15,41 +15,37 @@ class Solution:
     @return: Return the LCA of the two nodes.
     """
     def lowestCommonAncestor3(self, root, A, B):
-        # write your code here 
-        has_A, has_B, node_has_A_or_B = self.helper(root, A, B)
-        return node_has_A_or_B if has_A and has_B else None 
+        # write your code here
+        has_A, has_B, node_has_AorB = self.helper(root, A, B)
+        
+        if has_A and has_B:
+            return node_has_AorB
+        return None 
         
         
     def helper(self, root, A, B):
-        # return has_A, has_B, node_has_A_or_B
+        # return has_A, has_B, node_has_AorB
         if not root:
-            return False, False, None
+            return False, False, None 
             
-        left_has_A, left_has_B, left_has_A_or_B = self.helper(root.left, A, B)
-        right_has_A, right_has_B, right_has_A_or_B = self.helper(root.right, A, B)
+        left_has_A, left_has_B, left_node_has_AorB = self.helper(root.left, A, B)
+        right_has_A, right_has_B, right_node_has_AorB = self.helper(root.right, A, B)
         
-        has_A = left_has_A or right_has_A or root == A 
-        has_B = left_has_B or right_has_B or root == B  
+        has_A = left_has_A or right_has_A or A == root
+        has_B = left_has_B or right_has_B or B == root 
         
-        if root == A or root == B: 
+        if root == A or root == B:
+            return has_A, has_B, root
+        
+        elif left_node_has_AorB and right_node_has_AorB:
             return has_A, has_B, root 
-        
-        if left_has_A_or_B and right_has_A_or_B:
-            return has_A, has_B, root 
             
-        if left_has_A_or_B:
-            return has_A, has_B, left_has_A_or_B 
+        elif left_node_has_AorB:
+            return has_A, has_B, left_node_has_AorB
             
-        if right_has_A_or_B:
-            return has_A, has_B, right_has_A_or_B 
+        elif right_node_has_AorB:
+            return has_A, has_B, right_node_has_AorB
             
-        return has_A, has_B, None  
-            
-            
-            
-            
-            
-            
-            
+        return has_A, has_B, None 
         
         
