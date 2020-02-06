@@ -6,28 +6,31 @@ class Solution:
     """
     def sortColors2(self, colors, k):
         # write your code here
-        left = 0
-        for i in range(1,k+1):
-            new_left = self.sort(colors, i, left)
-            # print(i,colors)
-            left = new_left
+        color_start, color_end = 1, k 
+        index_start, index_end = 0, len(colors) - 1 
+        self.rainbow_sort(colors, color_start, color_end, index_start, index_end)
         
         
+    def rainbow_sort(self, colors, color_start, color_end, index_start, index_end):
         
-    def sort(self, colors, target, left):
-        left, right = 0, len(colors)-1
+        if index_start == index_end or color_start == color_end:
+            return
         
-        while left<=right:
-            while left<=right and colors[left]<=target:
-                left+=1
+        color_mid = (color_start + color_end) // 2 
+        
+        left, right = index_start, index_end
+        
+        while left <= right:
+            while left <= right and colors[left] <= color_mid:
+                left += 1
+            while left <= right and colors[right] > color_mid:
+                right -= 1
                 
-            while left<=right and colors[right]>target:
-                right-=1
-            
-            if left<=right:
-                colors[right],colors[left] = colors[left],colors[right]
-                left+=1
-                right-=1
+            if left <= right:
+                colors[left], colors[right] = colors[right], colors[left]
+                left += 1 
+                right -= 1 
                 
-        return left
-                
+        self.rainbow_sort(colors, color_start, color_mid, index_start, right)
+        self.rainbow_sort(colors, color_mid + 1, color_end, left , index_end)
+    
