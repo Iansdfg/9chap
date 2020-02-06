@@ -25,10 +25,3 @@ class TwoSum:
             if value-num == num and self.count[num]>1:
                 return True
         return False
-                
-
-        
-        
-        
-        
-        
