@@ -7,27 +7,28 @@ class Solution:
     def threeSumClosest(self, numbers, target):
         # write your code here
         numbers.sort()
-        length = len(numbers)
+        mini = float('inf')
         res = 0
-        minn = float('inf')
-        for i in range(length):
-            left, right =i+1, length-1
-            
-            while left<right:
-                three_sum = numbers[i]+numbers[left]+numbers[right]
-                if three_sum == target:
-                    return target
-                elif three_sum>target:
-                    if minn > abs(three_sum-target):
+        for i in range(len(numbers)):
+            left, right = i+1 , len(numbers) - 1 
+            while left < right:
+                
+                three_sum = numbers[i] + numbers[left] + numbers[right]
+                
+                if three_sum > target:
+                    if abs(three_sum - target) < mini:
+                        mini = abs(three_sum - target)
                         res = three_sum
-                        minn = abs(three_sum-target)
-                    right-=1
-                elif three_sum<target:
-                    if minn > abs(three_sum-target):
+                    right -= 1 
+                    
+                elif three_sum < target:
+                    if abs(three_sum - target) < mini:
+                        mini = abs(three_sum - target)
                         res = three_sum
-                        minn = abs(three_sum-target)
-                    left+=1
-        return res
-
-    
-    
+                    left += 1 
+                    
+                elif three_sum == target:
+                    return three_sum
+                    
+        return res 
+                
