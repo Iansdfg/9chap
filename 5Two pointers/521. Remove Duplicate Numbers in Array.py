@@ -8,13 +8,13 @@ class Solution:
         if len(nums) == 0:
             return 0
         nums.sort()
-        slow = 1 
+        slow = 0
         for fast in range(1, len(nums)):
-            if nums[fast - 1] != nums[fast]:
+            if nums[fast] != nums[slow]:
+                slow += 1
                 nums[slow] = nums[fast]
-                slow += 1 
                 
-        return slow
+        return slow+1
                 
             
             
