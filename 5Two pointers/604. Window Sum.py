@@ -6,12 +6,17 @@ class Solution:
     """
     def winSum(self, nums, k):
         # write your code here
-        n = len(nums)
-        if n < k or k <= 0:
-            return []
-        sums = [0] * (n - k + 1)
+        results = []
+        if len(nums) == 0 or k == 0:
+            return results
+            
+        len_res = len(nums) - k + 1
+        res = [0]*len_res
+        
         for i in range(k):
-            sums[0] += nums[i];
-        for i in range(1, n - k + 1):
-            sums[i] = sums[i - 1] - nums[i - 1] + nums[i + k - 1]
-        return sums
+            res[0] += nums[i]
+            
+        for i in range(1, len_res):
+            res[i] = res[i-1] - nums[i - 1] + nums[i + k - 1]
+        return res 
+            
