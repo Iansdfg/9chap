@@ -4,17 +4,23 @@ class Solution:
     @return bool: whether you can make s a palindrome by deleting at most one character
     """
     def validPalindrome(self, s):
-        # Write your code here
-        l, r = 0, len(s)-1
-        
-        while l<r:
-            if s[l] == s[r]:
-                l+=1
-                r-=1
+        # Write your code
+        left, right = 0, len(s) - 1 
+        while left < right:
+            if s[left] == s[right]:
+                left += 1 
+                right -= 1
             else:
-                break
+                return self.is_palindrome(s, left + 1 , right) or self.is_palindrome(s, left, right - 1)
+        return True
         
-        delet_l = s[:l]+s[l+1:]
-        delet_r = s[:r]+s[r+1:]
-        
-        return delet_l==delet_l[::-1] or delet_r==delet_r[::-1]
+    
+    def is_palindrome(self, s, start, end):
+        left, right = start, end 
+        while left < right:
+            if s[left] == s[right]:
+                left += 1 
+                right -= 1 
+            else:
+                return False 
+        return True 
