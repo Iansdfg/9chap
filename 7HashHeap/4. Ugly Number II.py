@@ -8,13 +8,16 @@ class Solution:
     def nthUglyNumber(self, n):
         # write your code here
         heap = [1]
-        visited = set()
-        val = None
+        visited = set([1])
+        
+        val = None 
         for i in range(n):
             val = heapq.heappop(heap)
             for factor in [2, 3, 5]:
-                if factor * val not in visited:
-                    visited.add(factor * val)
-                    heapq.heappush(heap, factor * val)
-        return val
-               
+                new_num = factor * val 
+                if new_num not in visited:
+                    visited.add(new_num)
+                    heapq.heappush(heap, new_num)
+                    
+        return val 
+                    
