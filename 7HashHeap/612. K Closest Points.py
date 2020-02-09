@@ -1,5 +1,3 @@
-import heapq
-
 """
 Definition for a point.
 class Point:
@@ -7,6 +5,8 @@ class Point:
         self.x = a
         self.y = b
 """
+
+from heapq import heappop, heappush
 
 class Solution:
     """
@@ -18,20 +18,16 @@ class Solution:
     def kClosest(self, points, origin, k):
         # write your code here
         heap = []
-        for point in points:
-            dis = self.get_dis(point, origin)
-            heapq.heappush(heap, (-dis, -point.x, -point.y))
-            if len(heap)>k:
-                heapq.heappop(heap)
-                
-        result = []
-        while len(heap)>0:
-            dis, x, y = heapq.heappop(heap)
-            result.append(Point(-x,-y))
-            
-        result.reverse()
-        return result
-            
-    def get_dis(self, a, b):
-        return (a.x - b.x) ** 2 + (a.y - b.y) ** 2
         
+        for point in points:
+            dis = self.get_distance(point,origin)
+            heappush(heap, (dis, point.x, point.y))
+        
+        res = []
+        for i in range(k):
+           res.append(heappop(heap)[1:]) 
+
+        return res
+            
+    def get_distance(self, a, b):
+        return (a.x - b.x)**2 + (a.y - b.y)**2
