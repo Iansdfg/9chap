@@ -1,4 +1,4 @@
-import heapq
+from heapq import heappop, heappush, heappushpop
 
 class Solution:
     """
@@ -6,22 +6,27 @@ class Solution:
     """
     def __init__(self, k):
         # do intialization if necessary
-        self.k = k
         self.heap = []
+        self.k = k 
         
+
     """
     @param: num: Number to be added
     @return: nothing
     """
     def add(self, num):
         # write your code here
-        heapq.heappush(self.heap, num)
-        if len(self.heap) > self.k:
-            heapq.heappop(self.heap)
-
+        if self.k > len(self.heap):
+            heappush(self.heap, num)
+            
+        elif self.k <= len(self.heap) and num > self.heap[0]:
+            heappush(self.heap, num)
+            heappop(self.heap)
+            
     """
     @return: Top k element
     """
     def topk(self):
         # write your code here
-        return sorted(self.heap, reverse=True)
+        self.heap.sort()
+        return self.heap[::-1]
