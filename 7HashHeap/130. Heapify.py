@@ -5,23 +5,14 @@ class Solution:
     """
     def heapify(self, A):
         # write your code here
-        for i in range(len(A)//2, -1, -1):
-            self.siftdown(A, i)
-    
-    
-    def siftdown(self, Array, index):
-        lenth = len(Array)
-        mini_index = index 
-        while index<lenth:
-            left, right = index*2+1, index*2+2
-            if left<lenth and Array[mini_index]>Array[left]:
-                mini_index = left
-            if right<lenth and Array[mini_index]>Array[right]:
-                mini_index = right
-
-            if mini_index == index:
+        for order in range(len(A)):
+            self.siftup(A, order)
+            
+            
+    def siftup(self, A, order):
+        while order:
+            father_order = (order - 1) // 2
+            if A[order] > A[father_order]:
                 break
-            
-            Array[mini_index], Array[index] = Array[index], Array[mini_index]
-            
-            index = mini_index
+            A[order], A[father_order] = A[father_order], A[order]
+            order = father_order
