@@ -27,6 +27,7 @@ class DataStream:
             self.visited.add(num)
         else:
             self.tail.next = linkedNode(num)
+            # 记住add之后要放入dict
             self.key_to_prev[num] = self.tail
             self.tail = self.tail.next
             
@@ -40,6 +41,7 @@ class DataStream:
         node.next = None
         if nextt:
             self.key_to_prev[nextt.val] = prev
+        # 处理node是tail的情况
         else:
             self.tail = prev
         del self.key_to_prev[node.val]
