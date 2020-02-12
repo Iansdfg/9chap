@@ -1,11 +1,10 @@
-from random import randrange
-
+import random
 class RandomizedSet:
     
     def __init__(self):
         # do intialization if necessary
-        self.pos = dict()
-        self.nums = list()
+        self.val_to_pos = dict()
+        self.stack = []
 
     """
     @param: val: a value to the set
@@ -13,30 +12,28 @@ class RandomizedSet:
     """
     def insert(self, val):
         # write your code here
-        self.nums.append(val)
-        self.pos[val] = len(self.nums)-1
-        return True
-
+        if val in self.stack:
+            return
+        self.stack.append(val)
+        self.val_to_pos[val] =  len(self.stack) - 1
+        
     """
     @param: val: a value from the set
     @return: true if the set contained the specified element or false
     """
     def remove(self, val):
         # write your code here
-        if val not in self.pos:
-            return False
+        if val not in self.stack:
+            return
         
-        val_index = self.pos[val] 
-        last_ele = self.nums[-1]
+        pos = self.val_to_pos[val]
+        last_val = self.stack[-1]
         
-        self.nums[val_index] = last_ele
-        del self.pos[last_ele]
-        self.pos[last_ele] = val_index
+        self.stack[pos] = last_val
+        self.val_to_pos[last_val] = pos
         
-        self.nums.pop()
-        return True
-        
-        
+        self.stack.pop()
+        del self.val_to_pos[val]
         
 
     """
@@ -44,10 +41,8 @@ class RandomizedSet:
     """
     def getRandom(self):
         # write your code here
-        pos = randrange(len(self.nums))
-        return self.nums[pos]
-        
-
+        pos = random.randint(0, len(self.stack) - 1)
+        return self.stack[pos]
 
 # Your RandomizedSet object will be instantiated and called as such:
 # obj = RandomizedSet()
