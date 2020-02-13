@@ -45,9 +45,7 @@ class Solution:
             tail.next = l2
         return dummy.next
         
-        
-        
-# merge 
+"D-C Merger"  
 """
 Definition of ListNode
 class ListNode(object):
@@ -63,23 +61,24 @@ class Solution:
     """
     def mergeKLists(self, lists):
         # write your code here
-        if not lists: return lists
-        
-        return self.devide_and_merge(lists, 0, len(lists)-1)
-        
-        
-    def devide_and_merge(self, lists, start, end):
-        if start == end:
-            return lists[start]
-        
-        mid = (start + end)//2
-        left = self.devide_and_merge(lists, start, mid)
-        right = self.devide_and_merge(lists, mid+1, end)
-        return self.merge_two_list(left, right)
+        if len(lists) == 1:
+            return lists[0]
+            
+        if len(lists) == 2:
+            return self.merge_two(lists[0], lists[-1])
+    
+        mid = (len(lists))//2
+        left_list = self.mergeKLists(lists[:mid])
+        right_list = self.mergeKLists(lists[mid:])
         
         
-    def merge_two_list(self, l1, l2):
-        dummy = tail = ListNode(0)
+        return self.merge_two(left_list, right_list)
+        
+        
+    def merge_two(self, l1, l2):
+        dummy = ListNode(0)
+        tail = dummy 
+        
         while l1 and l2:
             if l1.val < l2.val:
                 tail.next = l1
@@ -88,12 +87,14 @@ class Solution:
                 tail.next = l2
                 l2 = l2.next
             tail = tail.next
+        
         if l1:
             tail.next = l1
-        else:
+        if l2:
             tail.next = l2
+            
         return dummy.next
-        
+          
 
 # heap
 """
