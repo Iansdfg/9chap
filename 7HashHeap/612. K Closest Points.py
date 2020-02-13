@@ -5,8 +5,7 @@ class Point:
         self.x = a
         self.y = b
 """
-
-from heapq import heappop, heappush
+from heapq import heappush, heappop
 
 class Solution:
     """
@@ -17,17 +16,17 @@ class Solution:
     """
     def kClosest(self, points, origin, k):
         # write your code here
+        
         heap = []
-        
         for point in points:
-            dis = self.get_distance(point,origin)
+            dis = self.distance(point, origin)
             heappush(heap, (dis, point.x, point.y))
-        
         res = []
-        for i in range(k):
-           res.append(heappop(heap)[1:]) 
-
+        for _ in range(k):
+            dis, point_x, point_y = heappop(heap)
+            res.append(Point(point_x, point_y))
         return res
             
-    def get_distance(self, a, b):
-        return (a.x - b.x)**2 + (a.y - b.y)**2
+    
+    def distance(self, A, B):
+        return (A.x - B.x)**2 + (A.y - B.y)**2
