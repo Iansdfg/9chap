@@ -94,10 +94,6 @@ class Solution:
             tail.next = l2
         return dummy.next
         
-        
-        
-        
-
 
 # heap
 """
@@ -109,7 +105,7 @@ class ListNode(object):
         self.next = next
 """
 
-from heapq import heappop, heappush
+from heapq import heappop, heappush, heapify
 class Solution:
     """
     @param lists: a list of ListNode
@@ -118,8 +114,6 @@ class Solution:
     def mergeKLists(self, lists):
         # write your code here
         heap = []
-        result = []
-        
         for index, head in enumerate(lists):
             if not head:
                 continue
@@ -127,21 +121,15 @@ class Solution:
             
         dummy = ListNode(0)
         tail = dummy
-        
         while heap:
-            node_val, node_index, node = heappop(heap)
-            print(node_val, node_index)
-            tail.next = node
-            tail = node
-            if not node.next:
-                continue
-            nextt = node.next
-            heappush(heap, (nextt.val, node_index  , nextt))
+            curr_val, curr_idx, curr = heappop(heap)
+            tail.next = curr
+            tail = curr
             
-        return dummy.next 
-        
-
-
-        
-
-
+            nextt = curr.next
+            if not nextt:
+                continue
+            heappush(heap, (nextt.val, curr_idx, nextt))
+            
+        return  dummy.next
+            
