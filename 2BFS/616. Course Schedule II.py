@@ -1,5 +1,4 @@
-from collections import deque
-
+from collections import defaultdict, deque
 class Solution:
     """
     @param: numCourses: a total of n courses
@@ -8,27 +7,26 @@ class Solution:
     """
     def findOrder(self, numCourses, prerequisites):
         # write your code here
-        pre_to_course = {course:[] for course in range(numCourses)}
-        in_degree = [0 for _ in range(numCourses)]
+        pre_to_cours = defaultdict(list)
+        in_degree = [0] * numCourses
         
-        for pre, course in prerequisites:
-            pre_to_course[pre].append(course)
-            in_degree[course] += 1 
+        for prerequisite in prerequisites:
+            pre_to_cours[prerequisite[1]].append(prerequisite[0])
+            in_degree[prerequisite[0]] += 1 
             
-            
-        queue, order = deque([]), []
-    
+        queue = deque([])
         for course in range(numCourses):
             if in_degree[course] == 0:
                 queue.append(course)
-
+            
+        result = []
         while queue:
             curr = queue.popleft()
-            order.append(curr)      
+            result.append(curr)
+            for next_cour in  pre_to_cours[curr]:
+                in_degree[next_cour] -= 1 
+                if in_degree[next_cour] == 0:
+                    queue.append(next_cour)
+        
+        return result if len(result) == numCourses else []
             
-            for next_course in pre_to_course[curr]:
-                in_degree[next_course] -= 1 
-                if in_degree[next_course] == 0:
-                    queue.append(next_course)
-                    
-        return order[::-1] if len(order) == numCourses else []
