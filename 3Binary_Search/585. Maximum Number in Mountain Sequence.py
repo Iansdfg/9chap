@@ -5,13 +5,13 @@ class Solution:
     """
     def mountainSequence(self, nums):
         # write your code here
+        start, end = 0, len(nums) - 1
+        while start + 1 < end:
+            mid = (start + end)//2
+            print(mid)
+            if nums[mid] > nums[mid - 1]:
+                start = mid 
+            elif nums[mid] < nums[mid - 1]:
+                end = mid 
         
-        if nums == []: return -1
-        start, end = 0, len(nums)-1    
-        while start+1<end:
-            m = (start+end)//2
-            if nums[m]<nums[m+1]:
-                start = m 
-            elif nums[m]>nums[m+1]:
-                end = m        
-        return max(nums[start],nums[end])
+        return max(nums[start], nums[end])
