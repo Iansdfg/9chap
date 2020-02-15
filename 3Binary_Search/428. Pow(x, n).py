@@ -13,9 +13,8 @@ class Solution:
         base, ans = x, 1 
         while n:
             if n % 2:
-                ans = base * base * ans
-            else:
-                base *= base 
+                ans *= base
+            base *= base 
             n //= 2
         return ans 
             
