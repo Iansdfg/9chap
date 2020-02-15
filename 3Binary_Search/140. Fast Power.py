@@ -1,20 +1,16 @@
 class Solution:
     """
-    @param x {float}: the base number
-    @param n {int}: the power number
-    @return {float}: the result
+    @param a: A 32bit integer
+    @param b: A 32bit integer
+    @param n: A 32bit integer
+    @return: An integer
     """
-    def myPow(self, x, n):
+    def fastPower(self, a, b, n):
         # write your code here
-        if n < 0:
-            x = 1/x
-            n = -n
-        base = x 
-        ans = 1 
+        base, ans = a, 1 
         while n:
-            if n % 2 == 1:
-                ans *= base
-            base *= base 
-            n = n // 2 
-        return ans 
-            
+            if n%2:
+                ans = (base * ans) % b
+            base =(base*base) % b 
+            n //= 2 
+        return ans % b 
