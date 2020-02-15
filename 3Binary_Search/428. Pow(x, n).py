@@ -10,11 +10,11 @@ class Solution:
             n = -n 
             x = 1/x 
             
-        base, ans = x, 1 
+        base, last_ans = x, 1 
         while n:
+            print(base, last_ans, n)
             if n % 2:
-                ans *= base
+                last_ans *= base
             base *= base 
             n //= 2
-        return ans 
-            
+        return last_ans 
