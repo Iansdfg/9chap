@@ -5,20 +5,28 @@ class Solution:
     """
     def longestConsecutive(self, num):
         # write your code here
-        num_set = set(num)
-        longest = 0
+        if len(num) <= 1:
+            return len(num)
+        nums_set = set(num)
+        res = float('-inf')
+         
         for number in num:
-            up = number + 1 
-            while up in num_set:
-                num_set.discard(up)
-                up += 1
-                
-            low = number - 1 
-            while low in num_set:
-                num_set.discard(low)
-                low -= 1
-                
-            longest = max(longest, up - low - 1)
+            count = 1
             
-        return longest
+            up = number+1
+            while up in nums_set:
+                nums_set.discard(up)
+                up += 1
+                count += 1 
+                
+            low = number-1
+            while low in nums_set:
+                nums_set.discard(low)
+                low -= 1
+                count += 1
+                
+            res = max(res, count)
+        return res  
+                
+                
                 
