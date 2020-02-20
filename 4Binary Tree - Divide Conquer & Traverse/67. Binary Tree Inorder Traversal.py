@@ -13,24 +13,18 @@ class Solution:
     """
     def inorderTraversal(self, root):
         # write your code here
-        
         dummy = TreeNode(0)
         dummy.right = root
+        stact = [dummy]
+        in_order = []
         
-        stack = [dummy]
-        res = []
-        while stack:
-            curr = stack.pop()
+        while stact:
+            curr = stact.pop()
             if curr.right:
                 curr = curr.right
                 while curr:
-                    stack.append(curr)
+                    stact.append(curr)
                     curr = curr.left
-            if stack:
-                res.append(stack[-1].val)
-        return res 
-                    
-                    
-            
-        
-        
+            if stact:
+                in_order.append(stact[-1].val)
+        return in_order
