@@ -13,14 +13,12 @@ class Solution:
     """
     def inorderTraversal(self, root):
         # write your code here
-        if not root:
-            return [] 
-            
+        
         dummy = TreeNode(0)
         dummy.right = root
-        stack = [dummy]
-        in_order = []
         
+        stack = [dummy]
+        res = []
         while stack:
             curr = stack.pop()
             if curr.right:
@@ -29,7 +27,10 @@ class Solution:
                     stack.append(curr)
                     curr = curr.left
             if stack:
-                in_order.append(stack[-1].val)
-        return in_order
+                res.append(stack[-1].val)
+        return res 
                     
                     
+            
+        
+        
