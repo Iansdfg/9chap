@@ -11,29 +11,31 @@ class Solution:
     @param root: the root of binary tree
     @return: the root of the maximum average of subtree
     """
-    max_avg_node = None
-    max_ave = float('-inf')
-    
-    
+    max_avg = float('-inf')
+    target_node = None  
     def findSubtree2(self, root):
         # write your code here
-        summ, size = self.helper(root)
-        return self.max_avg_node
+        summ, num = self.helper(root)
+        return self.target_node
         
-     
     def helper(self, root):
-        # return summ, size
+        # return sum and # of Node 
         if not root:
             return 0, 0
+            
+        left_sum, left_num = self.helper(root.left)
+        right_sum, right_num = self.helper(root.right)
         
-        left_sum, left_size = self.helper(root.left)
-        right_sum, right_size = self.helper(root.right)
+        summ = left_sum + right_sum + root.val 
+        num = left_num + right_num + 1
+        print(summ, num)
         
-        summ =  left_sum + right_sum + root.val
-        size = left_size + right_size + 1
+        avg = summ/num
+        self.max_avg = max(self.max_avg, avg)
+        if self.max_avg == avg:
+            self.target_node = root
         
-        if summ / size > self.max_ave: 
-            self.max_ave = summ / size
-            self.max_avg_node = root
-
-        return summ, size
+        return summ, num
+        
+        
+        
