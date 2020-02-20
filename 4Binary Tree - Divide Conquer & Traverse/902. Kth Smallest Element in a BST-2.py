@@ -74,7 +74,9 @@ class Solution:
         elif k == left_count+1:
             return root.val
         elif k > left_count+1:
-            return self.helper(root.right, k - left_count - 1)
+            return self.helper(root.right, k - (left_count + 1))
         
+        
+         
         
          
