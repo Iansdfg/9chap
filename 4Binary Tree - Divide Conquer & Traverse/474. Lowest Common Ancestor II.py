@@ -16,14 +16,17 @@ class Solution:
     """
     def lowestCommonAncestorII(self, root, A, B):
         # write your code here
-        visited = []
-        while A: 
-            visited.append(A)
+        visited = set()
+        
+        while A:
+            visited.add(A)
             A = A.parent
             if A == B:
-                return A 
-                
-        while B:
-            B = B.parent
-            if B in visited:
                 return B 
+        
+        while B:
+            if B in visited:
+                return B
+            B = B.parent
+            
+        return None 
