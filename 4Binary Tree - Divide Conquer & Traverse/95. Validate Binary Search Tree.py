@@ -13,26 +13,27 @@ class Solution:
     """
     def isValidBST(self, root):
         # write your code here
-        max_val, min_val, valid  = self.hleper(root)
+        min_val, max_val, valid = self.helper(root)
         return valid
-
         
-    def hleper(self, root):
-        # return max_val, min_val, valid 
+    def helper(self, root):
+        # return min, max, valid 
         if not root:
-            return None, None, True
+            return None, None, True 
             
-        letf_max_val, letf_min_val, letf_valid = self.hleper(root.left)
-        right_max_val, right_min_val, right_valid = self.hleper(root.right)
+        left_min, left_max, left_valid = self.helper(root.left)
+        right_min, right_max, right_valid = self.helper(root.right)
         
-        if not letf_valid or not right_valid: 
-            return None, None, False
-        if letf_max_val and letf_max_val >= root.val:
-            return None, None, False
-        if right_min_val and right_min_val <= root.val:
-            return None, None, False
+        if not left_valid or not right_valid:
+            return None, None, False 
             
-        max_val = right_max_val if right_max_val else root.val
-        mini_val = letf_min_val if letf_min_val else root.val
+        if left_max and left_max >= root.val:
+            return None, None, False 
+            
+        if right_min and right_min <=root.val:
+            return None, None, False 
         
-        return max_val, mini_val, True
+        min_val = left_min if left_min else root.val
+        max_val = right_max if right_max else root.val
+        
+        return min_val, max_val, True
