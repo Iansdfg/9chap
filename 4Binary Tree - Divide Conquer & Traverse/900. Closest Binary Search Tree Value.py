@@ -14,19 +14,16 @@ class Solution:
     """
     def closestValue(self, root, target):
         # write your code here
-        lower = root
-        upper = root
-        
+        upper, lower = root, root
         while root:
-            if root.val < target:
-                lower = root
-                root = root.right
-            elif root.val > target:
+            if root.val > target:
                 upper = root
                 root = root.left
+            elif root.val < target:
+                lower = root
+                root = root.right
             else:
                 return root.val
-                
-        return upper.val if abs(upper.val-target) < abs(lower.val-target) else lower.val
-                
-                
+        
+        return lower.val if abs(lower.val - target) < abs(upper.val - target) else upper.val
+            
