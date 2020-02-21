@@ -67,7 +67,82 @@ class Solution:
         return abs(arrary[left] - target) < abs(arrary[right] - target)
         
         
-                
-            
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the given BST
+    @param target: the given target
+    @param k: the given k
+    @return: k values in the BST that are closest to the target
+    """
+    def closestKValues(self, root, target, k):
+        # write your code here
+        closest_node = self.find_closed_val(root, target)
+        succesor = self.find_succesor(root, closest_node)
+        precesor = self.find_precesor(root, closest_node)
+        results = [closest_node.val]
+        while len(results)<k:
+            print(results)
+            if succesor and precesor:
+                if abs(succesor.val - target) < abs(precesor.val - target):
+                    results.append(succesor.val)
+                    succesor = self.find_succesor(root, succesor)
+                else:
+                    results.append(precesor.val)
+                    precesor = self.find_precesor(root, precesor)
+            elif not succesor:
+                results.append(precesor.val)
+                precesor = self.find_precesor(root, precesor)
+            elif not precesor:
+                results.append(succesor.val)
+                succesor = self.find_succesor(root, succesor)
+        return results
+        
+    def find_closed_val(self, root, target):
+        lower, upper = root, root
+        while root:
+            if root.val > target:
+                lower = root
+                root = root.left
+            elif root.val < target:
+                upper = root
+                root = root.right
+            else:
+                return root
+        return upper if abs(upper.val - target) < abs(lower.val - target) else lower
+        
+    def find_succesor(self, root, node):
+        ans = None 
+        while root:
+            if root.val > node.val:
+                if not ans or ans.val > root.val:
+                    ans = root
+                root = root.left
+            elif root.val < node.val:
+                root = root.right
+            elif root.val == node.val:
+                root = root.right
+        return ans 
+        
+    def find_precesor(self, root, node):
+        ans = None 
+        while root:
+            if root.val > node.val:
+                root = root.left
+            elif root.val < node.val:
+                if not ans or ans.val < root.val:
+                    ans = root
+                root = root.right
+            elif root.val == node.val:
+                root = root.left
+        return ans 
+          
         
     
