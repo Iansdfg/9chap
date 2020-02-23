@@ -6,20 +6,18 @@ class Solution:
 
     def splitString(self, s):
         # write your code here
-        results = []
+        results =[]
         self.dfs(s, [], results)
         return results
         
     def dfs(self, s, path, results):
-        # print(path)
         if s == '':
             results.append(path[:])
             return
         
-        for i in range(1,3):
-            if i>len(s):
+        for i in [1, 2]:
+            if i > len(s):
                 continue
             path.append(s[:i])
             self.dfs(s[i:], path, results)
             path.pop()
-        
