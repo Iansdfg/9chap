@@ -17,4 +17,5 @@ class Solution:
         for key in anagram_to_list:
             if len(anagram_to_list[key]) >= 2:
                 results += anagram_to_list[key]
+                
         return results
