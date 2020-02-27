@@ -36,7 +36,6 @@ class Solution:
                     words.append(next_word)
         return words
     
-    
     def dfs(self, curr, target, distance, dict, path, results):
         if curr == target:
             results.append(list(path))
@@ -48,4 +47,4 @@ class Solution:
             path.append(word)
             self.dfs(word, target, distance, dict, path, results)
             path.pop()
-        
+      
