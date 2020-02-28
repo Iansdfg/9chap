@@ -5,6 +5,7 @@ class TreeNode:
         this.val = val
         this.left, this.right = None, None
 """
+
 class Solution:
     """
     @param: root: The root of the binary tree.
@@ -39,4 +40,3 @@ class Solution:
             return exist_A, exist_B, right_node_has_AorB
         else:
             return exist_A, exist_B, None
-            
