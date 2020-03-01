@@ -15,7 +15,9 @@ class Solution:
                 
                 if col < nums[row - 1]:
                     continue
+                    
                 dp[row][col] += dp[row - 1][col - nums[row - 1]]
-        print(dp)
+                
+#         print(dp)
         return dp[-1][-1]
         
