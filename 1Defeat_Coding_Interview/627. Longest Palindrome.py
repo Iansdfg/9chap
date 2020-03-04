@@ -5,15 +5,14 @@ class Solution:
     """
     def longestPalindrome(self, s):
         # write your code here
-        chars = []
-        res = 0
+        word_set = set()
+        count = 0
         for char in s:
-            if char in chars:
-                chars.remove(char)
-                res+=1
-     
+            if char not in word_set:
+                word_set.add(char)
             else:
-                chars.append(char)
-                
-        return min(res*2+1, len(s))
-          
+                count += 1 
+                word_set.discard(char)
+        return min(count*2 + 1, len(s))
+            
+        
