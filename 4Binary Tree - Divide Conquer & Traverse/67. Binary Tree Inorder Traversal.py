@@ -12,19 +12,22 @@ class Solution:
     @return: Inorder in ArrayList which contains node values.
     """
     def inorderTraversal(self, root):
-        # write your code here
+        # write your code here 
         dummy = TreeNode(0)
         dummy.right = root
-        stact = [dummy]
-        in_order = []
+        stack = [dummy]
+        inorder = []
         
-        while stact:
-            curr = stact.pop()
+        while stack:
+            curr = stack.pop()
             if curr.right:
                 curr = curr.right
                 while curr:
-                    stact.append(curr)
+                    stack.append(curr)
                     curr = curr.left
-            if stact:
-                in_order.append(stact[-1].val)
-        return in_order
+                    
+            if stack:
+                inorder.append(stack[-1].val)
+                    
+        return inorder
+        
