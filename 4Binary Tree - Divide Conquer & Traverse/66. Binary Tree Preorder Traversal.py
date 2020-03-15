@@ -13,17 +13,20 @@ class Solution:
     """
     def preorderTraversal(self, root):
         # write your code here
-        pre_order = []
-        stack = [root]
-        
         if not root:
-            return pre_order
+            return []
+            
+        stack = [root]
+        pre_order = []
         
         while stack:
             curr = stack.pop()
             pre_order.append(curr.val)
+            
             if curr.right:
                 stack.append(curr.right)
+                
             if curr.left:
                 stack.append(curr.left)
+                
         return pre_order
