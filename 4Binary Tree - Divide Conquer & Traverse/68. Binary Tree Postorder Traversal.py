@@ -6,6 +6,14 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
 class Solution:
     """
     @param root: A Tree
@@ -13,21 +21,25 @@ class Solution:
     """
     def postorderTraversal(self, root):
         # write your code here
-        post_order = []
-        stack = [root]
         if not root:
-            return post_order
+            return []
+        stack = [root]
+        pre_order = []
+        
         while stack:
             curr = stack.pop()
-            post_order.append(curr.val)
+            pre_order.append(curr.val)
             
             if curr.left:
                 stack.append(curr.left)
                 
             if curr.right:
                 stack.append(curr.right)
-        return post_order[::-1]
-        
+                
+        pre_order.reverse()
+        return pre_order
+            
+
 
 """
 Definition of TreeNode:
