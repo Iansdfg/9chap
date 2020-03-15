@@ -6,6 +6,7 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
+
 class Solution:
     """
     @param: root: the root of binary tree
@@ -20,17 +21,13 @@ class Solution:
         
     def dfs(self, root, target, path, results):
         if not root:
-            return 
+            return
         
         path.append(root.val)
         
-        if not root.left and not root.right and target == root.val:
+        if not root.left and not root.right and sum(path) == target:
             results.append(path[:])
-
-        self.dfs(root.left, target-root.val, path, results)
-        self.dfs(root.right, target-root.val, path, results)
+            
+        self.dfs(root.left, target, path, results)
+        self.dfs(root.right, target, path, results)
         path.pop()
-        
-        
- 
- 
