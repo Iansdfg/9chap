@@ -12,7 +12,7 @@ class Solution:
     @return: Inorder in ArrayList which contains node values.
     """
     def inorderTraversal(self, root):
-        # write your code here 
+        # write your code here
         dummy = TreeNode(0)
         dummy.right = root
         stack = [dummy]
@@ -28,6 +28,5 @@ class Solution:
                     
             if stack:
                 inorder.append(stack[-1].val)
-                    
+                
         return inorder
-        
