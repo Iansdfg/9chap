@@ -12,6 +12,7 @@ while iterator.hasNext():
     do something for node 
 """
 
+
 class BSTIterator:
     """
     @param: root: The root of binary tree.
@@ -22,34 +23,28 @@ class BSTIterator:
         dummy.right = root
         self.stack = [dummy]
         self.next()
-        
 
     """
     @return: True if there has next node, or false
     """
     def hasNext(self, ):
         # write your code here
-        return len(self.stack) != 0
+        return bool(self.stack)
 
     """
     @return: return next node
     """
     def next(self, ):
         # write your code here
- 
         curr = self.stack.pop()
         ans = curr
         if curr.right:
-            curr = curr.right 
+            curr = curr.right
             while curr:
                 self.stack.append(curr)
                 curr = curr.left
+                
         return ans
-        
-        
-        
-        
-        
         
         
         
