@@ -5,7 +5,6 @@ class TreeNode:
         this.val = val
         this.left, this.right = None, None
 """
-
 class Solution:
     """
     @param: root: The root of the binary tree.
