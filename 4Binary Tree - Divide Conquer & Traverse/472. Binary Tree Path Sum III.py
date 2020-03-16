@@ -15,38 +15,37 @@ class Solution:
     """
     def binaryTreePathSum3(self, root, target):
         # write your code here
-        result = []
-        self.dfs(root, target, result)
-        return result
-        
-    def dfs(self, root, target, result):
-        if not root:
-            return 
-        path = []
-        
-        self.path_sum(root, target, path, result, None)
-        
-        self.dfs(root.left, target, result)
-        self.dfs(root.right, target, result)
-        
-        
-    def path_sum(self, root, target, path, result, father):
+        results = []
+        self.inorder(root, target, results)
+        return results
+            
+    def inorder(self, root, target, results):
         if not root:
             return
-        path.append(root.val)
-        target -= root.val
         
-        if target == 0:
-            result.append(path[:])
+        path = []
+        self.dfs(root, None, target, path, results)
+        
+        self.inorder(root.left, target, results)
+        self.inorder(root.right, target, results)
+
+    def dfs(self, root, prev, target, path, results):
+        path.append(root.val)
+        
+        if sum(path) == target:
+            results.append(path[:])
+        
+        for neighber in [root.parent, root.left, root.right]:
+            if not neighber or neighber == prev:
+                continue
+            self.dfs(neighber, root, target, path, results)
             
-        if root.parent and root.parent != father:
-            self.path_sum(root.parent, target, path, result, root)
-            
-        if root.left and root.left != father:
-            self.path_sum(root.left, target, path, result, root)
-            
-        if root.right and root.right != father:
-            self.path_sum(root.right, target, path, result, root)
-            
+        
         path.pop()
+        
+        
+            
+            
+            
+            
             
