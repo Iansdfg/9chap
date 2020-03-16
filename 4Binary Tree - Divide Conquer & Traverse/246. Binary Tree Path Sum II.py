@@ -15,23 +15,19 @@ class Solution:
     """
     def binaryTreePathSum2(self, root, target):
         # write your code here
-        result = []
-        self.dfs(root, target, [], result, 0, 0)
-        return result
+        results = []
+        self.dfs(root, target, [], results)
+        return results
         
-    def dfs(self, root, target, path, result, summ, level):
+    def dfs(self, root, target, path, results):
         if not root:
-            return 
+            return
         
         path.append(root.val)
-        summ += root.val
-
         for i in range(len(path)):
             if sum(path[i:]) == target:
-                result.append(path[i:])
-        
-        self.dfs(root.left, target, path, result, summ, level)
-        self.dfs(root.right, target, path, result, summ, level)
-        
-        summ -= root.val
+                results.append(path[i:])
+            
+        self.dfs(root.left, target, path, results)
+        self.dfs(root.right, target, path, results)
         path.pop()
