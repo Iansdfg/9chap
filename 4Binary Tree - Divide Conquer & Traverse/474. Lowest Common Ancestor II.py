@@ -19,14 +19,14 @@ class Solution:
         visited = set()
         
         while A:
+            if A == B:
+                return A 
             visited.add(A)
             A = A.parent
-            if A == B:
-                return B 
-        
+            
         while B:
             if B in visited:
-                return B
+                return B 
             B = B.parent
             
         return None 
