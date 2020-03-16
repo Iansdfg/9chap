@@ -14,7 +14,9 @@ class Solution:
     """
     def closestValue(self, root, target):
         # write your code here
-        upper, lower = root, root
+        upper = root 
+        lower = root
+        
         while root:
             if root.val > target:
                 upper = root
@@ -26,4 +28,4 @@ class Solution:
                 return root.val
         
         return lower.val if abs(lower.val - target) < abs(upper.val - target) else upper.val
-            
+                
