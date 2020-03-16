@@ -13,31 +13,40 @@ class Solution:
     """
     def flatten(self, root):
         # write your code here
-        end = self.helper(root)
-        return root
+        
+        self.helper(root)
+        
         
     def helper(self, root):
-        # return tail of child 
+        # return last_node 
+        
         if not root:
             return None 
             
-        left_end = self.helper(root.left)
-        right_end = self.helper(root.right)
+        left_last = self.helper(root.left)
+        right_last = self.helper(root.right)
         
+        if not left_last and not right_last:
+            return root
+            
+        if not left_last:
+            return right_last
+            
+        left = root.left
+        right = root.right
         
-        if left_end and right_end:
-            left_end.right = root.right
-            root.right = root.left
+        if not right_last:
+            root.right = left
             root.left = None
-            return right_end
-            
-        elif right_end:
-            return right_end
-            
-        elif left_end:
-            root.right = root.left
-            root.left = None 
-            return left_end
-            
-        else:
-            return root 
+            return left_last
+        
+        left_last.right = right
+        root.right = left
+        root.left = None
+        return right_last
+        
+        
+        
+        
+        
+        
