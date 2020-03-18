@@ -16,36 +16,31 @@ class Solution:
     def binaryTreePathSum3(self, root, target):
         # write your code here
         results = []
-        self.inorder(root, target, results)
+        self.helper(root, target, results)
         return results
-            
-    def inorder(self, root, target, results):
+        
+        
+    def helper(self, root, target, results):
         if not root:
-            return
+            return 
         
-        path = []
-        self.dfs(root, None, target, path, results)
+        self.dfs(root, target, None, [], results)
         
-        self.inorder(root.left, target, results)
-        self.inorder(root.right, target, results)
-
-    def dfs(self, root, prev, target, path, results):
+        self.helper(root.left, target, results)
+        self.helper(root.right, target, results)
+        
+    def dfs(self, root, target, prev, path, results):
         path.append(root.val)
-        
+     
         if sum(path) == target:
+            print(path)
             results.append(path[:])
-        
-        for neighber in [root.parent, root.left, root.right]:
-            if not neighber or neighber == prev:
-                continue
-            self.dfs(neighber, root, target, path, results)
             
+        for next_node in [root.parent, root.left, root.right]:
+            if not next_node:
+                continue
+            if next_node == prev:
+                continue
+            self.dfs(next_node, target, root, path, results)
         
         path.pop()
-        
-        
-            
-            
-            
-            
-            
