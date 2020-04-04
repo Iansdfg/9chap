@@ -12,7 +12,7 @@ class Solution:
                 end = mid 
             elif mid * mid < x:
                 start = mid 
-            else:
+            elif mid * mid == x:
                 return mid 
         if end * end <= x:
             return end 
