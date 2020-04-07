@@ -12,7 +12,6 @@ class Solution:
         
     def dfs(self, nums, index, path, results):
         results.append(path[:])
-        
         for i in range(index, len(nums)):
             path.append(nums[i])
             self.dfs(nums, i + 1, path, results)
