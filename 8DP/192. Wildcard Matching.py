@@ -4,8 +4,10 @@ class Solution:
     @param p: A string includes "?" and "*"
     @return: is Match?
     """
+    
     def isMatch(self, s, p):
         # write your code here
+        
         memo = dict()
         return self.isMatch_helper(0, 0, s, p, memo)
         
@@ -29,6 +31,7 @@ class Solution:
             
         memo[(i, j)] = matched
         return matched
+        
         
     def is_char_match(self, s, p):
         return s == p or p == '?'
