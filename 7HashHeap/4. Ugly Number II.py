@@ -18,4 +18,5 @@ class Solution:
                 if new_val not in visited:
                     visited.add(new_val)
                     heappush(heap, new_val)
+                    
         return val
