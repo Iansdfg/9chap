@@ -9,7 +9,6 @@ class Solution:
         for index in range(len(A)//2, -1, -1):
             self.siftdown(A, index)
             
-            
     def siftdown(self, A, index):
         # 如果在长度内
         while index < len(A):
@@ -27,6 +26,7 @@ class Solution:
                 break 
 
             A[index], A[mini_index] = A[mini_index], A[index]
+            
             index = mini_index
             
             
