@@ -15,6 +15,7 @@ class Solution:
             val = heappop(heap)
             for factor in [2, 3, 5]:
                 new_val = factor * val
+                
                 if new_val not in visited:
                     visited.add(new_val)
                     heappush(heap, new_val)
