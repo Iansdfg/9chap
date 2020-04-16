@@ -5,8 +5,6 @@ class ParentTreeNode:
         self.val = val
         self.parent, self.left, self.right = None, None, None
 """
-
-
 class Solution:
     """
     @param: root: the root of binary tree
@@ -19,7 +17,6 @@ class Solution:
         self.helper(root, target, results)
         return results
         
-        
     def helper(self, root, target, results):
         if not root:
             return 
@@ -31,16 +28,13 @@ class Solution:
         
     def dfs(self, root, target, prev, path, results):
         path.append(root.val)
-     
         if sum(path) == target:
             print(path)
             results.append(path[:])
-            
         for next_node in [root.parent, root.left, root.right]:
             if not next_node:
                 continue
             if next_node == prev:
                 continue
             self.dfs(next_node, target, root, path, results)
-        
         path.pop()
