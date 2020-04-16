@@ -14,10 +14,8 @@ class Solution:
                 mid += 1 
                 left += 1 
                 
-                
             elif nums[mid] == 1:
                 mid += 1 
-                
                 
             elif nums[mid] == 2:
                 nums[right], nums[mid] = nums[mid], nums[right]
