@@ -12,7 +12,9 @@ class Solution:
         dp = [0 for _ in range(m + 1)]
         
         for row in range(1, n + 1):
+            
             new_dp =  [0 for _ in range(m + 1)]
+            
             for col in range(1, m + 1):
                 if  A[row - 1] > col:
                     new_dp[col] = dp[col]
@@ -20,6 +22,7 @@ class Solution:
                 take = dp[col - A[row - 1]] + V[row - 1]
                 no_take = dp[col]
                 new_dp[col] = max(take, no_take)
+                
             dp = new_dp
             
         return dp[-1]
