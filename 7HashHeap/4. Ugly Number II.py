@@ -7,11 +7,13 @@ class Solution:
     """
     def nthUglyNumber(self, n):
         # write your code here
+        
         heap = [1]
         heapify(heap)
         visited = set([])
         
         for i in range(n):
+            
             val = heappop(heap)
             for factor in [2, 3, 5]:
                 new_val = factor * val
