@@ -10,7 +10,6 @@ class Solution:
             return False
         start, end = 0, len(matrix)-1
 
-
         while start + 1 < end:
             mid = (start + end) // 2
             if target < matrix[mid][0]:
