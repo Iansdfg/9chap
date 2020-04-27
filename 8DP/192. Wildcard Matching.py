@@ -7,7 +7,6 @@ class Solution:
     
     def isMatch(self, s, p):
         # write your code here
-        
         memo = dict()
         return self.isMatch_helper(0, 0, s, p, memo)
         
@@ -23,7 +22,6 @@ class Solution:
             
         if len(pattern) == j:
             return False 
-            
         if pattern[j] == '*':
             matched = self.isMatch_helper(i + 1, j, source, pattern, memo) or self.isMatch_helper(i, j + 1, source, pattern, memo)
         else:
@@ -32,10 +30,5 @@ class Solution:
         memo[(i, j)] = matched
         return matched
         
-        
     def is_char_match(self, s, p):
         return s == p or p == '?'
-        
-            
-            
-        
