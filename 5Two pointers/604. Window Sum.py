@@ -8,15 +8,12 @@ class Solution:
         # write your code here
         results = []
         if len(nums) == 0 or k == 0:
-            return results
-            
+            return results 
         len_res = len(nums) - k + 1
         res = [0]*len_res
-        
         for i in range(k):
-            res[0] += nums[i]
-            
+            res[0] += nums[i]    
         for i in range(1, len_res):
             res[i] = res[i-1] - nums[i - 1] + nums[i + k - 1]
         return res 
-            
+           
