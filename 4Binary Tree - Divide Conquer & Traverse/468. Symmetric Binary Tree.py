@@ -18,8 +18,6 @@ class Solution:
             
         return self.helper(root.left, root.right)
         
-        
-        
     def helper(self, L, R):
         # return if left subtree and right subtree are symmetric
         if not L and not R:
