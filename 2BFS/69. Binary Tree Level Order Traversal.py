@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -5,31 +9,28 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
-from collections import deque
 
 class Solution:
     """
     @param root: A Tree
     @return: Level order a list of lists of integer
     """
-    def levelOrder(self, root):
+    def level_order(self, root):
         # write your code here
-        queue = deque([root])
-        result = []
+        if not root:
+            return []
+
+        queue = [root]
+        res = []
         while queue:
-            path = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                if not node:
-                    continue
-                
-                path.append(node.val)
-                queue.append(node.left if node.left else None)
-                queue.append(node.right if node.right else None)
-            
-            if path:
-                result.append(path)
-                
-        return result
-                
-                
+            next_queue = []
+            res.append([node.val for node in queue])
+
+            for node in queue:
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+
+            queue = next_queue
+        return res
