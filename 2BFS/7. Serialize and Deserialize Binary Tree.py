@@ -1,5 +1,3 @@
-from collections import deque
-
 """
 Definition of TreeNode:
 class TreeNode:
@@ -17,17 +15,21 @@ class Solution:
     can be easily deserialized by your own "deserialize" method later.
     """
     def serialize(self, root):
-        if root is None:
-            return ""
-        
+        # write your code here
+        if not root:
+            return []
+
         queue = deque([root])
         res = []
+
         while queue:
-            curr_node = queue.popleft()
-            res.append(str(curr_node.val) if curr_node else '#')
-            if curr_node:
-                queue.append(curr_node.left)
-                queue.append(curr_node.right)
+            node = queue.popleft()
+            res.append(str(node.val) if node else '#')
+
+            if node:
+                queue.append(node.left)
+                queue.append(node.right)
+
         return ' '.join(res)
 
 
@@ -42,19 +44,22 @@ class Solution:
     def deserialize(self, data):
         # write your code here
         if not data:
-            return None
-    
-        bfs_order = [    
-            TreeNode(int(val)) if val != '#' else None
-            for val in data.split()
-        ]
+            return None 
+        
+        bfs_order = []
+        for datum in data.split():
+            if datum =='#':
+                bfs_order.append(None)
+            else:
+                bfs_order.append(TreeNode(int(datum)))
+
         root = bfs_order[0]
-        father_p, child_p = 0, 1
         nodes = [root]
+        father_p, child_p = 0, 1
 
         while father_p < len(nodes):
             node = nodes[father_p]
-            father_p += 1 
+            father_p += 1
 
             node.left = bfs_order[child_p]
             node.right = bfs_order[child_p + 1]
@@ -64,6 +69,5 @@ class Solution:
                 nodes.append(node.left)
             if node.right:
                 nodes.append(node.right)
-                
-        return root
 
+        return root
