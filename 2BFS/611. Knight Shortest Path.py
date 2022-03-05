@@ -1,12 +1,16 @@
-"""
-Definition for a point.
-class Point:
-    def __init__(self, a=0, b=0):
-        self.x = a
-        self.y = b
-"""
-from collections import deque
+from lintcode import (
+    Point,
+)
 
+"""
+Definition for a point:
+class Point:
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+"""
+DIR = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1),]
+from collections import deque 
 class Solution:
     """
     @param grid: a chessboard included 0 (false) and 1 (true)
@@ -14,39 +18,38 @@ class Solution:
     @param destination: a point
     @return: the shortest path 
     """
-    def shortestPath(self, grid, source, destination):
+    def shortest_path(self, grid, source, destination):
         # write your code here
         queue = deque([(source.x, source.y)])
-        visited = set()
-        count = 0
-        
+        p_to_dist = {(source.x, source.y):0}
+
         while queue:
-            for _ in range(len(queue)):
-                x, y = queue.popleft()
-                if x == destination.x and y == destination.y:
-                    return count
-                
-                for delta_x, delta_y in [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)]:
-                    next_x, next_y = x + delta_x, y + delta_y
-                    if self.is_valid(grid, next_x, next_y, visited):
-                        queue.append((next_x, next_y))
-                        visited.add((next_x, next_y))
-            count += 1 
-        return -1
+            curr_x, curr_y = queue.popleft()
+            if (curr_x, curr_y) == (destination.x, destination.y):
+                return p_to_dist[(curr_x, curr_y)]
+            for delta_x, delta_y in DIR:
+                next_x = delta_x + curr_x
+                next_y = delta_y + curr_y
+                if (next_x, next_y) in p_to_dist:
+                    continue
+                if not self.is_valid(grid, next_x, next_y):
+                    continue
+                p_to_dist[(next_x, next_y)] = p_to_dist[(curr_x, curr_y)] + 1 
+                queue.append((next_x, next_y))
         
-    def is_valid(self,grid, x, y, visited):
+        return -1 
+
+    def is_valid(self, grid, x, y):
         rows, cols = len(grid), len(grid[0])
-        if (x, y) in visited:
-            return False
         if x < 0 or x >= rows:
-            return False
+            return False 
         if y < 0 or y >= cols:
-            return False
-        if grid[x][y] == 1:
-            return False
-        return True
+            return False 
+        if grid[x][y] == 1: 
+            return False 
+        return True 
 
 
 
-
+        
 
