@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -5,40 +9,36 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
-
 from collections import deque
-
 class Solution:
     """
     @param root: A Tree
     @return: A list of lists of integer include the zigzag level order traversal of its nodes' values.
     """
-    def zigzagLevelOrder(self, root):
+    def zigzag_level_order(self, root):
         # write your code here
-
         if not root:
             return []
         queue = deque([root])
-        result = [[root.val]]
-        count = 1
+        res = []
+        flag = 0
         while queue:
-            path = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
+            lv = []
+            for i in range(len(queue)):
+                curr = queue.popleft()
+                lv.append(curr.val)
+
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+            if flag%2 == 0:
+                res.append(lv)
+            else:
                 
-                if node.left:
-                    path.append(node.left.val)
-                    queue.append(node.left)
-                    
-                if node.right:
-                    path.append(node.right.val)
-                    queue.append(node.right)
-                
-            if path:
-                if count%2:
-                    result.append(path[::-1])
-                else:
-                    result.append(path)
-                count += 1
-                        
-        return result
+                lv.reverse()
+                res.append(lv)
+            flag += 1 
+        return res
+
+
