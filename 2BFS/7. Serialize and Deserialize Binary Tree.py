@@ -16,23 +16,20 @@ class Solution:
     """
     def serialize(self, root):
         # write your code here
-        if not root:
-            return []
-
         queue = deque([root])
         res = []
-
         while queue:
-            node = queue.popleft()
-            res.append(str(node.val) if node else '#')
-
-            if node:
-                queue.append(node.left)
-                queue.append(node.right)
-
+            curr = queue.popleft()
+            if curr:
+                res.append(str(curr.val))
+            else:
+                res.append('#')
+            if curr:
+                queue.append(curr.left)
+                queue.append(curr.right)
         return ' '.join(res)
-
-
+            
+        
     """
     @param data: A string serialized by your serialize method.
     This method will be invoked second, the argument data is what exactly
@@ -43,31 +40,24 @@ class Solution:
     """
     def deserialize(self, data):
         # write your code here
-        if not data:
-            return None 
-        
-        bfs_order = []
+        print(data.split())
+        nodes = []
         for datum in data.split():
-            if datum =='#':
-                bfs_order.append(None)
+            if datum == '#':
+                nodes.append(None)
             else:
-                bfs_order.append(TreeNode(int(datum)))
+                nodes.append(TreeNode(datum))
+        
+        father_p, child_p = 0, 1 
+        root = nodes[0]
 
-        root = bfs_order[0]
-        nodes = [root]
-        father_p, child_p = 0, 1
-
-        while father_p < len(nodes):
-            node = nodes[father_p]
-            father_p += 1
-
-            node.left = bfs_order[child_p]
-            node.right = bfs_order[child_p + 1]
-            child_p += 2
-
-            if node.left:
-                nodes.append(node.left)
-            if node.right:
-                nodes.append(node.right)
+        while child_p < len(nodes):
+            print(father_p)
+            curr = nodes[father_p]
+            father_p += 1 
+            if curr:
+                curr.left = nodes[child_p]
+                curr.right = nodes[child_p + 1 ]
+                child_p += 2 
 
         return root
