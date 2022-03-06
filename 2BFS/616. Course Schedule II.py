@@ -1,4 +1,4 @@
-from collections import defaultdict, deque
+from collections import deque
 class Solution:
     """
     @param: numCourses: a total of n courses
@@ -7,26 +7,25 @@ class Solution:
     """
     def findOrder(self, numCourses, prerequisites):
         # write your code here
-        pre_to_cours = defaultdict(list)
-        in_degree = [0] * numCourses
-        
-        for prerequisite in prerequisites:
-            pre_to_cours[prerequisite[1]].append(prerequisite[0])
-            in_degree[prerequisite[0]] += 1 
-            
-        queue = deque([])
-        for course in range(numCourses):
-            if in_degree[course] == 0:
-                queue.append(course)
-            
-        result = []
+        cour_to_indegree, pre_to_cour = self.get_indegree(numCourses, prerequisites)
+        starts = [cour for cour, indegree in enumerate(cour_to_indegree)  if cour_to_indegree[cour] == 0]
+        queue = deque(starts)
+        order = []
         while queue:
-            curr = queue.popleft()
-            result.append(curr)
-            for next_cour in  pre_to_cours[curr]:
-                in_degree[next_cour] -= 1 
-                if in_degree[next_cour] == 0:
+            cour = queue.popleft()
+            order.append(cour)
+            for next_cour in pre_to_cour[cour]:
+                cour_to_indegree[next_cour] -= 1 
+                if cour_to_indegree[next_cour] == 0:
                     queue.append(next_cour)
-        
-        return result if len(result) == numCourses else []
-            
+        if len(order) == numCourses:
+            return order
+        return []
+
+    def get_indegree(self, numCourses, prerequisites):
+        cour_to_indegree = [0 for n in range(numCourses)]
+        pre_to_cour = {x:[] for x in range(numCourses)}
+        for cour, pre in prerequisites:
+            cour_to_indegree[cour] += 1 
+            pre_to_cour[pre].append(cour)
+        return cour_to_indegree, pre_to_cour
