@@ -1,35 +1,29 @@
 from collections import deque
-
 class Solution:
     """
-    @param: numCourses: a total of n courses
-    @param: prerequisites: a list of prerequisite pairs
+    @param num_courses: a total of n courses
+    @param prerequisites: a list of prerequisite pairs
     @return: true if can finish all courses or false
     """
-    def canFinish(self, numCourses, prerequisites):
+    def can_finish(self, num_courses, prerequisites):
         # write your code here
-        pre_to_cour = {course: [] for course in range(numCourses)}
-        in_degrees = [0 for _ in range(numCourses)]
-        
-        for course, prere in prerequisites:
-            pre_to_cour[prere].append(course)
-            in_degrees[course] += 1
-            
-        queue, count = deque([]), 0
-        
-        for course in range(numCourses):
-            if in_degrees[course] == 0:
-                queue.append(course)
-            
+        cour_to_indegree, pre_to_course = self.get_indegree(num_courses, prerequisites)
+        order = []
+        start = [key for key in cour_to_indegree if cour_to_indegree[key] == 0]
+        queue = deque(start)
         while queue:
             curr = queue.popleft()
-            count += 1
-            for course in pre_to_cour[curr]:
-                in_degrees[course] -= 1 
-                if in_degrees[course] == 0:
+            order.append(curr)
+            for course in pre_to_course[curr]:
+                cour_to_indegree[course] -= 1
+                if cour_to_indegree[course] == 0:
                     queue.append(course)
-                    
-        return numCourses == count
-                
-            
-                
+        return len(order) == num_courses
+        
+    def get_indegree(self, num_courses, prerequisites):
+        cour_to_indegree = {i:0 for i in range(num_courses)}
+        pre_to_course = {i:[] for i in range(num_courses)}
+        for cour, pre in prerequisites:
+            cour_to_indegree[cour] += 1 
+            pre_to_course[pre].append(cour)
+        return cour_to_indegree, pre_to_course
