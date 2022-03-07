@@ -18,23 +18,25 @@ class Solution:
     def clone_graph(self, node):
         # write your code here
         if not node:
-            return None 
+            return None
 
-        queue = deque([node])
-        ori_clo = {}
+        ori_to_clo = {}
         root = UndirectedGraphNode(node.label)
-        ori_clo[node] = root
+        ori_to_clo[node]= root
+        #we add node to dict b/c in bfs all pop item is visited
+        #except the first one
+        queue = deque([node]) 
 
         while queue:
-            ori_curr = queue.popleft()
-            # print('label', ori_curr.label)
-
-            for neighbor in ori_curr.neighbors:
-                # print('neighbor', neighbor.label)
-                if neighbor not in ori_clo:
-                    ori_clo[neighbor] = UndirectedGraphNode(neighbor.label)
+            curr = queue.popleft()
+            for neighbor in curr.neighbors:
+                if neighbor not in ori_to_clo:
+                    clo_neighbor = UndirectedGraphNode(neighbor.label)
+                    ori_to_clo[neighbor] = clo_neighbor
                     queue.append(neighbor)
 
-                ori_clo[ori_curr].neighbors.append(ori_clo[neighbor])
-
+                ori_to_clo[curr].neighbors.append(ori_to_clo[neighbor])
+                
         return root
+
+
