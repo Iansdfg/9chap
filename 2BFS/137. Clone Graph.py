@@ -1,6 +1,4 @@
-from lintcode import (
-    UndirectedGraphNode,
-)
+
 
 """
 Definition for a UndirectedGraphNode:
@@ -19,24 +17,24 @@ class Solution:
         # write your code here
         if not node:
             return None
-
-        ori_to_clo = {}
+        ori_clo = {}
         root = UndirectedGraphNode(node.label)
-        ori_to_clo[node]= root
+        ori_clo[node] = root
         #we add node to dict b/c in bfs all pop item is visited
         #except the first one
-        queue = deque([node]) 
+        queue = deque([node])
 
         while queue:
             curr = queue.popleft()
             for neighbor in curr.neighbors:
-                if neighbor not in ori_to_clo:
+                if neighbor not in ori_clo:
                     clo_neighbor = UndirectedGraphNode(neighbor.label)
-                    ori_to_clo[neighbor] = clo_neighbor
+                    ori_clo[neighbor] = clo_neighbor
                     queue.append(neighbor)
 
-                ori_to_clo[curr].neighbors.append(ori_to_clo[neighbor])
-                
+                ori_clo[curr].neighbors.append(ori_clo[neighbor])
         return root
+
+
 
 
