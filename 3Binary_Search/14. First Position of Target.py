@@ -4,23 +4,23 @@ class Solution:
     @param target: Target to find.
     @return: The first position of target. Position starts from 0.
     """
-    def binarySearch(self, nums, target):
+    def binary_search(self, nums, target):
         # write your code here
-        left, right = 0, len(nums)-1
-        while left + 1 < right:
-            mid = (left + right)//2
-            if nums[mid]<target:
-                left = mid
-            elif nums[mid]>target:
-                right = mid
+        if not nums:
+            return - 1 
+        start, end = 0, len(nums) - 1 
+
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if nums[mid] > target:
+                end = mid 
+            elif nums[mid] < target:
+                start = mid 
             else:
-                right = mid
-                
-        if nums[left] == target:
-            return left 
-        elif nums[right] == target:
-            return right
-        else:
-            return -1
-                
-            
+                end = mid 
+
+        if nums[start] == target:
+            return start
+        if nums[end] == target:
+            return end
+        return -1 
