@@ -1,5 +1,10 @@
 
 
+
+from lintcode import (
+    UndirectedGraphNode,
+)
+
 """
 Definition for a UndirectedGraphNode:
 class UndirectedGraphNode:
@@ -17,22 +22,23 @@ class Solution:
         # write your code here
         if not node:
             return None
-        ori_clo = {}
+
         root = UndirectedGraphNode(node.label)
-        ori_clo[node] = root
+        queue = deque([node])
         #we add node to dict b/c in bfs all pop item is visited
         #except the first one
-        queue = deque([node])
+        ori_clo = {}
+        ori_clo[node] = root
 
         while queue:
             curr = queue.popleft()
             for neighbor in curr.neighbors:
                 if neighbor not in ori_clo:
-                    clo_neighbor = UndirectedGraphNode(neighbor.label)
-                    ori_clo[neighbor] = clo_neighbor
+                    neighbor_clo = UndirectedGraphNode(neighbor.label)
+                    ori_clo[neighbor] = neighbor_clo
                     queue.append(neighbor)
-
                 ori_clo[curr].neighbors.append(ori_clo[neighbor])
+
         return root
 
 
