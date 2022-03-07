@@ -8,7 +8,7 @@ class Solution:
         # write your code here
         if not a:
             return -1 
-
+        
         start, end = 0, len(a) - 1
         while start + 1 < end:
             mid = (start + end) // 2 
