@@ -5,16 +5,15 @@ class Solution:
     """
     def findPeak(self, A):
         # write your code here
-        left, right = 0, len(A) - 1 
-        while left + 1 < right:
-            mid = (left + right) // 2 
-            if mid == 0 or mid == len(A) - 1:
-                return mid
-            if A[mid-1] < A[mid] < A[mid+1]:
-                left = mid 
-            elif A[mid-1] > A[mid] > A[mid+1]:
-                right = mid 
-            elif A[mid-1] > A[mid] and A[mid] < A[mid+1]:
-                right = mid
+        start, end = 0, len(A) - 1
+        while start + 1 < end:
+            mid = (start + end) // 2 
+            if A[mid] < A[mid + 1]:
+                start = mid
             else:
-                return mid 
+                end = mid 
+
+        if A[start] > A[end]:
+            return start
+        else:
+            return end
