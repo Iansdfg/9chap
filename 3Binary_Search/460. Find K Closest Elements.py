@@ -1,44 +1,44 @@
 class Solution:
     """
-    @param A: an integer array
+    @param a: an integer array
     @param target: An integer
     @param k: An integer
     @return: an integer array
     """
-    def kClosestNumbers(self, A, target, k):
+    def k_closest_numbers(self, a, target, k):
         # write your code here
-        right = self.find_first_k(A, target)
-        print(right)
-        left = right-1
-        nearKth = []
- 
+        upper = self.find_upper(a, target)
+        lower = upper - 1 
+        res = []
         for _ in range(k):
-            if self.is_left_clother(A, target, left, right):
-                nearKth.append(A[left])
-                left-=1
+            if self.lower_closer(a, target, lower, upper):
+                res.append(a[lower])
+                lower -= 1 
             else:
-                nearKth.append(A[right])
-                right+=1
-            
-        return nearKth
- 
-    def find_first_k(self, A, target):
-        start, end  = 0, len(A)-1
-        while start+1<end:
-            m = (start + end) // 2
-            
-            if A[m] < target:
-                start = m
-            elif A[m] > target:
-                end = m
+                res.append(a[upper])
+                upper += 1 
+        return res
+
+
+    def find_upper(self, a, target):
+        start, end = 0, len(a)-1 
+        while start + 1 < end:
+            mid = (start + end ) // 2 
+            if a[mid] < target:
+                start = mid 
             else:
-                return m
-        
-        return start if abs(A[start]-target) < abs(A[end]-target) else end
-        
-    def is_left_clother(self, A, target, left, right):
-        if left < 0:
-            return False
-        if right >= len(A):
+                end = mid 
+        if a[start] >= target:
+            return start
+        if a[end] >= target:
+            return end
+        return len(a)
+    
+    def lower_closer(self,a, target, lower, upper):
+        if lower < 0:
+            return False 
+        if upper >= len(a):
             return True
-        return target - A[left] <= A[right] - target
+        return target - a[lower] <= a[upper] - target
+        
+         
