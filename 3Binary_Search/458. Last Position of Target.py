@@ -6,21 +6,20 @@ class Solution:
     """
     def lastPosition(self, nums, target):
         # write your code here
-        if len(nums)==0:
+        if not nums:
             return -1
-        left, right = 0, len(nums)-1
-        while left+1<right:
-            mid = (left+right)//2
-            if nums[mid]>target:
-                right = mid
-            elif nums[mid]<target:
-                left = mid
+        start, end = 0, len(nums) - 1 
+
+        while start + 1 < end:
+            mid = (start + end) // 2 
+            if nums[mid] > target:
+                end = mid
+            elif nums[mid] < target:
+                start = mid
             else:
-                left = mid
-                
-        if nums[right]==target:
-            return right
-        elif nums[left]==target:
-            return left
-        else:
-            return -1
+                start = mid 
+        if nums[end] == target:
+            return end
+        if nums[start] == target:
+            return start
+        return -1 
