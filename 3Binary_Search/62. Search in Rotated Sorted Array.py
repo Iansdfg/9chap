@@ -1,24 +1,29 @@
 class Solution:
     """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
+    @param a: an integer rotated sorted array
+    @param target: an integer to be searched
+    @return: an integer
     """
-    def findMin(self, nums):
+    def search(self, a, target):
         # write your code here
-        if len(nums) == 0:
-            return -1
-            
-        start, end = 0, len(nums)-1
-        target = nums[-1]
-        
-        while start + 1 < end:
-            mid = (start + end) // 2
-            if nums[mid] <= target:
-                end = mid 
-            else:
-                start = mid 
-    
-        return min(nums[start], nums[end])
-   
+        if not a:
+            return -1 
 
-                
+        start, end = 0, len(a) - 1
+        while start + 1 < end:
+            mid = (start + end) // 2 
+            if a[mid] <= a[end] :
+                if a[mid] < target <= a[end]:
+                    start = mid
+                else:
+                    end = mid
+            else:
+                if a[start] < target <= a[mid] :
+                    end = mid
+                else:
+                    start = mid
+        if a[start] == target:
+            return start
+        if a[end] == target:
+            return end
+        return -1
