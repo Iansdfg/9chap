@@ -4,8 +4,6 @@ class DirectedGraphNode:
          self.label = x
          self.neighbors = []
 """
-
-
 from collections import deque
 class Solution:
     """
@@ -13,28 +11,26 @@ class Solution:
     @return: Any topological order for the given graph.
     """
     def topSort(self, graph):
+        # write your code here
+        if not graph:
+            return []
+        node_indegree = self.get_indegree(graph)
+        starts = [key for key in node_indegree if node_indegree[key] == 0]
+        queue = deque(starts)
         order = []
-        node_to_indegree = self.get_indegree(graph)
-        start_nodes = [
-            key for key in node_to_indegree if node_to_indegree[key] == 0]
-        queue = deque(start_nodes)
-
         while queue:
-            node = queue.popleft()
-            order.append(node)
-            for neighbor in node.neighbors:
-                node_to_indegree[neighbor] -= 1 
-                if node_to_indegree[neighbor] == 0:
+            curr = queue.popleft()
+            order.append(curr)
+            for neighbor in curr.neighbors:
+                node_indegree[neighbor] -= 1
+                if node_indegree[neighbor] == 0:
                     queue.append(neighbor)
         return order
-        
+                
 
-    
     def get_indegree(self, graph):
-        node_to_indegree = {x: 0 for x in graph}
-
+        node_indegree = {x:0 for x in graph }
         for node in graph:
             for neighbor in node.neighbors:
-                node_to_indegree[neighbor] += 1
-                
-        return node_to_indegree
+                node_indegree[neighbor] += 1 
+        return node_indegree
