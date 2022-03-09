@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,21 +15,11 @@ class Solution:
     @param root: a TreeNode, the root of the binary tree
     @return: nothing
     """
-    def invertBinaryTree(self, root):
+    def invert_binary_tree(self, root):
         # write your code here
-        return self.helper(root)
-        
-    def helper(self, root):
         if not root:
-            return None
-        
-        left = self.helper(root.left)
-        right = self.helper(root.right)
-        
-        root.left = right
-        root.right = left
-        
-        return root
-        
-        
-        
+            return 
+
+        root.left, root.right = root.right, root.left
+        self.invert_binary_tree(root.left)
+        self.invert_binary_tree(root.right)
