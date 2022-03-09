@@ -19,22 +19,27 @@ class Solution:
         if not root:
             return []
         queue = deque([root])
-        dummy = ListNode(0)
-        last_node = None 
+        dummy = ListNode(-1)
+        last = None 
         res = []
         while queue:
-            last_node = dummy
-
+            last = dummy
             for i in range(len(queue)):
-                curr_tree = queue.popleft()
-                node = ListNode(curr_tree.val)
-                last_node.next = node
-                last_node = last_node.next
-                
-                if curr_tree.left:
-                    queue.append(curr_tree.left)
-                if curr_tree.right:
-                    queue.append(curr_tree.right)
-            
+                curr = queue.popleft()
+                new_node = ListNode(curr.val)
+                last.next = new_node
+                last = last.next
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
             res.append(dummy.next)
         return res
+            
+                
+
+
+
+
+
+
