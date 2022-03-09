@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,31 +15,26 @@ class Solution:
     @param root: the root of binary tree
     @return: the root of the maximum average of subtree
     """
-    max_avg = float('-inf')
-    target_node = None  
-    def findSubtree2(self, root):
+    MAX = None
+    AVG = float('-inf') 
+    def find_subtree2(self, root):
         # write your code here
-        summ, num = self.helper(root)
-        return self.target_node
-        
-    def helper(self, root):
-        # return sum and # of Node 
+        self.dfs(root)
+        return self.MAX
+
+    def dfs(self, root):
         if not root:
             return 0, 0
-            
-        left_sum, left_num = self.helper(root.left)
-        right_sum, right_num = self.helper(root.right)
-        
-        summ = left_sum + right_sum + root.val 
+
+        left_summ, left_num = self.dfs(root.left)
+        right_summ, right_num = self.dfs(root.right)
+
+        summ = left_summ + right_summ + root.val
         num = left_num + right_num + 1
-        print(summ, num)
-        
-        avg = summ/num
-        self.max_avg = max(self.max_avg, avg)
-        if self.max_avg == avg:
-            self.target_node = root
-        
+
+        if self.AVG < summ * 1.0 / num :
+            self.AVG = summ * 1.0 / num
+            self.MAX = root
+
         return summ, num
-        
-        
-        
+
