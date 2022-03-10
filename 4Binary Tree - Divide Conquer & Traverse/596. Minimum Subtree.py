@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,24 +15,20 @@ class Solution:
     @param root: the root of binary tree
     @return: the root of the minimum subtree
     """
-    mini_sum = float('inf')
-    mini_node = None 
-    def findSubtree(self, root):
+    node = None 
+    min_val = float('inf')
+    def find_subtree(self, root):
         # write your code here
-        self.helper(root)
-        return self.mini_node
-        
-    def helper(self, root):
-        # return sum 
+        summ = self.dfs(root)
+        return self.node
+
+    def dfs(self, root):
         if not root:
             return 0
-            
-        left_sum = self.helper(root.left)
-        right_sum = self.helper(root.right)
         
-        summ = left_sum + right_sum + root.val 
-        self.mini_sum = min(self.mini_sum, summ)
-        if self.mini_sum == summ:
-            self.mini_node = root
-
-        return summ
+        left_sum, right_sum = self.dfs(root.left), self.dfs(root.right)
+        curr_sum = left_sum + right_sum + root.val
+        if curr_sum < self.min_val:
+            self.min_val = curr_sum
+            self.node = root
+        return curr_sum
