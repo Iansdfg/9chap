@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,22 +15,19 @@ class Solution:
     @param root: A Tree
     @return: Preorder in ArrayList which contains node values.
     """
-    def preorderTraversal(self, root):
+    def preorder_traversal(self, root):
         # write your code here
         if not root:
             return []
-            
         stack = [root]
-        pre_order = []
-        
+        order = []
         while stack:
-            curr = stack.pop()
-            pre_order.append(curr.val)
+            node = stack.pop()
+            if not node:
+                continue
+            order.append(node.val)
             
-            if curr.right:
-                stack.append(curr.right)
-                
-            if curr.left:
-                stack.append(curr.left)
-                
-        return pre_order
+            stack.append(node.right)
+            stack.append(node.left)
+        return order
+
