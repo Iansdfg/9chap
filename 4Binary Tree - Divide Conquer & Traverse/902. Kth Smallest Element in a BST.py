@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -12,21 +16,22 @@ class Solution:
     @param k: the given k
     @return: the kth smallest element in BST
     """
-    def kthSmallest(self, root, k):
+    def kth_smallest(self, root, k):
         # write your code here
-        dummy = TreeNode(0)
+        dummy = TreeNode(-1)
         dummy.right = root
         stack = [dummy]
-        
-        for _ in range(k):
+        res = None
+        for i in range(k+1):
             curr = stack.pop()
-            if curr.right:
-                curr = curr.right
-                while curr:
-                    stack.append(curr)
-                    curr = curr.left
-                    
-            if not stack:
-                return None
-                
-        return stack[-1].val
+            res = curr
+            curr = curr.right
+
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            
+        return res.val
+
+
+
