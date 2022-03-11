@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -13,40 +17,24 @@ class Solution:
     """
     def flatten(self, root):
         # write your code here
-        
-        self.helper(root)
-        
-        
-    def helper(self, root):
-        # return last_node 
-        
+        self.dfs(root)
+
+    def dfs(self, root):
+        # return last right 
         if not root:
-            return None 
-            
-        left_last = self.helper(root.left)
-        right_last = self.helper(root.right)
+            return
+
+        left_last = self.dfs(root.left)
+        right_last = self.dfs(root.right)
         
-        if not left_last and not right_last:
-            return root
-            
-        if not left_last:
-            return right_last
-            
-        left = root.left
-        right = root.right
-        
-        if not right_last:
-            root.right = left
+        if left_last:
+            left_last.right = root.right
+            root.right =  root.left
             root.left = None
-            return left_last
+
+        return right_last or left_last or root
+ 
+
         
-        left_last.right = right
-        root.right = left
-        root.left = None
-        return right_last
-        
-        
-        
-        
-        
-        
+
+
