@@ -14,21 +14,14 @@ class Solution:
     """
     def inorderPredecessor(self, root, p):
         # write your code here
-        ans = None 
-        
+        res = None 
         while root:
-            if root.val > p.val:
-                root = root.left
-            
-            elif root.val == p.val:
-                root = root.left
-            
-            elif root.val < p.val:
-                if not ans or ans.val < root.val:
-                    ans = root
+            if root.val >= p.val:
+                root = root.left 
+            else:
+                res = root
                 root = root.right
-                
-        return ans
+        return res
     
     
  """
