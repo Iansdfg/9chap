@@ -16,24 +16,14 @@ class Solution:
     """
     def inorderSuccessor(self, root, p):
         # write your code here
-        if not root:
-            return root
-            
-        curr = root
-        last = None
-        
-        while True:
-            if not curr:
-                return last
-            
-            if curr.val > p.val:
-                last = curr 
-                curr = curr.left
+        res = None
+        while root:
+            if root.val > p.val:
+                res = root
+                root = root.left 
             else:
-                curr = curr.right
-                
- 
-
+                root = root.right
+        return res
 
 
 """
