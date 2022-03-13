@@ -39,7 +39,3 @@ class Solution:
             return self.helper(root.left, p, q)
             
             
-            
-            
-            
-            
