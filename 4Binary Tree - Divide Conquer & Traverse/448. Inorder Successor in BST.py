@@ -23,9 +23,6 @@ class Solution:
         last = None
         
         while True:
-            if curr == p:
-                curr = curr.right
-                
             if not curr:
                 return last
             
@@ -35,6 +32,8 @@ class Solution:
             else:
                 curr = curr.right
                 
+ 
+
 
 
 """
