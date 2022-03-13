@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -13,71 +17,74 @@ class Solution:
     @param k: the given k
     @return: k values in the BST that are closest to the target
     """
-    def closestKValues(self, root, target, k):
+    def closest_k_values(self, root, target, k):
         # write your code here
-        closest = self.find_closest(root, target)
-        # print('closest: ', closest.val)
-        successor = self.find_successor(root, closest)
-        # print('successor: ', successor.val)
-        predesessor = self.find_predesessor(root, closest)
-        # print('predesessor: ', predesessor.val)
+        closest_node = self.find_closest(root, target)
+        next_node = self.inorderSuccessor(root, closest_node)
+        prev_node = self.inorderPredecessor(root, closest_node)
+        res = [closest_node.val]
         
-        results = [closest.val]
-    
-        while len(results) < k:
-            if successor and predesessor :
-                if abs(successor.val - target) < abs(predesessor.val - target):
-                    results.append(successor.val)
-                    successor = self.find_successor(root, successor)
+        while len(res) < k:
+        
+            if next_node and prev_node:
+                if abs(next_node.val - target) > abs(prev_node.val - target):
+                    res.append(prev_node.val)
+                    prev_node = self.inorderPredecessor(root, prev_node)
                 else:
-                    results.append(predesessor.val)
-                    predesessor = self.find_predesessor(root, predesessor)
-            elif successor:
-                results.append(successor.val)
-                successor = self.find_successor(root, successor)
-            elif predesessor:
-                results.append(predesessor.val)
-                predesessor = self.find_predesessor(root, predesessor)
-            
-        return results
-        
+                    res.append(next_node.val)
+                    next_node = self.inorderSuccessor(root, next_node)
+
+            elif next_node:
+                res.append(next_node.val)
+                next_node = self.inorderSuccessor(root, next_node)
+
+            elif prev_node:
+                res.append(prev_node.val)
+                prev_node = self.inorderPredecessor(root, prev_node)
+
+        return res
+
     def find_closest(self, root, target):
-        upper, lower = root, root 
+        upper, lower = root, root
+
         while root:
-            if root.val < target:
-                lower = root
-                root = root.right
-            elif root.val > target:
+            if root.val > target:
                 upper = root
                 root = root.left
-            else:
+            elif  root.val < target:
+                lower = root
+                root = root.right 
+            else: 
                 return root
-        return upper if abs(upper.val - target) <  abs(lower.val - target) else lower
+        if abs(upper.val - target) > abs(lower.val - target):
+            return lower
+        else:
+            return upper
 
-    def find_successor(self, root, node):
-        ans = None
+    def inorderSuccessor(self, root, p):
+        # write your code here
+        if not p:
+            return None 
+        res = None 
         while root:
-            if root.val <= node.val:
+            if root.val > p.val:
+                res = root
+                root = root.left 
+            else:
                 root = root.right
-            elif root.val > node.val:
-                if not ans or ans.val > root.val:
-                    ans = root
-                root = root.left
-        return ans
-        
-    def find_predesessor(self, root, node):
-        ans = None
+        return res
+
+    def inorderPredecessor(self, root, p):
+        # write your code here
+        if not p:
+            return None 
+        res = None 
         while root:
-            if root.val < node.val:
-                if not ans or root.val > ans.val:
-                    ans = root
+            if root.val >= p.val:
+                root = root.left 
+            else:
+                res = root
                 root = root.right
-            elif root.val >= node.val:
-                root = root.left
-        return ans
-        
-        
-       
-        
-        
-        
+        return res
+
+    
