@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -6,7 +10,6 @@ class TreeNode:
         self.left, self.right = None, None
 """
 from collections import deque
-
 class Solution:
     """
     @param root: param root: The root of the binary search tree
@@ -14,10 +17,11 @@ class Solution:
     @param k2: An integer
     @return: return: Return all keys that k1<=key<=k2 in ascending order
     """
-    def searchRange(self, root, k1, k2):
+    def search_range(self, root, k1, k2):
         # write your code here
         if not root:
-            return []
+            return[]
+
         queue = deque([root])
         res = []
         while queue:
