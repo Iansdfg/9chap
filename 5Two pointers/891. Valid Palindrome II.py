@@ -1,26 +1,24 @@
 class Solution:
     """
     @param s: a string
-    @return bool: whether you can make s a palindrome by deleting at most one character
+    @return: whether you can make s a palindrome by deleting at most one character
     """
-    def validPalindrome(self, s):
-        # Write your code
-        left, right = 0, len(s) - 1 
-        while left < right:
-            if s[left] == s[right]:
-                left += 1 
-                right -= 1
+    def valid_palindrome(self, s):
+        # Write your code here
+        start, end = 0, len(s) - 1
+        while start < end:
+            if s[start] == s[end]:
+                start += 1 
+                end -= 1 
             else:
-                return self.is_palindrome(s, left + 1 , right) or self.is_palindrome(s, left, right - 1)
+                return self.is_palindrome(s, start + 1, end) or self.is_palindrome(s, start, end - 1)
         return True
-        
-    
+
     def is_palindrome(self, s, start, end):
-        left, right = start, end 
-        while left < right:
-            if s[left] == s[right]:
-                left += 1 
-                right -= 1 
+        while start < end:
+            if s[start] == s[end]:
+                start += 1 
+                end -= 1 
             else:
                 return False 
-        return True 
+        return True
