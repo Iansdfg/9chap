@@ -1,17 +1,17 @@
 class TwoSum:
-    def __init__(self):
-        self.count = dict()
     """
     @param number: An integer
     @return: nothing
     """
+    def __init__(self):
+        self.num_to_cnt = {}
+
     def add(self, number):
         # write your code here
-        if number not in self.count:
-            self.count[number] = 1
-        else: 
-            self.count[number] += 1
-            
+        if number in self.num_to_cnt:
+            self.num_to_cnt[number] += 1
+        else:
+            self.num_to_cnt[number] = 1 
 
     """
     @param value: An integer
@@ -19,9 +19,9 @@ class TwoSum:
     """
     def find(self, value):
         # write your code here
-        for num in self.count:
-            if value-num != num and value-num in self.count:
-                return True
-            if value-num == num and self.count[num]>1:
-                return True
-        return False
+        for num in self.num_to_cnt:
+            if value - num != num and value - num in self.num_to_cnt :
+                return True 
+            if value - num == num and self.num_to_cnt[num] > 1:
+                return True 
+        return False 
