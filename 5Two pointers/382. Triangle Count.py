@@ -1,18 +1,19 @@
 class Solution:
     """
-    @param S: A list of integers
+    @param s: A list of integers
     @return: An integer
     """
-    def triangleCount(self, S):
+    def triangle_count(self, s):
         # write your code here
-        S.sort()
-        result = 0
-        for pos in range(len(S)):
-            left, right = 0, pos - 1  
+        s.sort()
+        ans = 0
+        for i in range(len(s)):
+            left, right = 0, i - 1 
             while left < right:
-                if S[left] + S[right] > S[pos]:
-                    result += right - left
+                if s[left] + s[right] > s[i]:
+                    ans += right - left
                     right -= 1 
                 else:
                     left += 1 
-        return result
+        return ans 
+
