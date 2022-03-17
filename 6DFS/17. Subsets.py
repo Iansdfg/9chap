@@ -5,15 +5,14 @@ class Solution:
     """
     def subsets(self, nums):
         # write your code here
-        nums.sort()
-        results = []
-        self.dfs(nums, 0, [], results)
-        return results
-        
-    def dfs(self, nums, index, path, results):
-        results.append(path[:])
+        paths = []
+        self.dfs(nums, 0, [], paths)
+        return paths
+
+
+    def dfs(self, nums, index, path, paths):
         for i in range(index, len(nums)):
             path.append(nums[i])
-            self.dfs(nums, i + 1, path, results)
+            self.dfs(nums, i + 1, path, paths)
             path.pop()
-            
+
