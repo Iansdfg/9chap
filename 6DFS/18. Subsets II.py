@@ -3,21 +3,20 @@ class Solution:
     @param nums: A set of numbers.
     @return: A list of lists. All valid subsets.
     """
-    def subsetsWithDup(self, nums):
+    def subsets_with_dup(self, nums):
         # write your code here
+        subsets = []
         nums.sort()
-        results = []
-        self.dfs(nums, 0, [], results)
-        return results
-        
-    def dfs(self, nums, index, path, results):
-        results.append(path[:])
-        
+        self.dfs(nums, 0, [], subsets)
+        return subsets
+
+
+    def dfs(self, nums, index, subset, subsets):
+        subsets.append(subset[:])
+
         for i in range(index, len(nums)):
-            if i>index and nums[i] == nums[i-1]:
+            if i > index and nums[i] == nums[i-1]:
                 continue
-            
-            path.append(nums[i])
-            self.dfs(nums, i+1, path, results)
-            path.pop()
-            
+            subset.append(nums[i])
+            self.dfs(nums, i + 1, subset, subsets)
+            subset.pop()
