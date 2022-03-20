@@ -23,3 +23,6 @@ class Solution:
             self.dfs(nums, visited, permutation, permutations)
             visited[i] = 0
             permutation.pop()
+
+            
+            
