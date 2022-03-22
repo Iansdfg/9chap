@@ -1,3 +1,4 @@
+
 class Solution:
     """
     @param n: The number of queens
@@ -29,10 +30,12 @@ class Solution:
             visited[i] = 0
 
     def is_valid(self, premutation, i):
-        #current corrdination, i is col, len(premutation) is row
-        # if valid, the next (x,y) and (row, col) not in diagonal line)
+        # (len(premutation), i) is current coordinate
+        # Our goal is to check if next coordinate is valid
+        # if valid, the next (row, col) and (len(premutation), i) 
+        # will not bein diagonal line. 
         row, col = len(premutation), i
-        for next_row,next_col in enumerate(premutation):
+        for next_row, next_col in enumerate(premutation):
             if abs(row - next_row) == abs(col - next_col):
                 return False
         return True 
@@ -44,4 +47,4 @@ class Solution:
             board.append(''.join(row))
         return board
 
-            
+
