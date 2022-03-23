@@ -4,28 +4,25 @@ class Solution:
     @param number: a number
     @return: returns the first unique number
     """
-    def firstUniqueNumber(self, nums, number):
+    def first_unique_number(self, nums, number):
         # Write your code here
-        if len(nums)==0:
-            return -1 
         if number not in nums:
-            return -1 
-            
-        num_to_times = dict()
+            return -1
+        num_to_freq = dict()
         for num in nums:
-            if num in num_to_times:
-                num_to_times[num] += 1 
-            else:
-                num_to_times[num] = 1 
             if num == number:
-                break
-        
+                num_to_freq[num] = 1
+                break 
+            if num in num_to_freq:
+                num_to_freq[num] += 1 
+            else:
+                num_to_freq[num] = 1
+
         for num in nums:
-            if num in num_to_times and num_to_times[num] == 1 :
+            if num_to_freq[num] == 1:
                 return num
-        return -1 
-                
-                
+        return -1
+  
         
         
         # if not nums:
