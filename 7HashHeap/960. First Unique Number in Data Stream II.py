@@ -1,51 +1,47 @@
-class linkedNode:
-    def __init__(self, val = None, key = None, next = None):
-        # do intialization if necessar
-        self.val = val
-        self.key = key
+class LinkedNode:
+
+    def __init__(self, value=None, next=None):
+        # do intialization if necessary
+        self.value = value
         self.next = next
-        
+
 class DataStream:
+    
     def __init__(self):
         # do intialization if necessary
-        self.key_to_prev = dict()
-        self.dummy = linkedNode(0)
+        self.val_to_prev = dict()
+        self.dummy = LinkedNode(-1)
         self.tail = self.dummy
-        self.visited = set()
-          
+
+    def kick(self, prev):
+        if prev == self.tail:
+            return
+        node = prev.next
+        next = node.next
+        if not next:
+            prev.next = None 
+            self.tail = prev
+            return
+        prev.next = next
+        self.val_to_prev[next.value] = prev
+        self.val_to_prev[node.value] = None
+        
     """
     @param num: next number in stream
     @return: nothing
     """
     def add(self, num):
         # write your code here
-        if num in self.visited:
-            return
-        
-        if num in self.key_to_prev:
-            self.kick(num)
-            self.visited.add(num)
+        if num not in self.val_to_prev:
+            node = LinkedNode(num)
+            self.tail.next = node
+            self.val_to_prev[num] = self.tail
+            self.tail = node
         else:
-            self.tail.next = linkedNode(num)
-            # 记住add之后要放入dict
-            self.key_to_prev[num] = self.tail
-            self.tail = self.tail.next
-            
-                
-    def kick(self,key):
-        prev = self.key_to_prev[key]
-        node = prev.next
-        nextt = node.next
-        
-        prev.next = nextt
-        node.next = None
-        if nextt:
-            self.key_to_prev[nextt.val] = prev
-        # 处理node是tail的情况
-        else:
-            self.tail = prev
-        del self.key_to_prev[node.val]
-
+            if self.val_to_prev[num] == None:
+                return
+            prev = self.val_to_prev[num]
+            self.kick(prev)
 
     """
     @return: the first unique number in stream
@@ -53,7 +49,6 @@ class DataStream:
     def firstUnique(self):
         # write your code here
         if self.dummy.next:
-            return self.dummy.next.val
+            return self.dummy.next.value
         else:
-            return -1 
-        
+            return -1
