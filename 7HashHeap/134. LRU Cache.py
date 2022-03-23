@@ -1,8 +1,9 @@
 class LinkedNode:
-    def __init__(self, val = None, key = None, next = None):
-        self.val = val
+    def __init__(self, key=None, value=None, next_node=None):
+        # do intialization if necessary
         self.key = key
-        self.next = next
+        self.value = value
+        self.next_node = next_node
 
 class LRUCache:
     """
@@ -10,38 +11,39 @@ class LRUCache:
     """
     def __init__(self, capacity):
         # do intialization if necessary
-        self.key_to_prev = dict()
         self.capacity = capacity
-        self.dummy = LinkedNode(0)
+        #we need to delete, so key to prev
+        self.key_to_prev = dict()
+        self.dummy = LinkedNode(-1)
         self.tail = self.dummy
-        
-    # prev--node--next---...--tail
-    # prev--next---...--tail--node
+
     def kick_append(self, prev):
-        node = prev.next 
-        if node == self.tail:
+        #prev-->curr-->next->..->tail
+        #prev-->next->..->tail-->curr
+        curr = prev.next_node
+        if curr == self.tail:
             return
-        nextt = node.next
-        prev.next = nextt
-        
-        if nextt:
-            self.key_to_prev[nextt.key] = prev
-            node.next = None 
-        self.append(node)
+        nextt = curr.next_node
+
+        prev.next_node = nextt
+        self.key_to_prev[nextt.key] = prev
+        curr.next_node = None
+
+        self.append(curr)
 
     def append(self, node):
-        self.tail.next = node 
+        self.tail.next_node = node
         self.key_to_prev[node.key] = self.tail
         self.tail = node
-        
-    def pop_front(self,):
-        head = self.dummy.next
-        nextt = head.next 
+
+    def kick_front(self):
+        head = self.dummy.next_node
+        nextt = head.next_node
+        self.dummy.next_node = nextt
         self.key_to_prev[nextt.key] = self.dummy
-        self.dummy.next = nextt
-        head.next = None 
+        head.next_node = None
         del self.key_to_prev[head.key]
-        
+
     """
     @param: key: An integer
     @return: An integer
@@ -49,15 +51,15 @@ class LRUCache:
     def get(self, key):
         # write your code here
         if key not in self.key_to_prev:
-            return -1 
+            return -1
         
         prev = self.key_to_prev[key]
-        node = prev.next
-        
+        curr = prev.next_node
+
         self.kick_append(prev)
-        
-        return node.val
-        
+
+        return curr.value 
+
     """
     @param: key: An integer
     @param: value: An integer
@@ -67,15 +69,15 @@ class LRUCache:
         # write your code here
         if key in self.key_to_prev:
             prev = self.key_to_prev[key]
-            node = prev.next 
-            node.val = value
-            
+            curr = prev.next_node
+            curr.value = value
             self.kick_append(prev)
-            
         else:
-            node = LinkedNode(value, key)
+            node = LinkedNode(key, value)
             self.append(node)
             if len(self.key_to_prev) > self.capacity:
-                self.pop_front()
-                
-  
+                self.kick_front()
+
+        
+            
+
