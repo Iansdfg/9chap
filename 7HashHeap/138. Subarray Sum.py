@@ -5,15 +5,11 @@ class Solution:
     """
     def subarraySum(self, nums):
         # write your code here
-        prifix_sum_to_id = dict()
-        prifix_sum_to_id[0] = -1 
-        prifix_sum = 0
-        for pos, val in enumerate(nums):
-            prifix_sum += val
-            if prifix_sum in prifix_sum_to_id:
-                return [prifix_sum_to_id[prifix_sum]+1, pos]
-            prifix_sum_to_id[prifix_sum] = pos
-        return [-1, -1]
-            
-            
-            
+        sum2index = {0:-1}
+        new_sum = 0
+        for pos, num in enumerate(nums):
+            new_sum += num
+            sum2index[new_sum] = pos
+            if new_sum in sum2index:
+                return sum2index[new_sum], pos - 1
+        return -1, -1
