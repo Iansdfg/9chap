@@ -5,17 +5,18 @@ class Solution:
     """
     def anagrams(self, strs):
         # write your code here
-        anagram_to_list = dict()
+        res = []
+        string2freg = {}
         for string in strs:
-            anagram = ''.join(sorted(string))
-            if anagram in anagram_to_list:
-                anagram_to_list[anagram].append(string)
+            sort_srt = ''.join(sorted(str(string)))
+            if sort_srt in string2freg:
+                string2freg[sort_srt] += 1
             else:
-                anagram_to_list[anagram] = [string]
+                string2freg[sort_srt] = 1
+        for string in strs:
+            sort_srt = ''.join(sorted(str(string)))
+            if string2freg[sort_srt]>1:
+                res.append(string)
+        return res
 
-        results = []
-        for key in anagram_to_list:
-            if len(anagram_to_list[key]) >= 2:
-                results += anagram_to_list[key]
-                
-        return results
+
