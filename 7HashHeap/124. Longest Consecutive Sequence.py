@@ -3,30 +3,27 @@ class Solution:
     @param num: A list of integers
     @return: An integer
     """
-    def longestConsecutive(self, num):
+    def longest_consecutive(self, num):
         # write your code here
-        if len(num) <= 1:
-            return len(num)
-        nums_set = set(num)
-        res = float('-inf')
-         
+        visited = set(num)
+        res, length = 0, 0
         for number in num:
-            count = 1
-            
-            up = number+1
-            while up in nums_set:
-                nums_set.discard(up)
-                up += 1
-                count += 1 
+            if number in visited:
+                visited.remove(number)
+                length = 1
+                left = number - 1
+                right = number + 1 
+                while left in visited:
+                    visited.remove(left)
+                    left -= 1 
+                    length += 1
+                while right in visited:
+                    visited.remove(right)
+                    right += 1
+                    length += 1
+            res = max(res, length)
+        return  res
+
                 
-            low = number-1
-            while low in nums_set:
-                nums_set.discard(low)
-                low -= 1
-                count += 1
-                
-            res = max(res, count)
-        return res  
-                
-                
-                
+
+
