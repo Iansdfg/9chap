@@ -1,0 +1,42 @@
+"""
+Definition for singly-linked list with a random pointer.
+class RandomListNode:
+    def __init__(self, x):
+        self.label = x
+        self.next = None
+        self.random = None
+"""
+
+class Solution:
+    # @param head: A RandomListNode
+    # @return: A RandomListNode
+    def copyRandomList(self, head):
+        # write your code here
+        if not head:
+            return None
+
+        ori2copy = dict()
+        curr = head
+        last = None
+
+        while curr:
+            if curr not in ori2copy:
+                node = RandomListNode(curr.label)
+                ori2copy[curr] = node
+
+            #copy .random
+            if curr.random:
+                if curr.random not in ori2copy:
+                    random_copy = RandomListNode(curr.random.label)
+                    ori2copy[curr].random = random_copy
+                else:
+                    ori2copy[curr].random = ori2copy[curr.random]
+
+            #copy .next
+            if last:
+                ori2copy[last].next= ori2copy[curr]
+
+            last = curr 
+            curr = curr.next
+            
+        return ori2copy[head]
