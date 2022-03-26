@@ -1,25 +1,26 @@
-from heapq import heapify, heappop, heappush
+import heapq
 
 class Solution:
     """
     @param n: An integer
     @return: return a  integer as description.
     """
-    def nthUglyNumber(self, n):
+    def nth_ugly_number(self, n):
         # write your code here
-        
-        heap = [1]
-        heapify(heap)
-        visited = set([])
-        
-        for i in range(n):
-            
-            val = heappop(heap)
-            for factor in [2, 3, 5]:
-                new_val = factor * val
-                
-                if new_val not in visited:
-                    visited.add(new_val)
-                    heappush(heap, new_val)
-                    
-        return val
+        heap = []
+        heapq.heappush(heap, 1)
+
+        visited = set()
+        visited.add(1)
+
+        factors = [2, 3, 5]
+
+        for _ in range(n):
+            curr_ugly = heapq.heappop(heap)
+            for factor in factors:
+                next_ugly = curr_ugly * factor 
+                if next_ugly not in visited:
+                    visited.add(next_ugly)
+                    heapq.heappush(heap, next_ugly)
+        return curr_ugly
+
