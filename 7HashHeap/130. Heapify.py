@@ -30,6 +30,31 @@ class Solution:
             index = mini_index
             
             
-            
+class Solution:
+    """
+    @param: A: Given an integer array
+    @return: nothing
+    """
+    def heapify(self, A):
+        # write your code here
+        for i in range(len(A) // 2, -1, -1):
+            self.sift_down(A, i)
+
+
+    def sift_down(self, A, index):
+        length = len(A)
+        while index < length:
+            left = 2 * index + 1 
+            right = 2 * index + 2
+            minindex = index
+            if left < length and A[left] < A[minindex]:
+                minindex = left
+            if right < length and A[right] < A[minindex]:
+                minindex = right
+
+            if index == minindex:
+                break
+            A[index], A[minindex] = A[minindex], A[index]
+            index = minindex
             
             
