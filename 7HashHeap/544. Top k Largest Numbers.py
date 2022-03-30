@@ -1,4 +1,4 @@
-from heapq import heappush, heappop
+import heapq
 class Solution:
     """
     @param nums: an integer array
@@ -7,12 +7,14 @@ class Solution:
     """
     def topk(self, nums, k):
         # write your code here
-        heap = [] 
+        res = []
         for num in nums:
-            heappush(heap, num)
-            if len(heap)>k:
-               heappop(heap)
-               
-        heap.sort()
-        heap.reverse()
-        return heap 
+            heapq.heappush(res, num)
+            if len(res) > k:
+                heapq.heappop(res)
+        res.sort()
+        res.reverse()
+        return res
+
+
+        
