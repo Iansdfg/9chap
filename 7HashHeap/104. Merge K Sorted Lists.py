@@ -101,6 +101,7 @@ class Solution:
           
 
 # heap
+import heapq
 """
 Definition of ListNode
 class ListNode(object):
@@ -109,8 +110,6 @@ class ListNode(object):
         self.val = val
         self.next = next
 """
-
-from heapq import heappop, heappush, heapify
 class Solution:
     """
     @param lists: a list of ListNode
@@ -122,19 +121,20 @@ class Solution:
         for index, head in enumerate(lists):
             if not head:
                 continue
-            heappush(heap, (head.val, index, head))
-            
-        dummy = ListNode(0)
+            heapq.heappush(heap, (head.val, head))
+
+        dummy = ListNode(-1)
         tail = dummy
         while heap:
-            curr_val, curr_idx, curr = heappop(heap)
-            tail.next = curr
-            tail = curr
-            
-            nextt = curr.next
-            if not nextt:
+            curr_val, curr_node = heapq.heappop(heap)
+            tail.next = curr_node
+            tail = curr_node
+
+            next_node = curr_node.next
+            if not next_node:
                 continue
-            heappush(heap, (nextt.val, curr_idx, nextt))
+            heapq.heappush(heap, (next_node.val, next_node))
+        
+        return dummy.next
             
-        return  dummy.next
             
