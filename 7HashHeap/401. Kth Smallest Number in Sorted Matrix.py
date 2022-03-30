@@ -1,26 +1,28 @@
-from heapq import heappop, heappush
+import heapq
 class Solution:
     """
     @param matrix: a matrix of integers
     @param k: An integer
     @return: the kth smallest number in the matrix
     """
-    def kthSmallest(self, matrix, k):
+    def kth_smallest(self, matrix, k):
         # write your code here
-
         heap = []
-        for row_num, row in enumerate(matrix):
-            if row == []:
+        res = None
+        for row in matrix:
+            if not row:
                 continue
-            heappush(heap, (matrix[row_num][0], row_num, 0))
-        
-        ans = matrix[0][0]
+            heapq.heappush(heap, (row[0], row))
+
         for _ in range(k):
-            curr_val, curr_row, curr_col = heappop(heap)
-            ans = curr_val
-    
-            next_col = curr_col + 1 
-            if next_col >= len(matrix[curr_row]):
+            curr_val, curr_row = heapq.heappop(heap)
+            res = curr_val
+            curr_row.pop(0)
+            if not curr_row:
                 continue
-            heappush(heap, (matrix[curr_row][next_col], curr_row, next_col))
-        return ans 
+            heapq.heappush(heap, (curr_row[0], curr_row))
+
+        return res
+
+
+
