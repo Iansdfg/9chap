@@ -1,4 +1,5 @@
-from heapq import heappop, heappush, heapify
+import heapq
+
 class Solution:
     """
     @param: k: An integer
@@ -6,6 +7,7 @@ class Solution:
     def __init__(self, k):
         # do intialization if necessary
         self.heap = []
+        heapq.heapify(self.heap)
         self.k = k
 
     """
@@ -14,14 +16,14 @@ class Solution:
     """
     def add(self, num):
         # write your code here
-        heappush(self.heap, num)
+        heapq.heappush(self.heap, num)
         if len(self.heap)>self.k:
-            heappop(self.heap)
-            
+            heapq.heappop(self.heap)
+
     """
     @return: Top k element
     """
     def topk(self):
-        # write your code here
         self.heap.sort()
         return self.heap[::-1]
+
