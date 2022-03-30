@@ -1,28 +1,28 @@
-from heapq import heappop, heappush 
-
+import heapq
 class Solution:
+
     """
     @param arrays: k sorted integer arrays
     @return: a sorted array
     """
-    def mergekSortedArrays(self, arrays):
+    def mergek_sorted_arrays(self, arrays):
         # write your code here
         heap = []
-        
-        for pos_x, array in enumerate(arrays):
-            if len(array) == 0:
+        res = []
+        for array in arrays:
+            if not array:
                 continue
-            heappush(heap, (array[0], pos_x, 0))
-            
-        result = []
+            heapq.heappush(heap, (array[0], array)) 
+
         while heap:
-            curr_val, curr_pos_x, curr_pos_y = heappop(heap)
-            result.append(curr_val)
-            if curr_pos_y + 1 < len(arrays[curr_pos_x]):
-                heappush(heap, (arrays[curr_pos_x][curr_pos_y + 1], curr_pos_x, curr_pos_y + 1))
+            curr_val, curr_array = heapq.heappop(heap)
+            res.append(curr_val)
+            curr_array.pop(0)
+            if not curr_array:
+                continue
+            heapq.heappush(heap, (curr_array[0], curr_array))
             
-        return result
-            
-            
-            
+        return res 
+
+
         
