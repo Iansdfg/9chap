@@ -45,3 +45,34 @@ class Solution:
                     break 
                 
         return bool(dp[-1])
+class Solution:
+    """
+    @param s: A string
+    @param word_set: A dictionary of words dict
+    @return: A boolean
+    """
+    def word_break(self, s, word_set):
+        # write your code here
+        if len(s) == 0:
+            return True  
+
+        memo = [None for _ in range(len(s))]
+
+        return self.dfs(s, word_set, 0, memo)
+
+
+    def dfs(self, s, word_set, index, memo):
+        if len(s) == index:
+            return True 
+
+        if memo[index] != None:
+            return memo[index]
+
+        for i in range(index, len(s)):
+            if s[index:i + 1] in word_set and self.dfs(s, word_set, i + 1, memo):
+                # print(index, i, s[index:i + 1])
+                memo[index] = True 
+                return True 
+
+        memo[index] = False 
+        return False
