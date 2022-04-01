@@ -45,6 +45,10 @@ class Solution:
                     break 
                 
         return bool(dp[-1])
+
+    
+    
+    
 class Solution:
     """
     @param s: A string
@@ -53,26 +57,23 @@ class Solution:
     """
     def word_break(self, s, word_set):
         # write your code here
-        if len(s) == 0:
-            return True  
-
-        memo = [None for _ in range(len(s))]
-
-        return self.dfs(s, word_set, 0, memo)
+        return self.dfs(s, word_set, 0, {})
 
 
     def dfs(self, s, word_set, index, memo):
+        #memo store if s[:i] in word_set
         if len(s) == index:
             return True 
-
-        if memo[index] != None:
+        if index in memo:
             return memo[index]
 
         for i in range(index, len(s)):
-            if s[index:i + 1] in word_set and self.dfs(s, word_set, i + 1, memo):
-                # print(index, i, s[index:i + 1])
-                memo[index] = True 
+            if s[index:i+1] in word_set and self.dfs(s, word_set, i + 1, memo):
+                memo[index] = True
                 return True 
-
         memo[index] = False 
-        return False
+        return False 
+        
+
+
+
