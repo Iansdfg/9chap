@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,23 +15,21 @@ class Solution:
     @param root: The root of binary tree.
     @return: An integer
     """
-    def maxPathSum(self, root):
+    def max_path_sum(self, root):
         # write your code here
-        max_path_sum, single_path_sum = self.helper(root)
-        return max_path_sum
-        
-        
-        
-    def helper(self, root):
-        # return max_path_sum,single_path_sum
+        max_all, max_path = self.dfs(root)
+        return max_all
+
+
+    def dfs(self, root):
+        #return max_all, max_path 
         if not root:
             return float('-inf'), 0
-            
-        left_max_path_sum, left_single_path_sum =  self.helper(root.left)
-        right_max_path_sum, right_single_path_sum =  self.helper(root.right)
-        
-        max_path_sum = max(left_max_path_sum, right_max_path_sum, root.val + left_single_path_sum + right_single_path_sum)
-        
-        single_path_sum = max(right_single_path_sum + root.val, left_single_path_sum + root.val, 0, root.val)
-        
-        return max_path_sum, single_path_sum
+
+        left_max_all, left_max_path = self.dfs(root.left)
+        right_max_all, right_max_path = self.dfs(root.right)
+
+        max_all = max(left_max_all, right_max_all, left_max_path + right_max_path + root.val)
+        max_path = max(root.val + left_max_path, root.val + right_max_path, 0)
+
+        return max_all, max_path
