@@ -18,20 +18,23 @@ class Solution:
     """
     def closest_value(self, root, target):
         # write your code here
-        higher, lower = root.val, root.val
+        upper, lower = root, root
 
         while root:
+            print(lower.val, upper.val)
             if root.val > target:
-                higher = root.val
-                root = root.left 
+                upper = root
+                root = root.left
             elif root.val < target:
-                lower = root.val
-                root = root.right 
+                lower = root
+                root = root.right
             else:
-                return root.val
-        if abs(lower - target) > abs(higher - target):
-            return higher
+                return root.val 
+        
+        if abs(lower.val - target) <  abs(upper.val - target):
+            return lower.val
         else:
-            return lower
+            return upper.val
 
         
+
