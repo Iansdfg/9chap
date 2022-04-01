@@ -17,37 +17,18 @@ class Solution:
     """
     def searchNode(self, graph, values, node, target):
         # write your code here
-        if not graph:
-            return False 
-            
-        if values[node] == target:
-            return node 
-        
-        node_to_level = {}
-        
         queue = deque([node])
         visited = set()
-        level = 0
         while queue:
-            for _ in range(len(queue)):
-                curr = queue.popleft()
-                visited.add(curr)
-                for neighbor in curr.neighbors:
-                    if neighbor in visited:
-                        continue
-                    visited.add(neighbor)
-                    queue.append(neighbor)
-                    if values[neighbor] == target:
-                        node_to_level[neighbor] = level
-            level += 1
-            
-        if not node_to_level:
-            return None 
-            
-        for node in node_to_level:
-            if node_to_level[node] == min(node_to_level.values()):
-                return node
+            curr = queue.popleft()
+            if values[curr] == target:
+                    return curr
+            visited.add(curr)
+            for neighbor in curr.neighbors:
+                if neighbor in visited:
+                    continue
+                queue.append(neighbor)
 
-    
-        
+        return None
+
         
