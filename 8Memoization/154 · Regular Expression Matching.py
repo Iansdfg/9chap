@@ -25,7 +25,12 @@ class Solution:
             next_s_match = self.is_match_helper(s, i + 1, p, j, memo)
             next_p_match = self.is_match_helper(s, i, p, j + 2, memo)
             
-            match = (is_curr_char_match and next_s_match) or next_p_match
+            match = is_curr_char_match and next_s_match or next_p_match
+            # match2 = next_s_match or next_p_match
+            # case s == "aab" p == "c*a*b" for next_p_match need no is_curr_char_match
+            # case s == "ab" p == "b*" for next_s_match need is_curr_char_match
+            # print(s, p, i, j, s[i:],p[j:], match, is_curr_char_match, next_s_match, next_p_match)
+
         else:
             match = self.is_match_char(s[i], p[j]) and self.is_match_helper(s, i + 1, p, j + 1, memo)
 
