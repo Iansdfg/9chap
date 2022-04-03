@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,19 +15,22 @@ class Solution:
     @param root: The root of binary tree
     @return: An integer
     """
-    def minDepth(self, root):
+    def min_depth(self, root):
         # write your code here
-        if  not root:
+        return self.dfs(root)
+
+    def dfs(self, root):
+        #retrun minial depth
+        if not root:
             return 0
-        return self.helper(root)
+
+        left_depth = self.dfs(root.left)
+        right_depth = self.dfs(root.right)
         
-        
-    def helper(self, root):
-        # return mini_len
-        if not root.left and not root.right:
-            return 1
-            
-        left_len = self.helper(root.left) if root.left else float("inf")
-        right_len = self.helper(root.right) if root.right else float("inf")
-        
-        return min(left_len, right_len) + 1
+        if not left_depth and not right_depth:
+            depth = 1 
+        elif left_depth and right_depth:
+            depth = min(left_depth, right_depth) + 1
+        else:
+            depth = (left_depth or right_depth) + 1 
+        return depth
