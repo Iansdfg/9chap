@@ -23,16 +23,19 @@ class Solution:
         inorder = []
         while stack:
             curr = stack.pop()
-
             if curr.right:
                 curr = curr.right
-                while curr:
-                    stack.append(curr)
+                stack.append(curr)
+                
+                while curr.left:
                     curr = curr.left
+                    stack.append(curr)
+
             if stack:
                 inorder.append(stack[-1].val)
-            
+
         return inorder
+        
            
  ################## if not use dummy ##################
 class Solution:
