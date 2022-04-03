@@ -17,24 +17,29 @@ class Solution:
     """
     def flatten(self, root):
         # write your code here
-        self.dfs(root)
+        return self.dfs(root)
 
     def dfs(self, root):
-        # return last right 
+        #return root 
         if not root:
-            return
+            return None 
 
-        left_last = self.dfs(root.left)
-        right_last = self.dfs(root.right)
-        
-        if left_last:
-            left_last.right = root.right
-            root.right =  root.left
-            root.left = None
+        left_child = self.dfs(root.left)
+        right_child = self.dfs(root.right)
 
-        return right_last or left_last or root
- 
+        if not left_child:
+            return root
 
-        
+        #find left end 
+        left_end = left_child
+        while left_end and left_end.right:
+            left_end = left_end.right
+
+        #flatten
+        root.left = None
+        root.right = left_child
+        left_end.right = right_child
+
+        return root
 
 
