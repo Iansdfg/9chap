@@ -5,21 +5,21 @@ class Solution:
     """
     def minimum_total(self, triangle):
         # write your code here
-        memo = dict()
-        return self.divide_conqure(triangle , 0, 0, memo)
+        return self.dfs(triangle, 0, 0, {})
 
-    def divide_conqure(self, triangle , x, y, memo):
-        if x == len(triangle):
-            return 0
+    def dfs(self, triangle, x, y, memo):
+        #return minimum path sum to bottom
+        if x == len(triangle)-1:
+            return triangle[x][y]
+        
+        if (x,y) in memo:
+            return memo[(x,y)]
+            
+        left = self.dfs(triangle, x + 1, y, memo)
+        right = self.dfs(triangle, x + 1, y + 1, memo)
 
-        if (x, y) in memo:
-            return memo[(x, y)]
-        left = self.divide_conqure(triangle , x + 1, y, memo)
-        right = self.divide_conqure(triangle , x + 1, y + 1, memo)
-
-        memo[(x, y)] = min(left, right) + triangle[x][y]
-
-        return memo[(x, y)]
-
+        mini = min(left, right) + triangle[x][y]
+        memo[(x, y)] = mini
+        return mini
 
 
