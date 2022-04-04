@@ -19,3 +19,28 @@ class Solution:
 
         return min(dp[-1])
 
+
+    
+    
+    
+ #buttom up 
+class Solution:
+    """
+    @param triangle: a list of lists of integers
+    @return: An integer, minimum path sum
+    """
+    def minimum_total(self, triangle):
+        # write your code here
+        n = len(triangle)
+        dp = [[0] * (i + 1) for i in range(n)]
+
+        for i in range(n):
+            dp[n-1][i] = triangle[n-1][i]
+
+        for i in range(n-2, -1, -1):
+            for j in range(i + 1):
+                dp[i][j] = min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]
+
+        return dp[0][0]
+
+
