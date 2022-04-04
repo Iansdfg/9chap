@@ -57,21 +57,20 @@ class Solution:
     """
     def word_break(self, s, word_set):
         # write your code here
-        return self.dfs(s, word_set, 0, {})
+        res = self.dfs(s, word_set, 0)
+        return res 
 
 
-    def dfs(self, s, word_set, index, memo):
-        #memo store if s[:i] in word_set
-        if len(s) == index:
+    def dfs(self, s, word_set, index):
+        #return if s[:index], s[index:] is valid 
+        if index == len(s):
             return True 
-        if index in memo:
-            return memo[index]
 
+        #iterate all [:i] [i:]
         for i in range(index, len(s)):
-            if s[index:i+1] in word_set and self.dfs(s, word_set, i + 1, memo):
-                memo[index] = True
+            if s[index:i+1] in word_set and self.dfs(s, word_set, i + 1):
                 return True 
-        memo[index] = False 
+
         return False 
         
 
