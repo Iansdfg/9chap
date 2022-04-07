@@ -31,7 +31,7 @@ class Solution:
         return None
 
     def dfs(self, root, A, B):
-        #has_A, has_B, lca 
+        #has_A, has_B, lca(foundA or foundB)
         if not root:
             return False, False, None
         
@@ -52,22 +52,6 @@ class Solution:
             return has_A, has_B, right_lca 
         
         return has_A, has_B, None 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     """
