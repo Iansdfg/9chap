@@ -6,36 +6,34 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
-
 class Solution:
     """
-    @param: root: The root of the binary search tree.
-    @param: A: A TreeNode in a Binary.
-    @param: B: A TreeNode in a Binary.
-    @return: Return the least common ancestor(LCA) of the two nodes.
+    @param root: root of the tree
+    @param p: the node p
+    @param q: the node q
+    @return: find the LCA of p and q
     """
-    def lowestCommonAncestor(self, root, A, B):
+    def lowestCommonAncestor(self, root, p, q):
         # write your code here
-        return self.dfs(root, A, B)
+        lca = self.dfs(root, p, q)
+        return lca
 
-    def dfs(self, root, A, B):
+
+    def dfs(self, root, p, q):
+        #return cadidit 
         if not root:
             return None 
 
-        if root == A or root == B:
-            return root
+        left_cand = self.dfs(root.left, p, q)
+        right_cand =  self.dfs(root.right, p, q)
 
-        found_left = self.dfs(root.left, A, B)
-        found_right = self.dfs(root.right, A, B)
-
-        if found_left and found_right:
+        if root == q or root == p:
             return root 
-        if found_left:
-            return found_left
-        if found_right:
-            return found_right
-        if not found_right and not found_left:
-            return None 
+
+        if left_cand and right_cand:
+            return root 
+        if left_cand:
+            return left_cand
+        if right_cand:
+            return right_cand
         return None 
-
-
