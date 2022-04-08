@@ -13,17 +13,21 @@ class Solution:
     """
     def detectCycle(self, head):
         # write your code here
-        if not head: return head
+        if not head or not head.next:
+            return None 
         
-        slow = fast = head
+        slow = fast = head 
         while fast and fast.next:
-            slow = slow.next
             fast = fast.next.next
+            slow = slow.next
             if slow is fast:
-                fast = head
-                while fast != slow:
-                    fast = fast.next
-                    slow = slow.next
-                return slow
-        return None
-                
+                break 
+
+        if slow is fast:
+            slow = head 
+            while slow != fast:
+                slow = slow.next
+                fast = fast.next
+            return fast 
+
+        return None 
