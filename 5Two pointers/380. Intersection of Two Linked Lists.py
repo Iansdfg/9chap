@@ -14,34 +14,37 @@ class Solution:
     """
     def getIntersectionNode(self, headA, headB):
         # write your code here
-        if not self.have_intersection(headA, headB):
-            return None
+        if not headA or not headB:
+            return None 
+        if not self.has_intersection(headA, headB):
+            return None 
         if headA == headB:
             return headA
-            
-        currA,currB = headA,headB
+
+
+        currA, currB = headA, headB
+        
         while True:
             if currA.next:
-                currA = currA.next 
+                currA = currA.next
             else:
                 currA = headB
-                
+
             if currB.next:
-                currB = currB.next 
+                currB = currB.next
             else:
                 currB = headA
-                
+            
             if currA is currB:
-                return currA
-                
-    def have_intersection(self, headA, headB):
-        if not headA or not headB:
-            return False
+                return currA 
+
+
+    def has_intersection(self, headA, headB):
+        if not headA or not headA:
+            return False 
+
         while headA.next:
             headA = headA.next
         while headB.next:
             headB = headB.next
         return headA is headB
-        
-                
-            
