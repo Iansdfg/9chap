@@ -13,10 +13,14 @@ class Solution:
     """
     def hasCycle(self, head):
         # write your code here
-        slow = fast = head
-        while fast and fast.next:
-            slow = slow.next
-            fast = fast.next.next
-            if slow is fast:
-                return True
-        return False
+	   fast = slow = head
+
+	   while fast.next and fast.next.next:
+		   fast = fast.next.next
+		   slow = slow.next
+		   
+		   if slow == fast:
+			   return True 
+	   return False 
+
+
