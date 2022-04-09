@@ -31,10 +31,10 @@ class Solution:
                 right -= 1
 
         # start, right, left, end
+        # use k <= right/left because if k == right/left we want to partition with right/left
         if k <= right:
             return self.helper(k, nums, start, right)
         elif k >= left:
             return self.helper(k, nums, left, end)
         else:
             return nums[k]
-
