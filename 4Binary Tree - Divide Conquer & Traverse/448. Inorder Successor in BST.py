@@ -21,8 +21,7 @@ class Solution:
             if p.val >= root.val:
                 root = root.right
             else:
-                res = root
+                res = root 
                 root = root.left
 
-        return res 
-
+        return res
