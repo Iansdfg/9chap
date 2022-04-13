@@ -80,3 +80,95 @@ class LRUCache:
 
         
            
+##############################practice##############################
+class LinkedNode:
+    def __init__(self, key=None, val=None, next=None):
+        self.key = key 
+        self.val = val
+        self.next = next
+
+class LRUCache:
+    """
+    @param: capacity: An integer
+    """
+    def __init__(self, capacity):
+        # do intialization if necessary
+        self.capacity = capacity
+        self.dummy = LinkedNode()
+        self.key2prev = dict()
+        self.tail = self.dummy
+
+    """
+    @param: key: An integer
+    @return: An integer
+    """
+    def get(self, key):
+        # write your code here
+        if key not in self.key2prev:
+            return -1 
+        
+        prev = self.key2prev[key]
+        curr = prev.next
+        self.kick_append(prev)
+        return curr.val
+
+
+    """
+    @param: key: An integer
+    @param: value: An integer
+    @return: nothing
+    """
+    def set(self, key, value):
+        # write your code here
+        if key not in self.key2prev:
+            curr = LinkedNode(key, value)
+            self.append(curr)
+        else:
+            prev = self.key2prev[key]
+            curr = prev.next
+            curr.val = value
+            self.kick_append(prev)
+
+        if len(self.key2prev) > self.capacity:
+            self.popfront()
+
+    def kick_append(self, prev):
+        curr_node = prev.next
+        
+        #remember this case, when curr already the last
+        if curr_node == self.tail:
+            return
+            
+        next_node = curr_node.next
+
+        prev.next = next_node
+        self.key2prev[next_node.key] = prev
+
+        self.append(curr_node)
+
+    def append(self, curr):
+        self.tail.next = curr
+        self.key2prev[curr.key] = self.tail
+
+        self.tail = curr
+
+    def popfront(self):
+        head = self.dummy.next
+        next_node = head.next 
+        
+        self.dummy.next = next_node
+        self.key2prev[next_node.key] = self.dummy
+
+        head.next = None 
+        del self.key2prev[head.key]
+
+        
+
+
+
+
+
+
+
+
+    
