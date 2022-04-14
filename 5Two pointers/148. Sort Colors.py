@@ -5,15 +5,15 @@ class Solution:
     """
     def sort_colors(self, nums):
         # write your code here
-        left, mid, right = 0, 0, len(nums) - 1 
+        left, mid, right = 0, 0, len(nums) - 1
         while mid <= right:
+            #if use <, list cannot be iterated thruly 
             if nums[mid] == 0:
-                nums[left], nums[mid] = nums[mid], nums[left]
+                nums[mid], nums[left] = nums[left], nums[mid]
+                left += 1 
                 mid += 1 
-                left += 1
             elif nums[mid] == 1:
                 mid += 1 
             elif nums[mid] == 2:
                 nums[mid], nums[right] = nums[right], nums[mid]
                 right -= 1 
-        
