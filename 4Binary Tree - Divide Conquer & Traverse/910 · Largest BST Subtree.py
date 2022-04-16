@@ -15,14 +15,27 @@ class Solution:
     @param root: the root
     @return: the largest subtree's size which is a Binary Search Tree
     """
-    max_node = [] 
-    max_num = float('-inf')
+    node2num = dict()
 
     def largest_b_s_t_subtree(self, root):
         # Write your code here
         _, max_num = self.dfs(root)
-        print(self.max_node)
+        max_nodes = []
+        for key in self.node2num:
+            if self.node2num[key] == max_num:
+                max_nodes.append(key)
+        res = []
+        for node in max_nodes:
+            self.inorder(node, res)
+        print(res)
         return max_num
+
+    def inorder(self, node, res):
+        if not node:
+            return
+        self.inorder(node.left, res)
+        res.append(node.val)
+        self.inorder(node.right, res)
 
 
     def dfs(self, root):
@@ -37,12 +50,12 @@ class Solution:
 
         if is_bst:
             num = left_num + right_num + 1 
+            self.node2num[root]= num
         else:
             num = max(left_num, right_num)
 
         return is_bst, num
 
-    
     def isValidBST(self, root):
         # write your code here
         max_num, min_num, is_bst = self.is_bst(root)
