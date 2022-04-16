@@ -56,6 +56,7 @@ class Solution:
 
         return is_bst, num
 
+    
     def isValidBST(self, root):
         # write your code here
         max_num, min_num, is_bst = self.is_bst(root)
@@ -76,4 +77,6 @@ class Solution:
         min_num = min(root.val, left_min, right_min)
 
         return max_num, min_num, is_bst
+    
+    
 
