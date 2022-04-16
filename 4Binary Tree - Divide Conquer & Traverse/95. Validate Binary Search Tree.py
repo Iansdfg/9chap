@@ -25,8 +25,6 @@ class Solution:
         left_max, left_min, left_is_bst = self.is_bst(root.left)
         right_max, right_min, right_is_bst = self.is_bst(root.right)
 
-        print(left_max, right_max)
-        print(left_min, right_min)
         is_bst = left_is_bst and right_is_bst and left_max < root.val  and root.val < right_min 
 
         max_num = max(root.val, left_max, right_max)
