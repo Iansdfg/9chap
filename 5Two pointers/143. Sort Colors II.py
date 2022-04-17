@@ -4,33 +4,31 @@ class Solution:
     @param k: An integer
     @return: nothing
     """
-    def sortColors2(self, colors, k):
+    def sort_colors2(self, colors, k):
         # write your code here
-        color_start, color_end = 1, k 
-        index_start, index_end = 0, len(colors) - 1 
-        self.rainbow_sort(colors, color_start, color_end, index_start, index_end)
-        
-        
-    def rainbow_sort(self, colors, color_start, color_end, index_start, index_end):
-        
-        if index_start == index_end or color_start == color_end:
+        # why use k, its not index, its color number so we need use k intsead of k+1/k-1
+        self.rainbow_sort(colors, 1, k, 0, len(colors) - 1)
+
+
+    def rainbow_sort(self, colors, form_color, to_color, from_index, to_index):
+        if from_index == to_index or form_color == to_color:
             return
-        
-        color_mid = (color_start + color_end) // 2 
-        
-        left, right = index_start, index_end
-        
+
+        left, right = from_index, to_index
+        pivot = (form_color + to_color) // 2 
+
         while left <= right:
-            while left <= right and colors[left] <= color_mid:
-                left += 1
-            while left <= right and colors[right] > color_mid:
-                right -= 1
-                
+            #use <= and > cam seperate colors 
+            while left <= right and colors[left] <= pivot:
+                left += 1 
+            while left <= right and colors[right] > pivot:
+                right -= 1 
             if left <= right:
                 colors[left], colors[right] = colors[right], colors[left]
                 left += 1 
                 right -= 1 
-                
-        self.rainbow_sort(colors, color_start, color_mid, index_start, right)
-        self.rainbow_sort(colors, color_mid + 1, color_end, left , index_end)
-    
+
+        
+        self.rainbow_sort(colors, k, form_color, pivot, from_index, right)
+        self.rainbow_sort(colors, k, pivot + 1, to_color, left, to_index)
+
