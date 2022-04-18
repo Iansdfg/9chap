@@ -16,7 +16,7 @@ class Solution:
                 left += 1 
             else:
                 return [nums[left], nums[right]] 
-
+            #update right when two pointers meet
             if right == left:
                 right += 1
                 
