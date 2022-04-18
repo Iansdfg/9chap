@@ -4,16 +4,20 @@ class Solution:
     @param k: length of window.
     @return: the sum of the element inside the window at each moving.
     """
-    def winSum(self, nums, k):
+    def win_sum(self, nums, k):
         # write your code here
-        results = []
-        if len(nums) == 0 or k == 0:
-            return results 
-        len_res = len(nums) - k + 1
-        res = [0]*len_res
+        if not nums:
+            return []
+        summ = 0 
         for i in range(k):
-            res[0] += nums[i]    
-        for i in range(1, len_res):
-            res[i] = res[i-1] - nums[i - 1] + nums[i + k - 1]
+            summ += nums[i]
+
+        res = [summ]
+        for i in range(k, len(nums)):
+            summ = summ + nums[i] - nums[i-k]
+            res.append(summ)
         return res 
-           
+
+
+
+
