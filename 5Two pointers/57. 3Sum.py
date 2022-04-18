@@ -2,31 +2,29 @@ class Solution:
     """
     @param numbers: Give an array numbers of n integer
     @return: Find all unique triplets in the array which gives the sum of zero.
+             we will sort your return value in output
     """
     def three_sum(self, numbers):
         # write your code here
-        numbers = sorted(numbers)
-        results = []
-        for pos, val in enumerate(numbers):
-            if pos > 0 and numbers[pos] == numbers[pos - 1]:
-                continue
-            results += self.two_sum(numbers, pos + 1, len(numbers) - 1, val)
-        return results
-
-    def two_sum(self, numbers, start, end, target):
-        neg_target = target * -1
+        numbers.sort()
         res = []
-        last = None
-        while start < end:
-            val = numbers[start] + numbers[end]
-            if val > neg_target:
-                end -= 1
-            elif val < neg_target:
-                start += 1 
-            else:
-                if (numbers[start], numbers[end]) != last:
-                    res.append((target, numbers[start], numbers[end]))
-                last = (numbers[start], numbers[end])
-                end -= 1
-                start += 1 
-        return res 
+        last_pair = None
+        for i in range(len(numbers)):
+            if i > 0 and numbers[i] == numbers[i - 1]:
+                continue
+            left, right = i + 1, len(numbers) - 1
+            while left < right:
+                summ = numbers[i] + numbers[left] + numbers[right]
+                if summ < 0:
+                    left += 1 
+                elif summ > 0:
+                    right -= 1 
+                else:
+                    if [numbers[i], numbers[left], numbers[right]] != last_pair:
+                        res.append([numbers[i], numbers[left], numbers[right]])
+                        last_pair = [numbers[i], numbers[left], numbers[right]]
+                    left += 1 
+                    right -= 1
+
+        return res
+
