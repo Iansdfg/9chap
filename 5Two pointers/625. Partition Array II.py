@@ -7,16 +7,15 @@ class Solution:
     """
     def partition2(self, nums, low, high):
         # write your code here
-        left, right = 0, len(nums)-1
-        i = 0
-        while i<=right:
-            if nums[i]<low:
-                nums[i], nums[left] = nums[left], nums[i]
-                left+=1
-                i += 1
-            elif low <= nums[i] <= high:
-                i += 1 
-            elif nums[i]>high:
-                nums[i], nums[right] = nums[right], nums[i]
-                right -= 1
-                
+        left, mid, right = 0, 0, len(nums) - 1
+        while mid <= right:
+            if nums[mid] < low:
+                nums[left], nums[mid] = nums[mid], nums[left]
+                mid += 1 
+                left += 1 
+            elif low <= nums[mid] <= high:
+                mid += 1 
+            else:
+                nums[right], nums[mid] = nums[mid], nums[right]
+                right -= 1 
+        return nums
