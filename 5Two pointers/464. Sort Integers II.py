@@ -1,31 +1,34 @@
 class Solution:
     """
-    @param A: an integer array
+    @param a: an integer array
     @return: nothing
     """
-    def sortIntegers2(self, A):
+    def sort_integers2(self, a):
         # write your code here
-        start, end = 0, len(A) - 1 
-        self.helper(A, start, end)
+        self.quick_sort(a, 0, len(a) - 1)
         
-    def helper(self, A, start, end):
-        print(start, end)
+
+    def quick_sort(self, a, start, end):
+        print(start, end, a)
         if start >= end:
-            return 
-        
+            return
+
         left, right = start, end
-        pivit = A[(left + right)//2]
-        
+
+        mid = (left + right)//2
+        pivot = a[mid]
         while left <= right:
-            while left <= right and A[left] < pivit:
-                left += 1 
-            while left <= right and A[right] > pivit:
+            # quick sort have to use < insted of others
+            # or left and right pointer cannot go to the boundry 
+            # thus cause run time error
+            while left <= right and a[left] < pivot:
+                left += 1
+            while left <= right and a[right] > pivot:
                 right -= 1 
-                
             if left <= right:
-                A[left], A[right] = A[right], A[left]
+                a[left], a[right] = a[right], a[left]
                 left += 1 
-                right -= 1 
-                
-        self.helper(A, start, right)
-        self.helper(A, left, end)
+                right -= 1
+        
+        self.quick_sort(a, start, right)
+        self.quick_sort(a, left, end)
