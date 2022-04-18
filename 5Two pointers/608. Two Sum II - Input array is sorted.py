@@ -6,13 +6,14 @@ class Solution:
     """
     def two_sum(self, nums, target):
         # write your code here
-        start, end = 0, len(nums) - 1
-        while start < end:
-            value = nums[start] + nums[end]
-            if value > target:
-                end -= 1 
-            elif value < target:
-                start += 1 
+        left, right = 0, len(nums) - 1
+        while left <= right:
+            twoSum = nums[left] + nums[right]
+            if twoSum > target:
+                right -= 1 
+            elif twoSum < target:
+                left += 1 
             else:
-                return [start + 1, end + 1]
-        return []
+                return [left + 1, right + 1]
+            
+
