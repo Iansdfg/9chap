@@ -6,14 +6,19 @@ class Solution:
     """
     def two_sum7(self, nums, target):
         # write your code here
+        nums.sort()
+        left, right = 0, 1 
         target = abs(target)
-        start, end = 0, 1
-        while end < len(nums):
-            if nums[end] - nums[start] == target:
-                return [nums[start], nums[end]]
-            elif nums[end] - nums[start] < target:
-                end += 1 
-            elif nums[end] - nums[start] > target:
-                start += 1 
-                end = max(start + 1, end)
+        while right < len(nums):
+            if nums[right] - nums[left] < target:
+                right += 1
+            elif nums[right] - nums[left] > target:
+                left += 1 
+            else:
+                return [nums[left], nums[right]] 
+
+            if right == left:
+                right += 1
+                
         return [-1, -1]
+
