@@ -30,8 +30,8 @@ class BSTIterator:
     def hasNext(self):
         # write your code here
         if self.stack:
-            return True 
-        return False 
+            return True
+        return False
 
     """
     @return: return next node
@@ -40,9 +40,12 @@ class BSTIterator:
         # write your code here
         curr = self.stack.pop()
         res = curr
-        curr = curr.right
-        while curr:
+        if curr.right:
+            curr = curr.right
             self.stack.append(curr)
-            curr = curr.left
+            while curr.left:
+                curr = curr.left
+                self.stack.append(curr)
+        return res 
+        
 
-        return res
