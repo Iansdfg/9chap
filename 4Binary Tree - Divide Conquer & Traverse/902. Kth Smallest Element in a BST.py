@@ -18,26 +18,15 @@ class Solution:
     """
     def kth_smallest(self, root, k):
         # write your code here
+        dummy = TreeNode(0)
+        dummy.right = root 
+        stack = [dummy]
 
-	   dummy = TreeNode(-1)
-	   dummy.right = root
-	   stack = [dummy]
-	   res = None 
-	   for _ in range(k + 1 ):
-		   curr = stack.pop()
-		   res = curr.val
-		   curr = curr.right
-
-		   while curr:
-			   stack.append(curr)
-			   curr = curr.left
-	   return res
-	
-
-
-
-
-
-
-
-
+        for _ in range(k + 1):
+            curr = stack.pop()
+            res = curr.val
+            curr = curr.right
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+        return res
