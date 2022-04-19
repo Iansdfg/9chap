@@ -5,16 +5,13 @@ class Solution:
     """
     def move_zeroes(self, nums):
         # write your code here
-        left, right = 0, 0 
-        while right < len(nums):
-            if nums[right] != 0:
-                nums[left] = nums[right]
-                left += 1 
-            right += 1
-
-        while left < len(nums):
-            if nums[left] != 0: 
-                nums[left] = 0
-            left += 1
-
+        slow, fast = 0, 0
+        while fast < len(nums):
+            if nums[fast] != 0:
+                nums[slow] = nums[fast]
+                slow += 1 
+            fast += 1 
+        while slow < len(nums):
+            nums[slow] = 0
+            slow += 1 
 
