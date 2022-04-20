@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,24 +15,22 @@ class Solution:
     @param root: The root of binary tree.
     @return: True if this Binary tree is Balanced, or false.
     """
-    def isBalanced(self, root):
+    def is_balanced(self, root):
         # write your code here
-        hight, is_balanced = self.helper(root)
+        is_balanced, hight = self.dfs(root)
         return is_balanced
-        
-    def helper(self, root):
-        # return hight, is_balanced
+
+    def dfs(self, root):
+        #is_balanced, hight 
         if not root:
-            return 0, True
-            
-        left_hight, left_is_balanced = self.helper(root.left)
-        right_hight, right_is_balanced = self.helper(root.right)
-        
-        if not left_is_balanced or not right_is_balanced:
-            return 0, False 
-        
-        hight = max(left_hight, right_hight) + 1 
-            
-        is_balanced = True if abs(left_hight - right_hight) <= 1 else False
-        
-        return hight, is_balanced
+            return True, 0
+
+        left_balanced, left_h = self.dfs(root.left)
+        right_balanced, right_h = self.dfs(root.right)
+
+        is_balanced = left_balanced and right_balanced and abs(left_h - right_h) <= 1 
+
+        hight = max(left_h, right_h) + 1 
+
+        return is_balanced, hight
+
