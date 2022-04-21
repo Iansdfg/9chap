@@ -17,21 +17,24 @@ class Solution:
     """
     def is_symmetric(self, root):
         # write your code here
-        if not root:
-            return True 
-        return self.dfs(root.left, root.right)
+        return self.is_valid(root.left, root.right)
 
 
-    def dfs(self, left, right):
-        #return is left and left are euql 
+    def is_valid(self, left, right):
+        # return left and right child is symmetric
         if not left and not right:
             return True 
-            
+
         if not left or not right:
             return False
 
         if left.val == right.val:
-            return self.dfs(left.left, right.right) and self.dfs(left.right, right.left)
+            return self.is_valid(left.left, right.right) and self.is_valid(left.right, right.left)
 
-        return False 
+        return False
+
+
+        
+
+        
 
