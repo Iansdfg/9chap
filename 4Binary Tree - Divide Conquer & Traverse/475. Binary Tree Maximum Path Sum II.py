@@ -18,17 +18,18 @@ class Solution:
     max_val = float('-inf')
     def max_path_sum2(self, root):
         # write your code here
-        self.dfs(root, root.val)
+        self.dfs(root, 0)
         return self.max_val
 
 
     def dfs(self, root, summ):
-        if summ > self.max_val:
-            self.max_val = summ
+        if not root:
+            return
 
         for next_node in [root.left, root.right]:
-            if not next_node:
-                continue
-            summ += next_node.val
+            summ += root.val
+            if summ > self.max_val:
+                self.max_val = summ
             self.dfs(next_node, summ)
-            summ -= next_node.val
+            summ -= root.val
+        
