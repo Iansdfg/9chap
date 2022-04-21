@@ -30,7 +30,9 @@ class Solution:
         path.append(root.val)
         if not root.left and not root.right and sum(path) == target:
             paths.append(path[:])
-      
-        self.dfs(root.left, target, path, paths)
-        self.dfs(root.right, target, path, paths)
+            
+        for next_node in [root.left, root.right]:
+            self.dfs(next_node, target, path, paths)
+
         path.pop()
+
