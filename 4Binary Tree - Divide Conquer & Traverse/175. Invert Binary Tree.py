@@ -26,6 +26,7 @@ class Solution:
         left = self.dfs(root.left)
         right = self.dfs(root.right)
 
-        root.left, root.right = right, left
+        root.left = right 
+        root.right = left
 
         return root
