@@ -87,23 +87,27 @@ class ParkingSpot:
     
 class Level:
     # Write your code here
-
     def __init__(self):
-        pass
+        self.floor = flr
+        self.spots_per_row = spots_per_row
+        self.number_spots = 0
+        self.available_spots = 0;
+        self.spots = []
+        
 
-    def park_vehicle():
+    def park_vehicle(self, vehicle):
         pass 
 
-    def find_avaliable_spot():
+    def find_avaliable_spot(self, vehicle):
         pass
 
-    def park_starting_at_spot():
+    def park_starting_at_spot(self, spot_num, vehicle):
         pass
 
-    def spot_freed():
+    def spot_freed(self):
         pass
 
-    def get_available_spots():
+    def get_available_spots(self):
         pass
 
 
