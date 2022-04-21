@@ -1,3 +1,7 @@
+from lintcode import (
+    TreeNode,
+)
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -11,14 +15,16 @@ class Solution:
     @param root: The root of binary tree.
     @return: An integer
     """
-    def maxDepth(self, root):
-        # write your code 
+    def max_depth(self, root):
+        # write your code here
+        return self.dfs(root)
+
+
+    def dfs(self, root):
         if not root:
-            return 0
-            
-            
-        left = self.maxDepth(root.left)
-        right = self.maxDepth(root.right)
-        
-        
-        return max(left,right)+1
+            return 0 
+
+        left_h = self.dfs(root.left)
+        right_h = self.dfs(root.right)
+
+        return max(left_h, right_h) + 1 
