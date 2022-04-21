@@ -20,22 +20,20 @@ class Solution:
     def binary_tree_path_sum2(self, root, target):
         # write your code here
         paths = []
-        self.path_sum(root, target, [], paths)
+        self.dfs(root, target, [], paths)
         return paths
 
-    def path_sum(self, root, target, path, paths):
-        #return lefypath and sum
+    def dfs(self, root, target, path, paths):
         if not root:
-            return 
+            return
 
         path.append(root.val)
-        temp = target
+        
         for i in range(len(path)):
             if sum(path[i:]) == target:
-                paths.append(path[i:]) 
+                paths.append(path[i:])
 
+        for next_node in [root.left, root.right]:
+            self.dfs(next_node, target, path, paths)
 
-        self.path_sum(root.left, target, path, paths)
-        self.path_sum(root.right, target, path, paths)
         path.pop()
-
