@@ -4,13 +4,12 @@ class Solution:
     @param target: 
     @return: return the index
     """
-    def strStr(self, source, target):
+    def str_str(self, source, target):
         # Write your code here
-        if source == target or target ==:
-            return 0
-        for pos, val in enumerate(source):
-            if val == target[0]:
-                if target == source[pos:pos + len(target)]:
-                    return pos 
+        # if target not in source:
+        #     return -1
+
+        for i in range(len(source)-len(target)+1):
+            if source[i:i+len(target)] == target:
+                return i
         return -1
-                        
