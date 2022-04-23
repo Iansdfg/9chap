@@ -1,28 +1,30 @@
 class Solution:
     """
     @param s: input string
-    @return: the longest palindromic substring
+    @return: a string as the longest palindromic substring
     """
-    def longestPalindrome(self, s):
+    def longest_palindrome(self, s):
         # write your code here
-        if len(s) < 2:
-            return s 
-            
-        max_pal = ''
-        for i in range(1, len(s)):
-            pal = self.find_palindro(s, i-1, i)
-            if len(pal) > len(max_pal):
-                max_pal = pal
-                
-            pal = self.find_palindro(s, i, i)
-            if len(pal) > len(max_pal):
-                max_pal = pal
-                
-        return max_pal
-                
-    def find_palindro(self, s, l, r):
-        while l >= 0 and r <= len(s)-1 and s[l] == s[r]:
-            l -= 1 
-            r += 1
-        # print(l,r)
-        return s[l + 1: r]
+        max_val = 0
+        index = 0
+        for i in range(len(s)):
+            length = max(self.check_palindrome(s, i, i), self.check_palindrome(s, i, i+1))
+            if length > max_val:
+                max_val = length
+                index = i
+        if max_val % 2:
+            return s[index - max_val/2: index + max_val/2 + 1]
+        else:
+            return s[index - max_val/2 + 1:index + max_val/2 + 1]
+
+    def check_palindrome(self, s, start, end):
+        left, right = start, end 
+        
+        while True:
+            if left < 0 or right >= len(s):
+                break 
+            if s[left] != s[right]:
+                break
+            left -= 1 
+            right += 1 
+        return right - left - 1 
