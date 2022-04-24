@@ -1,24 +1,24 @@
 class Solution:
     """
-    @param: : a string to be split
+    @param s: a string to be split
     @return: all possible split string array
     """
-
-    def splitString(self, s):
+    def split_string(self, s):
         # write your code here
-        results = []
-        self.dfs(s, [], results)
-        return results
-        
-    def dfs(self, s, path, results):
-        if len(s) == 0:
-            results.append(path[:])
-            return 
-        
-        for i in [1, 2]:
-            if i <= len(s):
-                path.append(s[:i])
-                self.dfs(s[i:], path, results)
-                path.pop()
-            
-        
+        combinations = []
+        self.dfs(s, [], combinations)
+        return combinations
+
+    def dfs(self, s, combination, combinations):
+        if s == '':
+            combinations.append(combination[:])
+            return
+
+        for i in range(1, 3):
+            if i > len(s):
+                continue
+            combination.append(s[:i])
+            self.dfs(s[i:], combination, combinations)
+            combination.pop()
+
+
