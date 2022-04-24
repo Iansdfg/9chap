@@ -5,12 +5,15 @@ class Solution:
     @param n: A 32bit integer
     @return: An integer
     """
-    def fastPower(self, a, b, n):
+    def fast_power(self, a, b, n):
         # write your code here
-        base, ans = a, 1 
+        base = a
+        ans = 1
         while n:
-            if n%2:
-                ans = (base * ans) % b
-            base =(base*base) % b 
-            n //= 2 
-        return ans % b 
+            if n % 2:
+                ans = (base * ans)%b
+
+            n = n // 2
+            base  = (base ** 2)%b
+
+        return ans % b
