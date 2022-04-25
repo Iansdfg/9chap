@@ -19,21 +19,22 @@ class Solution:
     """
     def binary_tree_path_sum2(self, root, target):
         # write your code here
-        paths = []
-        self.dfs(root, target, [], paths)
-        return paths
+        combinations = []
+        self.dfs(root, target, [], combinations)
+        return combinations
 
-    def dfs(self, root, target, path, paths):
+
+    def dfs(self, root, target, combination, combinations):
         if not root:
-            return
+            return 
 
-        path.append(root.val)
-        
-        for i in range(len(path)):
-            if sum(path[i:]) == target:
-                paths.append(path[i:])
+        combination.append(root.val)
+
+        for i in range(len(combination)):
+            if sum(combination[i:]) == target:
+                combinations.append(combination[i:])
 
         for next_node in [root.left, root.right]:
-            self.dfs(next_node, target, path, paths)
-
-        path.pop()
+            self.dfs(next_node, target, combination, combinations)
+        
+        combination.pop()
