@@ -1,50 +1,61 @@
 from collections import deque
 class Solution:
     """
-    @param: start: a string
-    @param: end: a string
-    @param: dict: a set of string
+    @param start: a string
+    @param end: a string
+    @param dict: a set of string
     @return: a list of lists of string
+             we will sort your return value in output
     """
-    def findLadders(self, start, end, dict):
-        # write your code here
+    def find_ladders(self, start, end, dict):
+        #write your code here
+        queue = deque([end])
         dict.add(start)
         dict.add(end)
-        distance = {}
-        
-        self.bfs(end, start, distance, dict)
-        results = []
-        self.dfs(start, end, distance, dict, [start], results)
-        return results
-        
-    def bfs(self, start, end, distance, dict):
-        distance[start] = 0
-        queue = deque([start])
+
+
+        word2step = {
+            end:0
+        }
+        step = 1
         while queue:
-            word = queue.popleft()
-            for next_word in self.get_next(word, dict):
-                if next_word not in distance:
-                    distance[next_word] = distance[word]+1
+            for _ in range(len(queue)):
+                curr = queue.popleft()
+                for next_word in self.find_next(curr, dict):
+                    if next_word in word2step:
+                        continue
+                    word2step[next_word] = step
                     queue.append(next_word)
-                    
-    def get_next(self, word, dict):
-        words = []
-        for i in range(len(word)):
-            for c in "abcdefghijklmnopqrstuvwxyz":
-                next_word = word[:i] + c + word[i + 1:]
-                if next_word != word and next_word in dict:
-                    words.append(next_word)
-        return words
+            step += 1 
+
+        paths = []
+        self.dfs(start, end, dict, word2step, [start], paths)
+        return paths
+
     
-    def dfs(self, curr, target, distance, dict, path, results):
+    def dfs(self, curr, target, dict, word2step, path, paths):
         if curr == target:
-            results.append(list(path))
+            paths.append(path[:])
             return
-        
-        for word in self.get_next(curr, dict):
-            if distance[word]!=distance[curr]-1:
+
+        for next_word in self.find_next(curr, dict):
+            if word2step[curr] - 1 !=  word2step[next_word]:
                 continue
-            path.append(word)
-            self.dfs(word, target, distance, dict, path, results)
+            path.append(next_word)
+            self.dfs(next_word, target, dict, word2step, path, paths)
             path.pop()
-      
+
+
+    def find_next(self, word, dict):
+        new_words = []
+        for i in range(len(word)):
+            for char in "abcdefghijklmnopqrstuvwxyz":
+                new_word = word[:i] + char +word[i+1:]
+                if new_word != word and new_word in dict:
+                    new_words.append(new_word)
+        return new_words
+
+
+
+
+
