@@ -7,18 +7,17 @@ class Solution:
     def two_sum7(self, nums, target):
         # write your code here
         nums.sort()
-        left, right = 0, 1 
-        target = abs(target)
+        if len(nums) <= 1:
+            return [-1, -1]
+
+        left, right = 0, 1
         while right < len(nums):
             if nums[right] - nums[left] < target:
-                right += 1
+                right += 1 
             elif nums[right] - nums[left] > target:
                 left += 1 
             else:
-                return [nums[left], nums[right]] 
-            #update right when two pointers meet
-            if right == left:
-                right += 1
-                
+                return [min(nums[left], nums[right]), max(nums[left], nums[right])]
+            if left == right:
+                left += 1 
         return [-1, -1]
-
