@@ -17,24 +17,19 @@ class Solution:
     """
     def is_symmetric(self, root):
         # write your code here
-        return self.is_valid(root.left, root.right)
+        if not root:
+            return True
+        return self.dfs(root.left, root.right)
 
-
-    def is_valid(self, left, right):
-        # return left and right child is symmetric
-        if not left and not right:
+    def dfs(self, l, r):
+        if not l and not r:
             return True 
-
-        if not left or not right:
-            return False
-
-        if left.val == right.val:
-            return self.is_valid(left.left, right.right) and self.is_valid(left.right, right.left)
-
-        return False
-
-
         
+        if not l or not r:
+            return False 
 
+        if l.val == r.val and self.dfs(l.left, r.right) and self.dfs(l.right, r.left):
+            return True 
         
-
+        return False 
+        
