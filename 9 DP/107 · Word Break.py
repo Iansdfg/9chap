@@ -6,17 +6,18 @@ class Solution:
     """
     def word_break(self, s, word_set):
         # write your code here
+        if not word_set:
+            return s == ''
+        memo = {x:None for x in range(len(s)+1)}
+        memo[0] = True
+        self.memorize(s, word_set, memo)
+        return memo[len(s)] == True
 
-        dp = [False for i in range(len(s) + 1)]
-        dp[0] = True 
-
-        max_len = 0
-        for word in word_set:
-            max_len = max(max_len, len(word))
-            
+    def memorize(self, s, word_set, memo):
+        max_len = max(len(word) for word in word_set)
         for i in range(len(s) + 1):
-            for j in range(max(i - max_len, 0), i):
-                if dp[j] and s[j:i] in word_set:
-                    dp[i] = True 
+            for j in range(max(0, i - max_len), i):
+                if memo[j] and s[j:i] in word_set:
+                    memo[i] = True 
 
-        return dp[-1]
+
