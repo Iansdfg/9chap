@@ -2,30 +2,26 @@ class Solution:
     """
     @param nums: A list of integers.
     @return: A list of permutations.
+             we will sort your return value in output
     """
     def permute(self, nums):
         # write your code here
-        visited = [0 for i in range(len(nums))]
-        permutations = []
-        self.dfs(nums, visited, [], permutations)
-        return permutations
 
-    def dfs(self, nums, visited, permutation, permutations):
-        if len(permutation) == len(nums):
-           permutations.append(permutation[:])
-           return
-        
+        permutions = []
+        visited = set()
+        self.dfs(nums, visited, [], permutions)
+        return permutions
+    
+    def dfs(self, nums, visited, permution, permutions):
+        if len(permution) == len(nums):
+            permutions.append(permution[:])
+            return
+
         for i in range(len(nums)):
-            if visited[i]:
+            if nums[i] in visited:
                 continue
-            permutation.append(nums[i])
-            visited[i] = 1
-            self.dfs(nums, visited, permutation, permutations)
-            visited[i] = 0
-            permutation.pop()
-
-            
-            
-
-            
-            
+            permution.append(nums[i])
+            visited.add(nums[i])
+            self.dfs(nums, visited, permution, permutions)
+            visited.remove(nums[i])
+            permution.pop()
