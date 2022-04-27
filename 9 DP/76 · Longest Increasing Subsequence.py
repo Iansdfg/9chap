@@ -7,11 +7,15 @@ class Solution:
         # write your code here
         if not nums:
             return 0
-        dp =[1 for i in range(len(nums))]
+        dp = [1 for _ in range(len(nums))]
 
-        for i in range(len(nums)):
+        for i in range(len(dp)):
             for j in range(i):
-                # print(i, j, nums[i], nums[j])
                 if nums[j] < nums[i]:
-                    dp[i] = max(dp[i], dp[j] + 1)
+                    dp[i] = max(dp[i],dp[j]+ 1)
         return max(dp)
+
+                
+
+
+
