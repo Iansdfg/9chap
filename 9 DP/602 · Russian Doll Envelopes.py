@@ -1,3 +1,5 @@
+###### O(n^2) ######
+
 from typing import (
     List,
 )
