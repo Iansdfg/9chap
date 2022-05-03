@@ -76,6 +76,7 @@ class Sugar(Decore):
     def get_cost(self):
         return self.cost
 
+    
 
 pack = CoffeePack(2,3)
 cf = CoffeeMaker()
@@ -83,3 +84,5 @@ coffee = cf.make_coffee(pack)
 coffee.get_ingredience()
 cost = coffee.get_cost()
 print(cost)
+
+
