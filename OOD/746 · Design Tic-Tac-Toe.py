@@ -10,8 +10,12 @@ class TicTacToe:
         self.board = Board()
         self.current_player = 'x'
         self.player_to_coord = {'x':[],'o':[]}
+        self.cnt = 0
 
     def move(self, row, col):
+        if self.cnt >= 9:
+            return "Game Over, its Tie"
+            
         if self.board.table[row][col]!='':
             print('AlreadyTakenException')
             return
@@ -21,8 +25,9 @@ class TicTacToe:
         if winner:
             print (self.current_player, ' player wins!')
             return
-
+        self.cnt += 1
         self.change_player()
+
 
     def change_player(self):
         if self.current_player == 'x':
