@@ -27,6 +27,7 @@ class Solution:
                     queue.append(neighbor)
         return order
                 
+     
 
     def get_indegree(self, graph):
         node_indegree = {x:0 for x in graph }
@@ -34,3 +35,4 @@ class Solution:
             for neighbor in node.neighbors:
                 node_indegree[neighbor] += 1 
         return node_indegree
+
