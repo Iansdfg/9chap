@@ -5,16 +5,15 @@ class Solution:
     """
     def string_count(self, str):
         # Write your code here.
-        slow,fast = 0, 0 
-        res = 0
-        while slow < len(str):
-            if str[slow] == '0':
-                fast = slow 
-                while fast < len(str) and str[fast] == '0':
-                    fast += 1 
-                num_of_zero = fast - slow
-                if num_of_zero:
-                    res += (num_of_zero * (num_of_zero+1))//2
-                slow = fast
-            slow += 1
-        return res 
+        cnt = 0
+        ans = 0
+        for num in str:
+            if num == "0":
+                cnt += 1 
+            else:
+                ans += (cnt * (cnt + 1)) //2
+                cnt = 0
+
+        if cnt != 0:
+            ans += (cnt * (cnt + 1)) //2
+        return ans 
