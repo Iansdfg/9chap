@@ -1,66 +1,143 @@
-class Status:
-    UP = 'UP'
-    DOWN = 'DOWN'
-    IDLE = 'IDLE'
+"""
+Workflow:
+   level request ----> elevator system ----> elevator 
 
-class Directions:
-    UP = 'UP'
-    DOWN = 'DOWN'
+Objects
+    request 
+        in 
+        ex
+    elevator 
+    elevator system 
+
+
+case: 
+    internal request 
+    external request 
+
+"""
+
+
+from turtle import up
+from urllib import request
+from prometheus_client import Enum
+
 
 class ElevatorSystem:
     def __init__(self):
         self.elevators = []
+        e1 = Elevator()
+        self.elevators.append(e1)
     
-    def handle_request(self):
-        request = ExternalRequest(level, direction)
+
+    def choose_elev(self):
+        for elevator in self.elevators:
+            if True:
+                return elevator
+
+    def ExternalRequest(self, lv, dirc):
+        elevator = self.choose_elev()
+        elevator.ExternalRequest(lv, dirc)
+    
 
 class Elevator:
     def __init__(self):
-        self.buttons = []
-        self.up_stops = []
-        self.down_stops = []
-        self.curr_level = 1
-        self.gate_open = False 
+        self.curr_level = 0 
+        self.curr_status = 'idel'
+        self.up_list = []
+        self.down_list = []
 
-    def handle_exter_request(self):
-        pass  
-    
-    def handle_inter_request(self):
-        pass
+    def ExternalRequest(self, lv, dirc):
+        ex_request = ExternalRequest(lv, dirc)
+        ex_request.excute(self)
+        self.print_status()
 
-    def open_gate(self):
-        pass 
+    def InternalRequest(self, lv):
+        in_request = InternalRequest(lv)
+        in_request.excute(self)
+        self.print_status()
 
-    def close_gate(self):
-        pass
+    def openGate(self):
+        if not self.down_list and not self.up_list:
+            self.curr_status = 'idel'
 
-    def _is_request_valid(self):
-        pass
+        elif not self.up_list:
+            curr_lv = self.down_list.pop()
+            self.curr_level = curr_lv
+        
+        elif not self.down_list:
+            curr_lv = self.up_list.pop()
+            self.curr_level = curr_lv
+        else:
+            if self.up_list and self.curr_status == 'up':
+                curr_lv = self.up_list.pop()
+                self.curr_level = curr_lv
+            elif self.down_list and self.curr_status == 'down':
+                curr_lv = self.down_list.pop()
+                self.curr_level = curr_lv
 
-class Request:
-    def __init__(self, level = 0):
-        self.level = level 
+        self.print_status()
 
-    def get_level(self):
-        return self.level
+    def closeGate(self):
+        if not self.up_list:
+            self.curr_status = 'down'
+        elif not self.down_list:
+            self.curr_status = 'up'
+        else:
+            self.curr_status = 'idle'
 
-class InternalRequest(Request):
-    def __init__(self, get_level = None):
-        Request.__init__(self, l)
 
-class ExternalRequest(Request):
-    def __init__(self, l = None, d = None):
-        Request.__init__(self, l)
-        self.direction = d
+    def print_status(self):
+        print('Currently elevator status is : ', self.curr_status)
+        print('Current level is at: ', self.curr_level)
+        print('up stop list looks like: ', self.up_list)
+        print('down stop list looks like: ', self.down_list)
+        print('##############################')
 
-    def get_direction(self):
-        return self.direction
 
-class ElevatorButton:
-    def __init__(self, l = 0, e = None):
-        self.level = l
-        self.elevator = e
-    
-    def press(self, level):
-        request = InternalRequest(level)
+class ExternalRequest:
+    def __init__(self, lv, dirc):
+        self.level = lv 
+        self.direction = dirc
 
+    def excute(self, elevator):
+        if self.level > elevator.curr_level:
+            elevator.curr_status = 'up'
+        elif self.level < elevator.curr_level:
+            elevator.curr_status = 'down'
+
+        if self.direction == 'Down':
+            elevator.down_list.append(self.level)
+            elevator.down_list.sort()
+        else:
+            elevator.up_list.append(self.level)
+            elevator.up_list.sort()
+
+
+class InternalRequest:
+    def __init__(self, lv):
+        self.level = lv  
+
+    def excute(self, elevator):
+        if self.level > elevator.curr_level:
+            elevator.down_list.append(self.level)
+            elevator.down_list.sort()
+        elif self.level < elevator.curr_level:
+            elevator.up_list.append(self.level)
+            elevator.up_list.sort()
+
+
+
+
+# es = ElevatorSystem()
+e1 = Elevator()
+e1.ExternalRequest(3, "Down")
+e1.ExternalRequest(2, "Up")
+e1.openGate()
+e1.closeGate()
+e1.InternalRequest(1)
+e1.openGate()
+e1.closeGate()
+e1.openGate()
+e1.closeGate()
+e1.openGate()
+e1.closeGate()
