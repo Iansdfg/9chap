@@ -10,7 +10,8 @@ Objects
     elevator system 
 
 
-case: 
+case:
+
     internal request 
     external request 
 
@@ -31,12 +32,16 @@ class ElevatorSystem:
 
     def choose_elev(self):
         for elevator in self.elevators:
-            if True:
+            if True:#condition
                 return elevator
 
     def ExternalRequest(self, lv, dirc):
         elevator = self.choose_elev()
         elevator.ExternalRequest(lv, dirc)
+
+    def InternalRequest(self, lv):
+        elevator = self.choose_elev()
+        elevator.InternalRequest(lv)
     
 
 class Elevator:
@@ -86,6 +91,22 @@ class Elevator:
             self.curr_status = 'idle'
 
 
+    def update_level(self):
+        pass 
+
+    def add_up(self):
+        pass
+
+    def add_down(self):
+        pass
+
+    def change_up(self):
+        pass
+
+    def change_down(self):
+        pass
+
+
     def print_status(self):
         print('Currently elevator status is : ', self.curr_status)
         print('Current level is at: ', self.curr_level)
@@ -124,9 +145,6 @@ class InternalRequest:
         elif self.level < elevator.curr_level:
             elevator.up_list.append(self.level)
             elevator.up_list.sort()
-
-
-
 
 # es = ElevatorSystem()
 e1 = Elevator()
