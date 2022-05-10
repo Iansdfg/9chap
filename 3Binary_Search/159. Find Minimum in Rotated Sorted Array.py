@@ -5,18 +5,18 @@ class Solution:
     """
     def find_min(self, nums):
         # write your code here
-        if not nums:
-            return -1
-        start, end  = 0, len(nums) - 1
+        start, end = 0, len(nums) - 1 
+
         while start + 1 < end:
-            mid = (start + end) // 2 
             #Compare with end b/c its consistent
             #if array is not rotated. 
             #If compare with start, the answer is 
             #wrong if not rotated.
+            mid = (start + end)//2
             if nums[mid] < nums[end]:
-                end = mid
+                end = mid 
             elif nums[mid] > nums[end]:
-                start = mid
+                start = mid 
 
         return min(nums[start], nums[end])
+                
