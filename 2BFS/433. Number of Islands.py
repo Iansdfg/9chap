@@ -44,6 +44,3 @@ class Solution:
             return False 
 
         return grid[x][y]
-
-                    
-
