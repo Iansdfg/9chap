@@ -15,24 +15,24 @@ class Solution:
     @param root: The root of binary tree.
     @return: An integer
     """
+    max_val = float('-inf')
     def max_path_sum(self, root):
         # write your code here
-        max_all, max_path = self.dfs(root)
-        return max_all
+        max_path_sum = self.dfs(root)
+        return self.max_val
 
-    
 
     def dfs(self, root):
-        #return max_all, max_path
+        #retrn max_path_sum 
         if not root:
-            return float('-inf'), 0
+            return 0 
 
-        left_max_all, left_max_path = self.dfs(root.left)
-        right_max_all, right_max_path = self.dfs(root.right)
+        left_path_sum = self.dfs(root.left)
+        right_path_sum = self.dfs(root.right)
 
-        max_path = max(root.val + left_max_path, root.val + right_max_path, 0)
-        max_all = max(left_max_all, right_max_all, left_max_path + right_max_path + root.val)
+        max_path_sum = max(left_path_sum + root.val, right_path_sum + root.val, root.val, 0)
+        self.max_val = max(self.max_val, root.val + left_path_sum + right_path_sum, root.val + left_path_sum, root.val + right_path_sum)
 
-        return max_all, max_path
+        return max_path_sum
 
-        
+
