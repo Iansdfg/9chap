@@ -30,6 +30,7 @@ class Trie:
                 return None
         return node 
 
+    
     """
     @param: word: A string
     @return: if the word is in the trie.
@@ -39,6 +40,7 @@ class Trie:
         node = self.find(word)
         return node is not None and node.is_word
 
+    
 
     """
     @param: prefix: A string
