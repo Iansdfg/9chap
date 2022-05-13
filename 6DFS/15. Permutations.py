@@ -25,3 +25,6 @@ class Solution:
             self.dfs(nums, visited, permution, permutions)
             visited.remove(nums[i])
             permution.pop()
+
+            
+            
