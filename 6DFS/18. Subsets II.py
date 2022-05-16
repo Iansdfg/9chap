@@ -2,21 +2,22 @@ class Solution:
     """
     @param nums: A set of numbers.
     @return: A list of lists. All valid subsets.
+             we will sort your return value in output
     """
     def subsets_with_dup(self, nums):
         # write your code here
-        subsets = []
         nums.sort()
+        subsets = []
         self.dfs(nums, 0, [], subsets)
         return subsets
 
 
-    def dfs(self, nums, index, subset, subsets):
-        subsets.append(subset[:])
+    def dfs(self, nums, index, path, subsets):
+        subsets.append(path[:])
 
         for i in range(index, len(nums)):
-            if i > index and nums[i] == nums[i-1]:
+            if i > index and nums[i] == nums[i - 1]:
                 continue
-            subset.append(nums[i])
-            self.dfs(nums, i + 1, subset, subsets)
-            subset.pop()
+            path.append(nums[i])
+            self.dfs(nums, i + 1, path, subsets)
+            path.pop()
