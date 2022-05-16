@@ -12,5 +12,7 @@ class Solution:
         for i in range(len(nums)):
             for j in range(i):
                 if nums[j] < nums[i]:
+                    # why use max(dp[j] + 1, dp[i])
+                    # counter eg: [9,3,6,2,7]
                     dp[i] = max(dp[j] + 1, dp[i])
         return max(dp)
