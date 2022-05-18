@@ -51,3 +51,6 @@ class Solution:
                 if p[i*2+1] != '*':
                     return False 
         return True 
+
+    
+    
