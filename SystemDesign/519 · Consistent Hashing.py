@@ -24,3 +24,6 @@ class Solution:
             results[index][1] = (start + end) / 2
             results.append([(start + end) / 2 + 1, end, i + 1])
         return results
+
+    
+    
