@@ -1,0 +1,22 @@
+Scenario
+  实现功能包括注册，登录，用户信息查询，好友关系存储
+  
+Service
+  • 一个 AuthService 负责登录注册 负责验证用户登录状态
+  • 一个 UserService 负责用户信息存储与查询
+  • 一个 FriendshipService 负责好友关系存储
+  
+  
+用户系统特点
+  读非常多,写非常少
+  一个读多写少的系统,一定要使用 Cache 进行优化
+  
+    cache分类：
+      • cache aside:
+          服务器分别与 DB 和 Cache 进行沟通
+          DB 和 Cache之间不直接沟通
+          业界典型代表:Memcached + MySQL
+      • cache through:
+          服务器只和 Cache 沟通
+          Cache 负责 DB 去沟通,把数据持久化
+          业界典型代表:Redis(可以理解为 Redis 里包含了一个 Cache 和一个 DB)
