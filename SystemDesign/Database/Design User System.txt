@@ -10,3 +10,9 @@ SQL vs NoSQL
 • 需要支持 Transaction 的话不能选 NoSQL
 • SQL更成熟帮你做了很多事儿,NoSQL很多事儿都要亲力亲为(Serialization, Secondary Index)
 • 如果想省点服务器获得更高的性能,NoSQL就更好, 硬盘型的NoSQL比SQL一般都要快10倍以上
+
+SQL的column是在Schema中预先指定好的,不能随意添加
+• 一条数据一般以 row 为单位(取出整个row作为一条数据)
+NoSQL的column是动态的,无限大,可以随意添加
+• 一条数据一般以 column 为单位(取出一个column作为一条数据)
+• 只需要提前定义好 column_key 本身的格式(是一个 int 还是一个 int+string)
