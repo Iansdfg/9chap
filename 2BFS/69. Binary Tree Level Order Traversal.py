@@ -1,3 +1,6 @@
+from typing import (
+    List,
+)
 from lintcode import (
     TreeNode,
 )
@@ -10,27 +13,28 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
+from collections import deque 
 class Solution:
     """
     @param root: A Tree
     @return: Level order a list of lists of integer
     """
-    def level_order(self, root):
+    def level_order(self, root: TreeNode) -> List[List[int]]:
         # write your code here
-        if not root:
-            return []
-
-        queue = [root]
+        if not root:return []
+        queue = deque([root])
         res = []
         while queue:
-            next_queue = []
-            res.append([node.val for node in queue])
+            lv = []
+            for _ in range(len(queue)):
+                curr = queue.popleft()
+                lv.append(curr.val)
 
-            for node in queue:
-                if node.left:
-                    next_queue.append(node.left)
-                if node.right:
-                    next_queue.append(node.right)
-
-            queue = next_queue
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+            res.append(lv)
         return res
+
+
