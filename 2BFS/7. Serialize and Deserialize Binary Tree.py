@@ -5,8 +5,8 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
-from collections import deque
 
+from collections import deque
 class Solution:
     """
     @param root: An object of TreeNode, denote the root of the binary tree.
@@ -18,18 +18,18 @@ class Solution:
         # write your code here
         queue = deque([root])
         res = []
+
         while queue:
             curr = queue.popleft()
             if curr:
-                res.append(str(curr.val))
-            else:
-                res.append('#')
-            if curr:
+                res.append(curr.val)
                 queue.append(curr.left)
                 queue.append(curr.right)
-        return ' '.join(res)
-            
-        
+            else:
+                res.append('#')
+        # convert to string is a more store effeficent way 
+        return res
+
     """
     @param data: A string serialized by your serialize method.
     This method will be invoked second, the argument data is what exactly
@@ -40,24 +40,26 @@ class Solution:
     """
     def deserialize(self, data):
         # write your code here
-        print(data.split())
+        print(data)
         nodes = []
-        for datum in data.split():
+        for datum in data:
             if datum == '#':
                 nodes.append(None)
             else:
                 nodes.append(TreeNode(datum))
         
-        father_p, child_p = 0, 1 
+        #a-ha point: every loop father incrment by 1 child increment by 2 
         root = nodes[0]
-
-        while child_p < len(nodes):
-            print(father_p)
-            curr = nodes[father_p]
-            father_p += 1 
-            if curr:
-                curr.left = nodes[child_p]
-                curr.right = nodes[child_p + 1 ]
-                child_p += 2 
+        father_p, child_p = 0, 1
+        while child_p < len(data):
+            if nodes[father_p]:
+                nodes[father_p].left = nodes[child_p]
+                nodes[father_p].right = nodes[child_p + 1]
+                child_p += 2
+            father_p += 1
 
         return root
+            
+
+
+
