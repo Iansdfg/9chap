@@ -1,3 +1,4 @@
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -17,19 +18,20 @@ class Solution:
     def serialize(self, root):
         # write your code here
         queue = deque([root])
-        res = []
-
+        res = ''
         while queue:
             curr = queue.popleft()
+            
             if curr:
-                res.append(curr.val)
+                res += str(curr.val)
                 queue.append(curr.left)
                 queue.append(curr.right)
             else:
-                res.append('#')
-        # convert to string is a more store effeficent way 
+                res += '#'
+            if queue:
+                res += ','
         return res
-
+                
     """
     @param data: A string serialized by your serialize method.
     This method will be invoked second, the argument data is what exactly
@@ -40,26 +42,34 @@ class Solution:
     """
     def deserialize(self, data):
         # write your code here
-        print(data)
-        nodes = []
-        for datum in data:
+        data_list = data.split(',')
+        node_list = []
+        for datum in data_list:
             if datum == '#':
-                nodes.append(None)
+                node_list.append(None)
             else:
-                nodes.append(TreeNode(datum))
+                node_list.append(TreeNode(int(datum)))
         
-        #a-ha point: every loop father incrment by 1 child increment by 2 
-        root = nodes[0]
         father_p, child_p = 0, 1
-        while child_p < len(data):
-            if nodes[father_p]:
-                nodes[father_p].left = nodes[child_p]
-                nodes[father_p].right = nodes[child_p + 1]
-                child_p += 2
-            father_p += 1
+        root = node_list[father_p]
+        while child_p < len(node_list):
+            curr = node_list[father_p]
 
-        return root
+            if node_list[father_p] != None:
+                curr.left = node_list[child_p]
+                curr.right = node_list[child_p + 1]
+                child_p += 2 
+            father_p += 1 
+
+        return node_list[0]
+
             
+
+
+
+
+
+
 
 
 
