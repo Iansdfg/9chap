@@ -1,4 +1,3 @@
-
 """
 Definition of TreeNode:
 class TreeNode:
@@ -51,25 +50,15 @@ class Solution:
                 node_list.append(TreeNode(int(datum)))
         
         father_p, child_p = 0, 1
-        root = node_list[father_p]
-        while child_p < len(node_list):
-            curr = node_list[father_p]
 
-            if node_list[father_p] != None:
-                curr.left = node_list[child_p]
-                curr.right = node_list[child_p + 1]
-                child_p += 2 
+        while child_p < len(node_list):
+            if node_list[father_p]:
+                node_list[father_p].left = node_list[child_p]
+                node_list[father_p].right = node_list[child_p + 1]
+                child_p += 2
             father_p += 1 
+  
 
         return node_list[0]
 
-            
-
-
-
-
-
-
-
-
-
+           
