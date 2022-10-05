@@ -1,6 +1,10 @@
-APLHA = "abcdefghijklmnopqrstuvwxyz"
+from typing import (
+    Set,
+)
 
+APLHA = "abcdefghijklmnopqrstuvwxyz"
 from collections import deque
+
 class Solution:
     """
     @param start: a string
@@ -8,31 +12,26 @@ class Solution:
     @param dict: a set of string
     @return: An integer
     """
-    def ladder_length(self, start, end, dict):
+    def ladder_length(self, start: str, end: str, dict: Set[str]) -> int:
         # write your code here
         queue = deque([start])
+        level = 1
         visited = set([start])
-        step = 1
 
         while queue:
             for _ in range(len(queue)):
-                curr = queue.popleft()
-                for i in range(len(curr)):
-                    for char in APLHA:
-                        new_word = curr[:i] + char + curr[i+1:]
+                curr_word = queue.popleft()
+
+                for i in range(len(curr_word)):
+                    for alp in APLHA:
+                        new_word = curr_word[:i] + alp + curr_word[i+1:]
                         if new_word == end:
-                            return step + 1 
+                            return level+1
+                        if new_word in visited:
+                            continue
                         if new_word in dict:
-                            if new_word in visited:
-                                continue
                             queue.append(new_word)
                             visited.add(new_word)
-            step += 1 
+            level += 1 
 
-        return -1
-    
-
-        
-
-                        
-
+       return -1
