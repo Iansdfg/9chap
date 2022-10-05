@@ -41,9 +41,6 @@ class Solution:
 
         return root
 
-
-
-
 #-----------------------10/3/2022-----------------------
 from lintcode import (
     UndirectedGraphNode,
@@ -87,3 +84,45 @@ class Solution:
                 clone_curr.neighbors.append(visited[neighbor])
                 
         return visited[node]
+    
+    from lintcode import (
+    UndirectedGraphNode,
+)
+
+#-----------------------10/4/2022-----------------------
+"""
+Definition for a UndirectedGraphNode:
+class UndirectedGraphNode:
+    def __init__(self, label):
+        self.label = label
+        self.neighbors = []
+"""
+from collections import deque
+class Solution:
+    """
+    @param node: A undirected graph node
+    @return: A undirected graph node
+    """
+    def clone_graph(self, node: UndirectedGraphNode) -> UndirectedGraphNode:
+        # write your code here
+        if not node:
+            return node 
+        queue = deque([node])
+        visited = dict()
+        visited[node] = UndirectedGraphNode(node.label)
+        #init visited 的时候放入 node 因为除了node其他pop的时候都visit过了
+        while queue:
+            curr = queue.popleft()
+
+            for neighbor in curr.neighbors:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+                    clone_neighbor = UndirectedGraphNode(neighbor.label)
+                    visited[neighbor] = clone_neighbor
+                visited[curr].neighbors.append(visited[neighbor])
+        
+        return visited[node]
+                
+            
+
+
