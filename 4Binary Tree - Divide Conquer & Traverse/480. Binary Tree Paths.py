@@ -1,7 +1,10 @@
+from typing import (
+    List,
+)
 from lintcode import (
     TreeNode,
 )
-
+##########Bottom Up##########
 """
 Definition of TreeNode:
 class TreeNode:
@@ -14,30 +17,28 @@ class Solution:
     """
     @param root: the root of the binary tree
     @return: all root-to-leaf paths
+             we will sort your return value in output
     """
-    def binary_tree_paths(self, root):
+    def binary_tree_paths(self, root: TreeNode) -> List[str]:
         # write your code here
-        paths = self.dfs(root)
-
-        return paths
+        return self.dfs(root)
 
     def dfs(self, root):
-        #return paths
-
+        #return left path, right path 
         if not root:
             return []
 
         if not root.left and not root.right:
             return [str(root.val)]
+        
+        left_path = self.dfs(root.left)
+        right_path = self.dfs(root.right)
+        
+        new_path = []
+        for path in left_path + right_path:
+            new_path.append(str(root.val) + '->' + path)
 
-        left_paths = self.dfs(root.left)
-        right_paths = self.dfs(root.right)
-
-        paths = []
-        for path in left_paths + right_paths:
-            paths.append(str(root.val) + '->' + path)
-
-        return paths
+        return new_path
 
         
 
