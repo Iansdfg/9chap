@@ -42,4 +42,45 @@ class Solution:
 
         return root
 
+from lintcode import (
+    TreeNode,
+)
+
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: a TreeNode, the root of the binary tree
+    @return: nothing
+    """
+    def flatten(self, root: TreeNode):
+        # write your code here
+        return self.dfs(root)
+
+    def dfs(self, root):
+        if not root:
+            return 
+
+        left = self.dfs(root.left)
+        right = self.dfs(root.right)
+
+        left_end = left
+        while left_end and left_end.right:
+            left_end = left_end.right
+
+        if left_end:
+            left_end.right = right
+            root.right = left 
+            root.left = None
+
+        return root
+
+
+
 
