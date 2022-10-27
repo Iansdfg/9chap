@@ -16,25 +16,21 @@ class Solution:
     @param target: the given target
     @return: the value in the BST that is closest to the target
     """
-    def closest_value(self, root, target):
+    def closest_value(self, root: TreeNode, target: float) -> int:
         # write your code here
-        upper, lower = root, root
-
-        while root:
-            print(lower.val, upper.val)
-            if root.val > target:
-                upper = root
-                root = root.left
-            elif root.val < target:
-                lower = root
-                root = root.right
+        upper, lower = root, root 
+        curr = root 
+        while curr:
+            if curr.val > target:
+                upper = curr
+                curr = curr.left
+            elif curr.val < target:
+                lower = curr
+                curr = curr.right
             else:
-                return root.val 
+                return curr.val
         
-        if abs(lower.val - target) <  abs(upper.val - target):
-            return lower.val
-        else:
+        if abs(lower.val - target) > abs(upper.val - target):
             return upper.val
-
-        
-
+        else:
+            return lower.val
