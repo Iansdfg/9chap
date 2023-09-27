@@ -12,8 +12,8 @@ class TreeNode:
         self.val = val
         self.left, self.right = None, None
 """
+import collections
 
-from collections import deque 
 class Solution:
     """
     @param root: A Tree
@@ -21,20 +21,20 @@ class Solution:
     """
     def level_order(self, root: TreeNode) -> List[List[int]]:
         # write your code here
-        if not root:return []
-        queue = deque([root])
+        if not root:
+            return []
+        queue = collections.deque([root])
         res = []
-        while queue:
-            lv = []
-            for _ in range(len(queue)):
+        while queue: 
+            level = []
+            for i in range(len(queue)):
                 curr = queue.popleft()
-                lv.append(curr.val)
-
+                level.append(curr.val)
                 if curr.left:
                     queue.append(curr.left)
                 if curr.right:
                     queue.append(curr.right)
-            res.append(lv)
-        return res
+            res.append(level)
+        return res 
 
-
+        
