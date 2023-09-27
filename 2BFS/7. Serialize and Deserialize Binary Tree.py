@@ -17,20 +17,18 @@ class Solution:
     def serialize(self, root):
         # write your code here
         queue = deque([root])
-        res = ''
+        res = []
         while queue:
             curr = queue.popleft()
-            
             if curr:
-                res += str(curr.val)
+                res.append(curr.val)
                 queue.append(curr.left)
                 queue.append(curr.right)
             else:
-                res += '#'
-            if queue:
-                res += ','
+                res.append('#')
         return res
-                
+
+
     """
     @param data: A string serialized by your serialize method.
     This method will be invoked second, the argument data is what exactly
@@ -41,24 +39,27 @@ class Solution:
     """
     def deserialize(self, data):
         # write your code here
-        data_list = data.split(',')
-        node_list = []
-        for datum in data_list:
-            if datum == '#':
-                node_list.append(None)
+        print(data)
+        index_node = {}
+        for index, value in enumerate(data):
+            if value != '#':
+                index_node[index+1] = TreeNode(value)
             else:
-                node_list.append(TreeNode(int(datum)))
+                index_node[index+1] = None
         
-        father_p, child_p = 0, 1
+        slow_p, fast_p = 1, 2
+        while fast_p < len(data):
+            if not index_node[slow_p]:
+                slow_p += 1
+            else:
+                index_node[slow_p].left = index_node[fast_p]
+                index_node[slow_p].right = index_node[fast_p + 1]
+                slow_p += 1 
+                fast_p += 2 
 
-        while child_p < len(node_list):
-            if node_list[father_p]:
-                node_list[father_p].left = node_list[child_p]
-                node_list[father_p].right = node_list[child_p + 1]
-                child_p += 2
-            father_p += 1 
-  
+        return index_node[1]
 
-        return node_list[0]
+        
 
-           
+
+
