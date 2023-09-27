@@ -123,6 +123,58 @@ class Solution:
         
         return visited[node]
                 
+
+
+#-----------------------9/27/2023--------------------------------------
+from lintcode import (
+    UndirectedGraphNode,
+)
+
+"""
+Definition for a UndirectedGraphNode:
+class UndirectedGraphNode:
+    def __init__(self, label):
+        self.label = label
+        self.neighbors = []
+"""
+from collections import deque
+class Solution:
+    """
+    @param node: A undirected graph node
+    @return: A undirected graph node
+    """
+    def clone_graph(self, node: UndirectedGraphNode) -> UndirectedGraphNode:
+        # write your code here
+        if not node:
+            return None
+        visited = set()
+        old_copy = dict()
+        queue = deque([node])
+
+        while queue:
+            curr = queue.popleft()
+
+            if curr in old_copy:
+                copy_curr = old_copy[curr]
+            else:
+                copy_curr = UndirectedGraphNode(curr.label)
+                old_copy[curr] = copy_curr
+
+
+            for neighbor in curr.neighbors:
+                if neighbor in old_copy:
+                    copy_neighbor = old_copy[neighbor]
+                else:
+                    copy_neighbor = UndirectedGraphNode(neighbor.label)
+                    old_copy[neighbor] = copy_neighbor
+                    queue.append(neighbor)
+
+                copy_curr.neighbors.append(copy_neighbor)
+
+                
+
+        return  old_copy[node]
             
+
 
 
