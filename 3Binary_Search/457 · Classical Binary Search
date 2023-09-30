@@ -6,22 +6,21 @@ class Solution:
     """
     def findPosition(self, nums, target):
         # write your code here
-        if not nums:
-            return -1
-        start, end = 0, len(nums) - 1
+        if not nums: return -1
+        start, end = 0, len(nums) - 1 
 
         while start + 1 < end:
             mid = (start + end)//2
-            if  nums[mid] < target:
-                start = mid 
-            elif nums[mid] > target:
-                end = mid 
+            if nums[mid] > target:
+                end = mid
+            elif nums[mid] < target:
+                start = mid
             else:
                 return mid
-        
+
         if nums[start] == target:
             return start
         elif nums[end] == target:
-            return end
+            return end 
         else:
-            return -1
+            return -1 
