@@ -1,0 +1,69 @@
+from typing import (
+    List,
+)
+from collections import deque
+from heapq import heappush, heappop, heapify
+
+class Solution:
+    """
+    @param words: a list of words
+    @return: a string which is correct order
+    """
+    def alien_order(self, words: List[str]) -> str:
+        # Write your code here
+        graph = self.build_graph(words)
+        if not graph:
+            return ""
+        return self.sort(words, graph)
+
+    def build_graph(self, words):
+        char_to_next = {}
+        for word in words:
+            for char in word:
+                if char in char_to_next:
+                    continue
+                char_to_next[char] = set()
+
+        for word_idx in range(len(words)-1):
+            for char_idx in range(min(len(words[word_idx]), len(words[word_idx+1]))):
+                if words[word_idx][char_idx] != words[word_idx + 1][char_idx]:
+                    char_to_next[words[word_idx][char_idx]].add(words[word_idx+1][char_idx])
+                    break
+                if char_idx == min(len(words[word_idx]), len(words[word_idx+1])-1):
+                    if len(words[word_idx]) > len(words[word_idx + 1]):
+                        return  None
+                
+        return char_to_next
+
+    def sort(self, words, graph):
+        node_indegree = {}
+        for node in graph:
+            node_indegree[node] = 0
+
+        for node in graph:
+            for next_node in graph[node]:
+                node_indegree[next_node] += 1 
+
+        queue = []
+        res = ''
+        for node in node_indegree:
+            if node_indegree[node] == 0:
+                queue.append(node)
+        heapify(queue)
+
+        while queue:
+            curr_char = heappop(queue)
+            res += curr_char
+            for next_char in graph[curr_char]:
+                node_indegree[next_char] -= 1 
+                if node_indegree[next_char] ==0:
+                    heappush(queue, next_char) 
+
+        if len(res) == len(graph):
+            return res
+
+        return ''
+                
+                
+
+
