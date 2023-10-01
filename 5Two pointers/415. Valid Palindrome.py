@@ -17,3 +17,28 @@ class Solution:
             start += 1 
             end -= 1 
         return True 
+
+
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        start, end = 0, len(s) - 1
+        while start < end:
+            
+            while not s[start].isalnum() and start < len(s)-1 and start < end:
+                start += 1 
+            while not s[end].isalnum() and end > 0 and start < end:
+                end -= 1 
+            
+            if s[start].lower() == s[end].lower():
+                start += 1 
+                end -= 1 
+            else:
+                return False
+        return True 
+
+
+        
