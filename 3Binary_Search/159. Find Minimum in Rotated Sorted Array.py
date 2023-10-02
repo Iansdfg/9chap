@@ -8,17 +8,19 @@ class Solution:
     @return: the minimum number in the array
     """
     def find_min(self, nums: List[int]) -> int:
-        # write your code here
-        if not nums:
-            return -1
-        start, end = 0, len(nums)-1
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        start, end = 0, len(nums) - 1 
 
-        while start + 1 < end:
-            mid = (start + end) //2 
-            if nums[mid] <= nums[end]:
-                end = mid 
+        while start + 1 < end: 
+            mid = (start + end)//2 
+            if nums[mid] < nums[end]:
+                end = mid
             elif nums[mid] > nums[end]:
-                start = mid 
-                
-        return min(nums[start], nums[end])
-
+                start = mid
+            # There will be no  nums[mid] = nums[end] case,
+            # There will be at lease 2 num before it jump out of loop,
+            # And // will only make nums[mid] = nums[start]
+        return min(nums[start],nums[end])
