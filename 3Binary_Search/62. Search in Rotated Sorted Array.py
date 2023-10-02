@@ -2,35 +2,32 @@ from typing import (
     List,
 )
 
-class Solution:
-    """
-    @param a: an integer rotated sorted array
-    @param target: an integer to be searched
-    @return: an integer
-    """
-    def search(self, a: List[int], target: int) -> int:
-        # write your code here
-        if not a: return -1
-        start, end = 0, len(a) - 1 
-
-        while start + 1 < end:
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        start, end = 0, len(nums) - 1
+        while start + 1 < end: 
             mid = (start + end) // 2
-            if a[mid] == target:
-                return mid
-            if a[mid] > a[end]:
-                if a[end] < target < a[mid]:
+            if nums[mid] == target:
+                    return mid
+            if nums[mid] > nums[end]:
+                if nums[end] < target < nums[mid]:
                     end = mid
                 else:
                     start = mid
-            else:
-                if a[mid] < target <= a[end]:
+            elif nums[mid] < nums[end]:
+                if nums[mid] < target <= nums[end]:
                     start = mid
                 else:
                     end = mid
-
-        if a[start] == target:
+        
+        if nums[start] == target:
             return start
-        elif a[end] == target:
+        elif nums[end] == target:
             return end
         return -1
     
