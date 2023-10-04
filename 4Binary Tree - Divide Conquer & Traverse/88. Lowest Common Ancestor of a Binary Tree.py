@@ -47,6 +47,14 @@ class TreeNode:
         self.left, self.right = None, None
 """
 
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
 
 class Solution:
     """
@@ -57,25 +65,30 @@ class Solution:
     """
     def lowestCommonAncestor(self, root, A, B):
         # write your code here
-        foundA, foundB, lca = self.dfs(root, A, B)
-        return lca
+        found_A, found_B, LCA = self.dfs(root, A, B)
+        return LCA
 
-    def dfs(self, root, A, B):
-        #return foundA, foundB, lca
-        if not root:
+    def dfs(self, node, A, B):
+        # return find_A, find_B, find_lca
+        if not node:
             return False, False, None 
 
-        left_foundA, left_foundB, left_lca = self.dfs(root.left, A, B)
-        right_foundA, right_foundB, right_lca= self.dfs(root.right, A, B)
 
-        foundA = left_foundA or right_foundA or root == A 
-        foundB = left_foundB or right_foundB or root == B
+        left_found_A, left_found_B, left_LCA = self.dfs(node.left, A, B)
+        right_found_A, right_found_B, right_LCA = self.dfs(node.right, A, B)
 
-        lca = left_lca or right_lca
-        if foundA and foundB:
-            if not lca:
-                lca = root
-        else:
-            lca = None 
+        found_A, found_B = False, False
 
-        return foundA, foundB, lca
+        if node == A or left_found_A or right_found_A:
+            found_A = True 
+        if node == B or left_found_B or right_found_B:
+            found_B = True
+        
+        LCA = None 
+        if found_A and found_B:
+            LCA = node
+        if left_LCA or right_LCA:
+            LCA = left_LCA or right_LCA
+        # print(node.val, found_A, found_B, LCA.val if LCA else 'N')
+        return found_A, found_B, LCA
+        
