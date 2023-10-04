@@ -77,5 +77,53 @@ class Solution:
         self.dfs(root.left, path, results)
         self.dfs(root.right, path, results)
         path.pop()
-        
+
+
+
+from typing import (
+    List,
+)
+from lintcode import (
+    TreeNode,
+)
+
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+             we will sort your return value in output
+    """
+    def binary_tree_paths(self, root: TreeNode) -> List[str]:
+        # write your code here
+        res = []
+        self.dfs(root, [], res)
+        return res
+
+
+    def dfs(self, node, path, res):
+        if not node:
+            return 
+
+        if not node.left and not node.right:
+            path.append(str(node.val))
+            res.append('->'.join(path[:]))
+            path.pop()
+            return 
+
+        for node_ in [node.left, node.right]:
+            path.append(str(node.val))
+            self.dfs(node_, path, res)
+            path.pop()
+
+
+
+
        
