@@ -124,6 +124,48 @@ class Solution:
             path.pop()
 
 
+from typing import (
+    List,
+)
+from lintcode import (
+    TreeNode,
+)
+
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left, self.right = None, None
+"""
+
+class Solution:
+    """
+    @param root: the root of the binary tree
+    @return: all root-to-leaf paths
+             we will sort your return value in output
+    """
+    def binary_tree_paths(self, root: TreeNode) -> List[str]:
+        # write your code here
+        if not root:
+            return []
+
+        if not root.left and not root.right:
+            return [str(root.val)]
+
+        left_paths = self.binary_tree_paths(root.left)
+        right_paths = self.binary_tree_paths(root.right)
+        print(root.val, left_paths, right_paths)
+        new_path = []
+        for path in left_paths + right_paths:
+            if not path:
+                continue
+            new_path.append(str(root.val) + '->' + path)
+
+        return new_path
+
+
+
 
 
        
