@@ -1,3 +1,6 @@
+from typing import (
+    List,
+)
 from lintcode import (
     TreeNode,
 )
@@ -15,14 +18,16 @@ class Solution:
     @param root: A Tree
     @return: Inorder in ArrayList which contains node values.
     """
-    def inorder_traversal(self, root):
+    def inorder_traversal(self, root: TreeNode) -> List[int]:
         # write your code here
         dummy = TreeNode(-1)
         dummy.right = root
         stack = [dummy]
-        inorder = []
+        res = []
         while stack:
             curr = stack.pop()
+            res.append(curr.val)
+
             if curr.right:
                 curr = curr.right
                 stack.append(curr)
@@ -31,11 +36,7 @@ class Solution:
                     curr = curr.left
                     stack.append(curr)
 
-            if stack:
-                inorder.append(stack[-1].val)
-
-        return inorder
-        
+        return res[1:]
            
  ################## if not use dummy ##################
 class Solution:
