@@ -13,6 +13,7 @@ class Solution:
     """
     def detectCycle(self, head):
         # write your code here
+        
         if not head or not head.next:
             return None 
         
