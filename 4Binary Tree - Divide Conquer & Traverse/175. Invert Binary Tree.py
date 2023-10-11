@@ -15,18 +15,20 @@ class Solution:
     @param root: a TreeNode, the root of the binary tree
     @return: nothing
     """
-    def invert_binary_tree(self, root):
+    def invert_binary_tree(self, root: TreeNode):
         # write your code here
-        return self.dfs(root)
 
-    def dfs(self, root):
-        if not root:
+        self.dfs(root)
+        return root
+
+
+    def dfs(self, node):
+        if not node:
             return None 
 
-        left = self.dfs(root.left)
-        right = self.dfs(root.right)
+        left = self.dfs(node.left)
+        right = self.dfs(node.right)
 
-        root.left = right 
-        root.right = left
+        node.left, node.right = right, left
 
-        return root
+        return node 
