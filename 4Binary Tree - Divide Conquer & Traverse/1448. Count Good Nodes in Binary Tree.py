@@ -11,21 +11,18 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
-        self.dfs(root, [])
+        self.dfs(root, root.val)
         return self.RES
 
-
-    def dfs(self, node, path):
+    def dfs(self, node, max_val):
         if not node:
             return None
 
-        # print(node.val, path)
-        if not path:
+        if node.val >= max_val:
             self.RES += 1 
-        if path and node.val >= max(path):
-            self.RES += 1 
-        path.append(node.val)
-        self.dfs(node.left, path)
-        self.dfs(node.right, path)
-        path.pop()
+        max_val = max(max_val, node.val)
+
+        self.dfs(node.left, max_val)
+        self.dfs(node.right, max_val)
+
         
