@@ -15,22 +15,25 @@ class Solution:
     @param root: The root of binary tree.
     @return: True if this Binary tree is Balanced, or false.
     """
-    def is_balanced(self, root):
+    def is_balanced(self, root: TreeNode) -> bool:
         # write your code here
-        is_balanced, hight = self.dfs(root)
+        h, is_balanced = self.dfs(root)
         return is_balanced
 
-    def dfs(self, root):
-        #is_balanced, hight 
-        if not root:
-            return True, 0
+    def dfs(self, node):
+        # return h, is_balanced 
+        if not node:
+            return 0, True 
 
-        left_balanced, left_h = self.dfs(root.left)
-        right_balanced, right_h = self.dfs(root.right)
+        left_h, left_is_balanced = self.dfs(node.left)
+        right_h, right_is_balanced = self.dfs(node.right)
 
-        is_balanced = left_balanced and right_balanced and abs(left_h - right_h) <= 1 
+        is_balanced = False 
+        
+        if abs(left_h - right_h) <= 1 and left_is_balanced and right_is_balanced:
+            is_balanced = True 
 
-        hight = max(left_h, right_h) + 1 
-
-        return is_balanced, hight
+        
+        
+        return max(left_h, right_h) + 1, is_balanced
 
