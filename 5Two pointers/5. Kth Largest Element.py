@@ -29,10 +29,11 @@ class Solution:
                 nums[left], nums[right] = nums[right], nums[left]
                 left += 1 
                 right -= 1
-        # 判断条件是看 k 在 start-right, right-left, left-end 中 
-        #[start:right][pivot][left:end]
+        # 判断条件是看 k 在 start-right OR pivot OR left-end 中 
+        # [start:right][pivot][left:end]
         # 而不是比较 k 和 mid 的关系
-        # use k <= right/left because if k == right/left we want to partition with right/left
+        # use k <= right or k >= left because if k == right/left, k is not pivit, 
+        # and we want to partition to right/left
         if k <= right:
             return self.quick_select(k , nums, start, right)
         elif k >= left:
@@ -41,27 +42,16 @@ class Solution:
             return pivot
 
 
-from typing import (
-    List,
-)
-
-class Solution:
-    """
-    @param k: An integer
-    @param nums: An array
-    @return: the Kth largest element
-    """
-    def kth_largest_element(self, k: int, nums: List[int]) -> int:
+class Solution(object):
+    def findKthLargest(self, nums, k):
         # write your code here
         n = len(nums)
         k = n - k
         return self.partition(nums, 0, n - 1, k)
 
-
     def partition(self, nums, start, end, k):
         left, right = start, end
         pivit = nums[left]
-
         while left <= right:
             while left <= right and nums[left] < pivit:
                 left += 1 
@@ -71,14 +61,21 @@ class Solution:
                 nums[left], nums[right] = nums[right], nums[left]
                 left += 1 
                 right -= 1 
-            
+
+        # after partition: OOOR P LXXX
+        
         if k <= right:
             return self.partition(nums, start, right, k)
         if k >= left:
             return self.partition(nums, left, end, k)
-        return nums[k]
+
+        return nums[k] # find the k and its the pivit number. Return it
 
             
+
+
+        
+
 
 
         
