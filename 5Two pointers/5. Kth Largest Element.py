@@ -73,6 +73,47 @@ class Solution(object):
 
             
 
+class Solution(object):
+    def findKthLargest(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+
+        # 0 th large == 6th small
+        # 1 th large == 5th small 
+        # k th large == n-k th small
+        n_k = len(nums) - k
+        res = self.quick_select(nums, n_k, 0, len(nums)-1)
+        return res
+
+    def quick_select(self, nums, k, start, end):
+        # find kth small
+        l, r = start, end
+        pivit = nums[(l + r)//2]
+
+        while l <= r:
+            while l <= r and nums[l] < pivit:
+                l += 1 
+            while l <= r and nums[r] > pivit:
+                r -= 1  
+            if l <= r: 
+                # we want to use <= instead of <, want to devide this in 3 parts:
+                # [:l][k][r:]
+                nums[l], nums[r] = nums[r], nums[l]
+                l += 1 
+                r -= 1 
+        
+        # [:l]< pivit
+        # [k] == pivit
+        # [:r] > pivit
+        if k <= r: # when pivit < kth
+            self.quick_select(nums, k, start, r)
+        if k >= l: # when pivit > kth
+            self.quick_select(nums, k, l, end)
+        return nums[k] # when pivit == kth
+                    
 
         
 
