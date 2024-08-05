@@ -1,33 +1,29 @@
-from typing import (
-    List,
-)
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left, right = 0, len(nums)-1
+        while left + 1 < right:
+            mid = (left + right)//2
 
-class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
-        start, end = 0, len(nums) - 1
-        while start + 1 < end: 
-            mid = (start + end) // 2
-            if nums[mid] == target:
-                    return mid
-            if nums[mid] > nums[end]:
-                if nums[end] < target < nums[mid]:
-                    end = mid
+            if nums[mid] > nums[left]:
+                if nums[left] <= target < nums[mid]:
+                    #没有 <= nums[mid] 因为把 == mid 的情况留到了else处理
+                    right = mid
                 else:
-                    start = mid
-            elif nums[mid] < nums[end]:
-                if nums[mid] < target <= nums[end]:
-                    start = mid
+                    left = mid
+
+            elif nums[mid] < nums[left]:
+                if  nums[mid] < target < nums[left]: 
+                    #没有 <=, 因为是left，包含了right的边界
+                    left = mid 
                 else:
-                    end = mid
+                    right = mid 
+
+
+        if nums[left] == target:
+            return left
+        elif nums[right] == target:
+            return right 
+        else:
+            return -1 
+
         
-        if nums[start] == target:
-            return start
-        elif nums[end] == target:
-            return end
-        return -1
-    
